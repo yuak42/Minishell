@@ -100,3 +100,7 @@ exec: Implement pipe execution logic
 - Close unused file descriptors
 - Wait for child processes correctly
 ```
+
+### Önemli notlar
+
+- Nasıl yaptığını değil, ne yaptığını söyle.
