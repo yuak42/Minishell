@@ -55,3 +55,48 @@ git checkout -b new-feature
 git log
 git status
 ```
+
+# Commit Mesajları
+
+```sh
+git commit -m "kısa"
+git commit #uzun mesajlar için
+```
+
+`feat` → yeni özellik
+`fix` → bug fix
+`refactor` → davranış değişmeden kod temizleme
+`docs` → README / markdown
+`test` → test ekleme
+
+`<type>: <kısa açıklama>`
+
+### Kısa Örnekler:
+
+`feat: Add input handling`
+`fix: Handle ctrl-d signal`
+`fix: Prevent crash on empty input`
+`feat: Support double quotes`
+`feat: Implement basic pipe`
+`fix: Ignore ctrl-c in parent`
+`refactor: Organize main file`
+
+### Uzun Örnekler
+```
+feat: Add support for quotes and env expansion
+
+- Handle single and double quotes
+- Expand environment variables in double quotes
+- Prevent token split inside quoted strings
+- Add basic syntax error checks
+```
+
+
+```
+exec: Implement pipe execution logic
+
+- Create pipes between consecutive commands
+- Redirect stdin/stdout using dup2
+- Close unused file descriptors
+- Wait for child processes correctly
+```
