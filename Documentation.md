@@ -77,6 +77,14 @@ git commit #uzun mesajlar için
 
 `<type>: <kısa açıklama>`
 
+### Son commit mesajımı nasıl değiştiririm?
+
+```sh
+git commit --amend
+git push --force-with-lease
+
+```
+
 ### Kısa Örnekler:
 
 `feat: Add input handling`
