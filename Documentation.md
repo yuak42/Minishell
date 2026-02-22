@@ -118,3 +118,10 @@ exec: Implement pipe execution logic
 ### Önemli notlar
 
 - Nasıl yaptığını değil, ne yaptığını söyle.
+
+## Branch İsimleri
+
+Örnek olarak:
+- feat-prompt
+- feat-execute
+- fix-prompt
