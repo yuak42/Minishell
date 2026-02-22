@@ -38,12 +38,13 @@ Daha iyi görmek için
 
 
 # Nasıl Çalışacağız?
-
+⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️
 1. Projeye başlamadan önce her zaman:
 ```sh
-git pull
+git checkout main
+git pull --rebase origin main
 ```
-2. Yeni bir özellik geliştiriyorsak onun branch'ini açmalıyız:
+2. Yeni bir özellik geliştiriyorsak onun branch'ini açmalıyız: ⚠️⚠️
 ```sh
 git branch new-feature
 git checkout new-feature
@@ -54,6 +55,11 @@ git checkout -b new-feature
 ```sh
 git log
 git status
+```
+
+4. En son bir özellikten eminsek onu merge edeceğiz. Bunu birlikte onaylayarak yaparız.
+```sh
+git merge new-feature # main branchteysen
 ```
 
 # Commit Mesajları
