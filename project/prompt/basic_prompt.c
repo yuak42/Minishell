@@ -4,6 +4,7 @@ void	basic_prompt(void)
 {
 	char	*line;
 	
+	printf("Welcome to msh!\n");
 	line = readline("msh$ ");
 	while (line)
 	{
