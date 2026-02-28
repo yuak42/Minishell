@@ -39,7 +39,12 @@ Daha iyi görmek için
 
 # Nasıl Çalışacağız?
 ⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️
-1. Projeye başlamadan önce her zaman:
+1. Projeye başlamadan önce her zaman (herhangi bir değişiklik yapmadan):
+- ya sadece 
+```sh
+git pull
+```
+- ya da unutup değişiklik yaptıysak
 ```sh
 git checkout main
 git pull --rebase origin main
