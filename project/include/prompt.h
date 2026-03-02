@@ -7,6 +7,7 @@
 #include <readline/readline.h>
 #include <readline/history.h>
 #include "nodes.h"
+#include "../libft/libft.h"
 
 void	basic_prompt(void);
 

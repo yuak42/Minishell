@@ -12,7 +12,7 @@ typedef struct s_node {
 	t_token 		token;
 	struct s_node	*left;
 	struct s_node	*right;
-	char			*args;
+	char			**args;
 } t_node;
 
 #endif
