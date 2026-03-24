@@ -39,7 +39,15 @@ t_node	parse(char *line)
 	i = 0;
 	split = ft_split(line, ' '); // free later after execution
 	node.args = split;
-
+	printf("Given command (node.args[0]): %s\n", *node.args);
+	split++;
+	printf("Given arguments: ");
+	while (*split)
+	{
+		printf("%s ", *split);
+		split++;
+	}
+	printf("\n");
 	(void) split;
 	(void) i;
 	return (node);
