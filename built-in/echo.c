@@ -57,6 +57,7 @@ void	ft_echo(char *input, t_list *ev)
 	{
 		env = is_env(input);
 		print_env(ev, env);
+		free(env);
 		return ;
 	}
 	write(1, input, ft_strlen(input));
@@ -70,22 +71,28 @@ int main (int ac, char **av, char **envp)
 {
 	t_list	*ev;
 	char *input;
+	char *str;
 
 	input = ft_strdup("");
 	av++;
 	ev = NULL;
 	ev = create_env(envp);
-	if ( ac == 0)
+	if (ac == 0)
 	{
 		printf("error\n");
 		return (0);
 	}
-	while(*av)
+	while(ac > 0)
 	{
-		input = ft_strjoin(input, *av);
+		str = ft_strjoin(input, *av);
+		free(input);
+		input = ft_strjoin(str, " ");
+		free(str);
 		av++;
+		ac--;
 	}
-	printf("AC:%d\n-----%s--------\n", ac, input);
+	//printf("AC:%d\n-----%s--------\n", ac, input);
 	ft_echo(input, ev);
+	ft_lstclear(&ev, free);
 	return (0);
 }
