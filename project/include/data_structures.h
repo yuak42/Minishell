@@ -15,4 +15,9 @@ typedef struct s_node {
 	char			**args;
 } t_node;
 
+typedef struct s_env{
+	char			*key;
+	char			*value;
+	struct s_env	*next;
+} t_env;
 #endif

@@ -1,7 +1,14 @@
 #include "prompt.h"
 
-int	main(void)
+int	main(int ac, char **av, char **env)
 {
-	basic_prompt();
+	// while (*env)
+	// {
+	// 	printf("%s\n", *env);
+	// 	env++;
+	// }
+	(void) ac;
+	(void) av;
+	basic_prompt(env);
 	return 0;
 }
