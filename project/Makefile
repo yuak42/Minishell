@@ -1,6 +1,6 @@
 NAME = minishell
 
-SRC = prompt/basic_prompt.c main.c
+SRC = prompt/basic_prompt.c main.c prompt/execute.c
 
 OBJ = $(SRC:.c=.o)
 

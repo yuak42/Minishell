@@ -22,7 +22,7 @@ void	run(char *line)
 	t_node	node;
 
 	node = parse(line);
-	// execute(node) // to do later
+	execute(node); // to do later
 
 	(void) node;
 	(void) line;
