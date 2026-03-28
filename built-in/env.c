@@ -16,25 +16,37 @@ t_list	*create_env(char **env)
 {
 	t_list *head;
 	t_list *new;
-	t_list *front;
 
-	front = NULL;
 	new = NULL;
-	head = ft_lstnew(*env);
+	head = ft_lstnew(ft_strdup(*env));
 	if (!head)
 		return (NULL);
 	env++;
 	while(*env)
 	{
-		new = ft_lstnew(*env);
+		new = ft_lstnew(ft_strdup(*env));
 		if(!new)
 		{
 			ft_lstclear(&head, free);
 			return (NULL);
 		}
-		front = ft_lstlast(head);
-		ft_lstadd_front(&front, new);
+		ft_lstadd_back(&head, new);
 		env++;
 	}
 	return (head);
 }
+
+// int main(int ac, char **av, char **ev)
+// {
+// 	t_list *env = NULL;
+
+// 	(void *)av;
+// 	(void *)ev;
+// 	env = create_env(ev);
+// 	while (env)
+// 	{
+// 		printf("%s\n", (char *)env->content);
+// 		env = env->next;
+// 	}
+
+// }
