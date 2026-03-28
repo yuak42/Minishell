@@ -12,68 +12,124 @@
 
 #include "builtin.h"
 
-static char	*is_env(char *input)
-{
-	char *dest;
-	char *str;
-	int	i;
+// static char	*is_env(char *input)
+// {
+// 	char *dest;
+// 	char *str;
+// 	int	i;
 
-	str = NULL;
-	i = 0;
-	dest = ft_strchr(input, '$');
-	dest++;
-	while (dest[i] != ' ')
-		i++;
-	str = ft_calloc(sizeof(char) , i);
-	i = 0;
-	while (dest[i] != ' ')
-	{
-		str[i] = dest[i];
-		i++;
-	}
-	str[i] = '\0';
-	return (str);
-}
+// 	str = NULL;
+// 	i = 0;
+// 	dest = ft_strchr(input, '$');
+// 	dest++;
+// 	while (dest[i] != ' ')
+// 		i++;
+// 	str = ft_calloc(sizeof(char) , i);
+// 	i = 0;
+// 	while (dest[i])
+// 	{
+// 		str[i] = dest[i];
+// 		i++;
+// 	}
+// 	str[i] = '\0';
+// 	return (str);
+// }
 
-static void	print_env(t_list *ev, char *env)
+static void	print_env(t_list *ev, char *av)
 {
+	//int i = 1;
+	//printf("----------------------------%s---------------\n", av);
+	av++;
 	while (ev)
 	{
-		if (ft_strnstr(ev->content, env, ft_strlen(env)))
+		if (ft_strnstr(ev->content, av, ft_strlen(av)))
 		{
-			write(1, (char *)ev->content, ft_strlen(ev->content));
-			break;
+			write(1, (char *)(ev->content + ft_strlen(av) + 1), ft_strlen(ev->content));
+			return ;
 		}
 		ev = ev->next;
 	}
+
 }
 
-void	ft_echo(char *input, t_list *ev)
+void	str_print(char **av)
 {
-	char *env;
-
-	env = NULL;
-	if (ft_strchr(input, '$'))
+	(*av)++;
+	while (*av)
 	{
-		env = is_env(input);
-		print_env(ev, env);
-		free(env);
+	if (ft_strchr(*av, 39))
+	{
+		(*av)[ft_strlen(*av) - 1] = '\0';
+		//printf("DEBUG:%s\n------%d-------\n", *av, ft_strlen(*av));
+	}
+		write(1, *av, ft_strlen(*av));
+		av++;
+		write(1, " ", 1);
+	}
+}
+
+void	echo_print(char *av, t_list *ev)
+{
+	//char	*n_check;
+
+	//n_check = av[1];
+	while (*av)
+	{
+		if (*av == '$')
+		{
+			print_env(ev, av);
+			av++;
+			return ;
+		}
+		write(1, av, 1);
+		av++;
+	}
+	// if (ft_strnstr(n_check, "-n", 2))
+	// 	return ;
+}
+int		is_print(char *str)
+{
+	if (*str != '-')
+		return (1);
+	str++;
+	while (*str)
+	{
+		if (*str != 'n')
+			return (1);
+		str++;
+	}
+	return (0);
+}
+void	ft_echo (char **av, t_list *ev)
+{
+	int	new_line;
+
+	new_line = is_print(*av);
+	if (av[0][0] == 39)
+	{
+		str_print(av);
+		write(1, "\n", 1);
+		ft_lstclear(&ev, free);
 		return ;
 	}
-	write(1, input, ft_strlen(input));
-	if (ft_strnstr(input, "-n", 2))
-		return ;
-	write(1, "\n", 1);
-	free(env);
+	while (!is_print(*av))
+		av++;
+	while (*av)
+	{
+		echo_print(*av, ev);
+		write(1, " ", 1);
+		av++;
+	}
+	ft_lstclear(&ev, free);
+	if (new_line)
+		write(1, "\n", 1);
+	return ;
 }
 
 int main (int ac, char **av, char **envp)
 {
 	t_list	*ev;
-	char *input;
-	char *str;
 
-	input = ft_strdup("");
 	av++;
 	ev = NULL;
 	ev = create_env(envp);
@@ -82,17 +138,5 @@ int main (int ac, char **av, char **envp)
 		printf("error\n");
 		return (0);
 	}
-	while(ac > 0)
-	{
-		str = ft_strjoin(input, *av);
-		free(input);
-		input = ft_strjoin(str, " ");
-		free(str);
-		av++;
-		ac--;
-	}
-	//printf("AC:%d\n-----%s--------\n", ac, input);
-	ft_echo(input, ev);
-	ft_lstclear(&ev, free);
-	return (0);
+	ft_echo(av, ev);
 }
