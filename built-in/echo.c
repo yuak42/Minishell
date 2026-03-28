@@ -44,7 +44,7 @@ static void	print_env(t_list *ev, char *av)
 	{
 		if (ft_strnstr(ev->content, av, ft_strlen(av)))
 		{
-			write(1, (char *)(ev->content + ft_strlen(av) + 1), ft_strlen(ev->content));
+			write(1, (char *)(ft_strchr(ev->content, '=') + 1), ft_strlen(ev->content));
 			return ;
 		}
 		ev = ev->next;
@@ -123,13 +123,17 @@ void	ft_echo (char **av, t_list *ev)
 	ft_lstclear(&ev, free);
 	if (new_line)
 		write(1, "\n", 1);
-	return ;
 }
 
 int main (int ac, char **av, char **envp)
 {
 	t_list	*ev;
 
+	if (!av[1])
+	{
+		write(1, "\n", 1);
+		return (0);
+	}
 	av++;
 	ev = NULL;
 	ev = create_env(envp);
@@ -138,5 +142,6 @@ int main (int ac, char **av, char **envp)
 		printf("error\n");
 		return (0);
 	}
+	
 	ft_echo(av, ev);
 }
