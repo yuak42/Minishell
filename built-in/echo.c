@@ -12,29 +12,6 @@
 
 #include "builtin.h"
 
-// static char	*is_env(char *input)
-// {
-// 	char *dest;
-// 	char *str;
-// 	int	i;
-
-// 	str = NULL;
-// 	i = 0;
-// 	dest = ft_strchr(input, '$');
-// 	dest++;
-// 	while (dest[i] != ' ')
-// 		i++;
-// 	str = ft_calloc(sizeof(char) , i);
-// 	i = 0;
-// 	while (dest[i])
-// 	{
-// 		str[i] = dest[i];
-// 		i++;
-// 	}
-// 	str[i] = '\0';
-// 	return (str);
-// }
-
 static void	print_env(t_list *ev, char *av)
 {
 	char	*str;
@@ -55,7 +32,7 @@ static void	print_env(t_list *ev, char *av)
 
 }
 
-void	str_print(char **av)
+static void	str_print(char **av)
 {
 	(*av)++;
 	while (*av)
@@ -71,7 +48,7 @@ void	str_print(char **av)
 	}
 }
 
-void	echo_print(char *av, t_list *ev)
+static void	echo_print(char *av, t_list *ev)
 {
 	//char	*n_check;
 
@@ -90,7 +67,7 @@ void	echo_print(char *av, t_list *ev)
 	// if (ft_strnstr(n_check, "-n", 2))
 	// 	return ;
 }
-int		is_print(char *str)
+static int	is_print(char *str)
 {
 	if (*str != '-')
 		return (1);
@@ -103,7 +80,8 @@ int		is_print(char *str)
 	}
 	return (0);
 }
-void	ft_echo (char **av, t_list *ev)
+
+static void	run_echo(char **av, t_list *ev)
 {
 	int	new_line;
 
@@ -112,7 +90,6 @@ void	ft_echo (char **av, t_list *ev)
 	{
 		str_print(av);
 		write(1, "\n", 1);
-		ft_lstclear(&ev, free);
 		return ;
 	}
 	while (!is_print(*av))
@@ -123,28 +100,17 @@ void	ft_echo (char **av, t_list *ev)
 		write(1, " ", 1);
 		av++;
 	}
-	ft_lstclear(&ev, free);
 	if (new_line)
 		write(1, "\n", 1);
 }
 
-int main (int ac, char **av, char **envp)
+void	ft_echo(char **av, t_list *ev)
 {
-	t_list	*ev;
-
 	if (!av[1])
 	{
 		write(1, "\n", 1);
-		return (0);
+		return ;
 	}
 	av++;
-	ev = NULL;
-	ev = create_env(envp);
-	if (ac == 0)
-	{
-		printf("error\n");
-		return (0);
-	}
-	
-	ft_echo(av, ev);
+	run_echo(av, ev);
 }

@@ -4,6 +4,8 @@
 #include<stdio.h>
 #include "../libft/libft.h"
 
-t_list	*create_env(char **env);
+void	ft_echo(char **av, t_list *ev);
+void	ft_export(char **av, t_list *env);
+void	ft_env(t_list *env);
 
 #endif

@@ -12,7 +12,7 @@
 
 #include "builtin.h"
 
-char	*get_variable(char *av)
+static char	*get_variable(char *av)
 {
 	int		i;
 	char	*variable;
@@ -31,21 +31,7 @@ char	*get_variable(char *av)
 	return (variable);
 }
 
-char	*get_content(char *av)
-{
-	char	*content;
-
-	while(*av != '=')
-		av++;
-	av++;
-	content = ft_calloc(sizeof(char), ft_strlen(av));
-	if (!content)
-		return (0);
-	content = av;
-	return (content);
-}
-
-t_list	*is_variable(char *variable, t_list *node)
+static t_list	*is_variable(char *variable, t_list *node)
 {
 	char	*str;
 
@@ -53,14 +39,17 @@ t_list	*is_variable(char *variable, t_list *node)
 	{
 		str = get_variable(node->content);
 		if (ft_strnstr(str ,variable, ft_strlen(variable)))
+		{
+			free(str);
 			return (node);
+		}
 		node = node->next;
 		free(str);
 	}
 	return (NULL);
 }
 
-void	ft_export(char *av, t_list *env)
+static void	run_export(char *av, t_list *env)
 {
 	char	*variable;
 	t_list	*node;
@@ -87,34 +76,23 @@ void	ft_export(char *av, t_list *env)
 	free(variable);
 	}
 
-int main(int ac, char **av, char **ev)
+void	ft_export(char **av, t_list *env)
 {
-	t_list	*env;
-	t_list	*head;
-
-	env = create_env(ev);
-	head = env;
-	av++;
-	if(ac == 2 && ft_strnstr(*av, "export", 6))
+	if(!av[2] &&ft_strlen(*av)==6 && ft_strnstr(*av, "export", 6))
 	{
 		while (env)
 		{
 			printf("declare -x %s\n", (char *)env->content);
 			env = env->next;
 		}
-		return(0);
+		return ;
 	}
 	while (*av)
 	{
-		ft_export(*av, env);
+		run_export(*av, env);
 		av++;
 	}
-	printf("\n");
-	while (env)
-	{
-		printf("%s\n", (char *)env->content);
-		env = env->next;
-	}
-	ft_lstclear(&head, free);
-	return (0);
+	return ;
 }
+
+// Yeni değişkeni hangi sırada eklediğini fixle. 
