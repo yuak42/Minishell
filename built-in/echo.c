@@ -37,6 +37,7 @@
 
 static void	print_env(t_list *ev, char *av)
 {
+	char	*str;
 	//int i = 1;
 	//printf("----------------------------%s---------------\n", av);
 	av++;
@@ -44,7 +45,9 @@ static void	print_env(t_list *ev, char *av)
 	{
 		if (ft_strnstr(ev->content, av, ft_strlen(av)))
 		{
-			write(1, (char *)(ft_strchr(ev->content, '=') + 1), ft_strlen(ev->content));
+			str = ft_strchr(ev->content, '=');
+			str++;
+			write(1, str, ft_strlen(str));
 			return ;
 		}
 		ev = ev->next;
