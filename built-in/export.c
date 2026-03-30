@@ -95,9 +95,13 @@ int main(int ac, char **av, char **ev)
 	env = create_env(ev);
 	head = env;
 	av++;
-	if(ac == 0)
+	if(ac == 2 && ft_strnstr(*av, "export", 6))
 	{
-		printf("ac=0\n");
+		while (env)
+		{
+			printf("declare -x %s\n", (char *)env->content);
+			env = env->next;
+		}
 		return(0);
 	}
 	while (*av)
