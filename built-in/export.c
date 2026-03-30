@@ -78,7 +78,8 @@ static void	run_export(char *av, t_list *env)
 
 void	ft_export(char **av, t_list *env)
 {
-	if(!av[2] &&ft_strlen(*av)==6 && ft_strnstr(*av, "export", 6))
+	//printf("av[1]:%s\n", av[1]);
+	if(!av[1] &&ft_strlen(*av)==6 && ft_strnstr(*av, "export", 6))
 	{
 		while (env)
 		{

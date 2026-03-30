@@ -5,7 +5,8 @@ CC = cc
 AR = ar rcs
 SRC = echo.c\
 			env.c\
-			export.c
+			export.c\
+			pwd.c
 
 OBJ = $(SRC:.c=.o)
 all = $(NAME)
