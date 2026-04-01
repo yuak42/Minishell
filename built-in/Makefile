@@ -6,12 +6,14 @@ AR = ar rcs
 SRC = echo.c\
 			env.c\
 			export.c\
-			pwd.c
+			pwd.c\
+			cd.c
 
 OBJ = $(SRC:.c=.o)
 all = $(NAME)
 
-all: $(OBJ)
+all: $(NAME)
+$(NAME): $(OBJ)
 	$(AR) $(NAME) $(OBJ)
 	echo make run
 clean: 
@@ -28,5 +30,7 @@ debug:
 	$(MAKE) all CFLAGS="$(CFLAGS) -g"
 	echo make debug
 
+main: debug 
+	$(CC) $(CFLAGS) main.c $(NAME) ../libft/libft.a -o main
 
 .PHONY: all clean fclean re debug
