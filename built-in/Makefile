@@ -7,7 +7,8 @@ SRC = echo.c\
 			env.c\
 			export.c\
 			pwd.c\
-			cd.c
+			cd.c\
+			unset.c
 
 OBJ = $(SRC:.c=.o)
 all = $(NAME)
