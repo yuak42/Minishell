@@ -15,8 +15,7 @@
 static void	print_env(t_list *ev, char *av)
 {
 	char	*str;
-	//int i = 1;
-	//printf("----------------------------%s---------------\n", av);
+
 	av++;
 	while (ev)
 	{
@@ -32,22 +31,6 @@ static void	print_env(t_list *ev, char *av)
 
 }
 
-static void	str_print(char **av)
-{
-	(*av)++;
-	while (*av)
-	{
-	if (ft_strchr(*av, 39))
-	{
-		(*av)[ft_strlen(*av) - 1] = '\0';
-		//printf("DEBUG:%s\n------%d-------\n", *av, ft_strlen(*av));
-	}
-		write(1, *av, ft_strlen(*av));
-		av++;
-		write(1, " ", 1);
-	}
-}
-
 static void	echo_print(char *av, t_list *ev)
 {
 	//char	*n_check;
@@ -61,8 +44,10 @@ static void	echo_print(char *av, t_list *ev)
 			av++;
 			return ;
 		}
-		write(1, av, 1);
+		if (!ft_putchar_fd(av, 1))
+			return (0);
 		av++;
+		return (1);
 	}
 	// if (ft_strnstr(n_check, "-n", 2))
 	// 	return ;
@@ -81,36 +66,41 @@ static int	is_print(char *str)
 	return (0);
 }
 
-static void	run_echo(char **av, t_list *ev)
+static int	run_echo(char **av, t_list *ev)
 {
 	int	new_line;
 
 	new_line = is_print(*av);
-	if (av[0][0] == 39)
-	{
-		str_print(av);
-		write(1, "\n", 1);
-		return ;
-	}
 	while (!is_print(*av))
 		av++;
 	while (*av)
 	{
-		echo_print(*av, ev);
-		write(1, " ", 1);
+		if (!echo_print(*av, ev))
+			return (0);
+		if (!ft_putchar_fd(" ", 1))
+			return (0)
 		av++;
 	}
 	if (new_line)
-		write(1, "\n", 1);
+	{
+		if (!ft_putchar_fd("\n", 1))
+			return (0)
+	}
+	return (1);
 }
 
-void	ft_echo(char **av, t_list *ev)
+int	ft_echo(char **av, t_list *ev)
 {
 	if (!av[1])
 	{
-		write(1, "\n", 1);
-		return ;
+		if (!ft_putchar_fd("\n", 1))
+			return (1)
+		return (0);
 	}
 	av++;
-	run_echo(av, ev);
+	if (!run_echo(av, ev))
+		return (1);
+	return (0);
 }
+
+// echo $0 incele
