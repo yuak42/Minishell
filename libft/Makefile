@@ -37,6 +37,8 @@ SRC =  ft_isalpha.c\
 	ft_putendl_fd.c\
 	ft_putnbr_fd.c\
 	ft_split.c\
+	ft_perror.c\
+	ft_getenv.c
 
 SRC_BONUS = ft_lstnew_bonus.c\
 	ft_lstadd_front_bonus.c\
