@@ -1,25 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putchar_fd.c                                    :+:      :+:    :+:   */
+/*   ft_getenv.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: byaprak <byaprak@student.42istanbul.com    +#+  +:+       +#+        */
+/*   By: byaprak <byaprak@student.42istanbul.com.tr>  #+#  +:+       +#+      */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/06/23 20:32:38 by byaprak           #+#    #+#             */
-/*   Updated: 2025/06/23 20:41:12 by byaprak          ###   ########.fr       */
+/*   Created: 2026-04-07 19:37:21 by byaprak           #+#    #+#             */
+/*   Updated: 2026-04-07 19:37:21 by byaprak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	ft_putchar_fd(char c, int fd)
+t_list	*ft_getenv(t_list *ev, char *av)
 {
-	int	check;
+	char	*str;
+	char	*equals;
 
-	check = write(fd, &c, 1);
-	if (check == -1)
+	while (ev)
 	{
-		return (0);
+		str = ft_strnstr(ev->content, av, ft_strlen(av));
+		if (str)
+		{
+			equals = (str + ft_strlen(av));
+			if (!ft_strncmp(equals, "=", 1))
+				return (ev);
+		}
+		ev = ev->next;
 	}
-	return (check);
+	return (NULL);
 }
