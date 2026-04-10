@@ -12,11 +12,11 @@
 
 #include "builtin.h"
 
-void	ft_env(t_list *env)
+void	ft_env(t_env *ev)
 {
-	while (env)
+	while (ev != NULL)
 	{
-		printf("%s\n", (char *)env->content);
-		env = env->next;
+		printf("%s=%s\n", ev->key, ev->value);
+		ev = ev->next;
 	}
 }
