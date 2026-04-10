@@ -3,68 +3,67 @@
 /*                                                        :::      ::::::::   */
 /*   ft_itoa.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yuak <marvin@42.fr>                        +#+  +:+       +#+        */
+/*   By: byaprak <byaprak@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/06/19 18:51:03 by yuak              #+#    #+#             */
-/*   Updated: 2025/07/01 14:48:48 by yuak             ###   ########.fr       */
+/*   Created: 2025/06/20 21:59:48 by byaprak           #+#    #+#             */
+/*   Updated: 2025/06/29 23:49:11 by byaprak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static size_t	get_len(int n);
-static char		*create_str(char *str, int n, size_t size);
+static size_t	ft_intlen(int n)
+{
+	size_t	count;
+	int		j;
+
+	count = 1;
+	if (n < 0)
+	{
+		n = -n;
+		count++;
+	}
+	if (n == 0)
+		return (count);
+	j = n / 10;
+	while (j > 0)
+	{
+		count++;
+		j = j / 10;
+	}
+	return (count);
+}
+
+static int	ft_putnbr(int b, char *str, int i)
+{
+	if (b >= 10)
+		i = ft_putnbr(b / 10, str, i);
+	str[i] = (b % 10) + '0';
+	i++;
+	return (i);
+}
 
 char	*ft_itoa(int n)
 {
-	char		*str;
-	size_t		size;
+	int		len;
+	char	*istr;
+	int		i;
 
-	if (n == 0)
-		return (ft_strdup("0"));
-	size = get_len(n);
-	str = malloc((size + 1) * sizeof(char));
-	if (!str)
-		return (NULL);
-	str = create_str(str, n, size);
-	return (str);
-}
-
-static size_t	get_len(int n)
-{
-	size_t		len;
-	long int	temp;
-
-	len = 0;
-	temp = (long int) n;
-	if (n < 0)
-		len++;
-	while (temp != 0)
-	{
-		len++;
-		temp /= 10;
-	}
-	return (len);
-}
-
-static char	*create_str(char *str, int n, size_t size)
-{
-	long int	temp;
-	size_t		i;
-
+	if (n == -2147483648)
+		return (ft_strdup("-2147483648"));
 	i = 0;
-	temp = (long int) n;
+	len = ft_intlen(n);
+	istr = malloc((len + 1) * sizeof(char));
+	if (!istr)
+		return (NULL);
 	if (n < 0)
 	{
-		str[0] = '-';
-		temp *= -1;
-	}
-	while (temp != 0)
-	{
-		str[size - i - 1] = temp % 10 + '0';
-		temp /= 10;
+		i = 0;
+		n = -n;
+		istr[i] = '-';
 		i++;
 	}
-	str[size] = '\0';
-	return (str);
+	i = ft_putnbr(n, istr, i);
+	istr[i] = '\0';
+	return (istr);
 }

@@ -1,26 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_calloc.c                                        :+:      :+:    :+:   */
+/*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: byaprak <byaprak@student.42istanbul.com    +#+  +:+       +#+        */
+/*   By: byaprak <byaprak@student.42istanbul.com.tr>  #+#  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/06/16 18:22:39 by byaprak           #+#    #+#             */
-/*   Updated: 2025/06/29 23:52:11 by byaprak          ###   ########.fr       */
+/*   Created: 2026-03-30 18:54:59 by byaprak           #+#    #+#             */
+/*   Updated: 2026-03-30 18:54:59 by byaprak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "builtin.h"
 
-void	*ft_calloc(size_t nmemb, size_t size)
+void	ft_env(t_list *env)
 {
-	void	*var;
-
-	var = malloc(nmemb * size);
-	if (!var)
+	while (env)
 	{
-		return (NULL);
+		printf("%s\n", (char *)env->content);
+		env = env->next;
 	}
-	ft_bzero(var, nmemb * size);
-	return (var);
 }

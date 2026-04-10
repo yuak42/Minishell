@@ -1,6 +1,6 @@
 #include "prompt.h"
 
-static void print_env(t_env *ev);
+// static void print_env(t_env *ev);
 
 int	main(int ac, char **av, char **env)
 {
@@ -15,11 +15,11 @@ int	main(int ac, char **av, char **env)
 	return 0;
 }
 
-static void print_env(t_env *ev)
-{
-	while (ev != NULL)
-	{
-		printf("%s=%s\n", ev->key, ev->value);
-		ev = ev->next;
-	}
-}
+// static void print_env(t_env *ev)
+// {
+// 	while (ev != NULL)
+// 	{
+// 		printf("%s=%s\n", ev->key, ev->value);
+// 		ev = ev->next;
+// 	}
+// }

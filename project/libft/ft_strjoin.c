@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strjoin.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yuak <marvin@42.fr>                        +#+  +:+       +#+        */
+/*   By: byaprak <byaprak@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/05/27 18:48:00 by yuak              #+#    #+#             */
-/*   Updated: 2025/07/01 14:42:31 by yuak             ###   ########.fr       */
+/*   Created: 2025/06/18 22:07:30 by byaprak           #+#    #+#             */
+/*   Updated: 2025/06/29 23:50:45 by byaprak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,27 +14,26 @@
 
 char	*ft_strjoin(char const *s1, char const *s2)
 {
-	char	*all;
-	size_t	i;
-	size_t	j;
+	int		len;
+	char	*c;
 
-	i = ft_strlen(s1) + ft_strlen(s2) + 1;
-	all = (char *) malloc(i * sizeof(char));
-	if (!all)
+	len = ft_strlen(s1);
+	len += ft_strlen(s2);
+	c = malloc((len + 1) * sizeof(char));
+	if (!c)
 		return (NULL);
-	i = 0;
-	j = 0;
-	while (s1[i])
+	while (*s1)
 	{
-		all[i] = s1[i];
-		i++;
+		*c = *s1;
+		c++;
+		s1++;
 	}
-	while (s2[j])
+	while (*s2)
 	{
-		all[i] = s2[j];
-		i++;
-		j++;
+		*c = *s2;
+		c++;
+		s2++;
 	}
-	all[i] = '\0';
-	return (all);
+	*c = '\0';
+	return (c - len);
 }

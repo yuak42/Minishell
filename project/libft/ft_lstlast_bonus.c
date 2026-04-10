@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstlast.c                                       :+:      :+:    :+:   */
+/*   ft_lstlast_bonus.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yuak <marvin@42.fr>                        +#+  +:+       +#+        */
+/*   By: byaprak <byaprak@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/06/25 12:07:24 by yuak              #+#    #+#             */
-/*   Updated: 2025/06/25 12:14:55 by yuak             ###   ########.fr       */
+/*   Created: 2025/06/26 20:05:55 by byaprak           #+#    #+#             */
+/*   Updated: 2025/07/03 15:29:11 by byaprak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,11 @@
 
 t_list	*ft_lstlast(t_list *lst)
 {
-	if (lst == NULL)
-		return (NULL);
-	while ((*lst).next != NULL)
-		lst = (*lst).next;
+	if (!lst)
+		return (0);
+	while (lst->next)
+	{
+		lst = lst->next;
+	}
 	return (lst);
 }

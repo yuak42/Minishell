@@ -3,49 +3,36 @@
 /*                                                        :::      ::::::::   */
 /*   ft_substr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yuak <marvin@42.fr>                        +#+  +:+       +#+        */
+/*   By: byaprak <byaprak@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/05/27 18:38:31 by yuak              #+#    #+#             */
-/*   Updated: 2025/07/01 14:38:28 by yuak             ###   ########.fr       */
+/*   Created: 2025/06/18 21:35:34 by byaprak           #+#    #+#             */
+/*   Updated: 2025/06/29 23:51:29 by byaprak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static size_t	find_len(char const *s, unsigned int start, size_t len);
-
 char	*ft_substr(char const *s, unsigned int start, size_t len)
 {
-	char	*sub;
-	size_t	i;
+	char		*c;
+	size_t		i;
+	size_t		slen;
 
-	if (s == NULL)
-		return (NULL);
-	if (ft_strlen(s) <= start)
-		return (ft_strdup(""));
-	sub = (char *) malloc((find_len(s, start, len) + 1) * sizeof(char));
-	if (!sub)
-		return (NULL);
+	slen = ft_strlen(s);
 	i = 0;
-	while (i < len && s[start])
+	if (start > slen)
+		return (ft_calloc(1, 1));
+	if (len > (slen - start))
+		len = slen - start;
+	c = malloc(len + 1 * sizeof(char));
+	if (!c)
+		return (NULL);
+	while (i < len)
 	{
-		sub[i] = s[start];
-		start++;
+		c[i] = s[start];
 		i++;
-	}
-	sub[i] = '\0';
-	return (sub);
-}
-
-static size_t	find_len(char const *s, unsigned int start, size_t len)
-{
-	size_t	size;
-
-	size = 0;
-	while (s[start] && size < len)
-	{
 		start++;
-		size++;
 	}
-	return (size);
+	c[len] = '\0';
+	return (c);
 }

@@ -1,32 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstadd_back.c                                   :+:      :+:    :+:   */
+/*   ft_lstadd_back_bonus.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yuak <marvin@42.fr>                        +#+  +:+       +#+        */
+/*   By: byaprak <byaprak@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/06/25 12:07:37 by yuak              #+#    #+#             */
-/*   Updated: 2025/06/28 13:40:30 by yuak             ###   ########.fr       */
+/*   Created: 2025/06/26 20:29:47 by byaprak           #+#    #+#             */
+/*   Updated: 2025/07/03 15:30:01 by byaprak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
 #include "libft.h"
 
 void	ft_lstadd_back(t_list **lst, t_list *new)
 {
-	t_list	*head;
+	t_list	*node;
 
 	if (!lst || !new)
 		return ;
-	if (*lst == NULL)
-	{
+	if (!*lst)
 		*lst = new;
-		(*new).next = NULL;
-		return ;
+	else
+	{
+		node = ft_lstlast(*lst);
+		node -> next = new;
+		new -> back = node;
 	}
-	head = *lst;
-	while ((*head).next != NULL)
-		head = (*head).next;
-	(*head).next = new;
 }
