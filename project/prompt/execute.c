@@ -2,7 +2,11 @@
 
 void	execute(t_node *node, t_env *ev)
 {
-	printf("%s: command not found!\n", node->args[0]);
-	(void) node;
-	(void) ev;
+	if (!ft_strncmp("env", node->args[0], 4))
+		ft_env(ev);
+	else if (!ft_strncmp("pwd", node->args[0], 4))
+		ft_pwd();
+	else
+		printf("%s: command not found!\n", node->args[0]);
+
 }

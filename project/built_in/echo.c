@@ -68,7 +68,7 @@ static int	is_print(char *str)
 
 static int	run_echo(char **av, t_list *ev)
 {
-	int	new_line;
+	int	new_line; 
 
 	new_line = is_print(*av);
 	while (!is_print(*av))
@@ -93,7 +93,7 @@ int	ft_echo(char **av, t_list *ev)
 {
 	if (!av[1])
 	{
-		if (!ft_putchar_fd("\n", 1))
+		if (!ft_putchar_fd("\n", 1)) // write(1, "\n", 1); write error dondurebilirmis
 			return (1)
 		return (0);
 	}

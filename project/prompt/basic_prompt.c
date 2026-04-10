@@ -41,21 +41,5 @@ t_node	*parse(char *line)
 	node->args = ft_split(line, ' '); // free later after execution
 	node->stdin = 1;
 	node->stdout = 0;
-	// printf("Given command (node.args[0]): %s\n", node->args);
-	// split++;
-	// printf("Given arguments: ");
-	// while (*split)
-	// {
-	// 	printf("%s ", *split);
-	// 	split++;
-	// }
-	// printf("\n");
 	return (node);
 }
-
-/*
-
-	msh$ cd <dir>
-	msh$ echo <str>
-
-*/

@@ -8,6 +8,7 @@
 #include <readline/history.h>
 #include "data_structures.h"
 #include "../libft/libft.h"
+#include "builtin.h"
 
 void	basic_prompt(t_env *ev);
 void	execute(t_node *node, t_env *ev);
