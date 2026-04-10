@@ -12,6 +12,8 @@ typedef struct s_node {
 	t_token 		token;
 	struct s_node	*left;
 	struct s_node	*right;
+	int				stdin;
+	int				stdout;
 	char			**args;
 } t_node;
 
@@ -20,4 +22,18 @@ typedef struct s_env{
 	char			*value;
 	struct s_env	*next;
 } t_env;
+
+
 #endif
+
+
+/*
+pipe_ptr
+
+tmp sada
+
+pipe_ptr
+
+
+
+*/

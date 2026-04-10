@@ -1,55 +1,55 @@
 #include "prompt.h"
 
 void	run(char *line);
-t_node	parse(char *line);
+t_node	*parse(char *line, t_env *ev);
 
-void	basic_prompt(void)
+void	basic_prompt(t_env *ev)
 {
 	char	*line;
-	
-	printf("Welcome to msh!\n");
-	line = readline("msh$ ");
+	(void) ev;
+	line = readline("$ ");
 	while (line)
 	{
-		run(line);
+		run(line, ev);
 		free(line);
-		line = readline("\033[34mmsh$ \033[0m");
+		line = readline("$ ");
 	}
 }
 
-void	run(char *line)
+void	run(char *line, t_env *ev)
 {
-	t_node	node;
+	t_node	*node;
 
 	node = parse(line);
-	execute(node); // to do later
+	if (!node)
+		return ; // command not working falan bişi yazcak mı?
+	execute(node, ev); // to do later
 
 	(void) node;
 	(void) line;
 
 }
 
-t_node	parse(char *line)
+t_node	*parse(char *line)
 {
-	size_t	i;
-	t_node	node;
-	char	**split;
+	t_node	*node;
 
-	node.token = comm;
-	i = 0;
-	split = ft_split(line, ' '); // free later after execution
-	node.args = split;
-	printf("Given command (node.args[0]): %s\n", *node.args);
-	split++;
-	printf("Given arguments: ");
-	while (*split)
-	{
-		printf("%s ", *split);
-		split++;
-	}
-	printf("\n");
-	(void) split;
-	(void) i;
+	node = (t_node *) malloc(sizeof(t_node));
+	if (!node)
+		return (NULL);
+	node->token = comm;
+	node->args = ft_split(line, ' '); // free later after execution
+	node->stdin = 1;
+	node->stdout = 0;
+	// printf("Given command (node.args[0]): %s\n", node->args);
+	// split++;
+	// printf("Given arguments: ");
+	// while (*split)
+	// {
+	// 	printf("%s ", *split);
+	// 	split++;
+	// }
+	// printf("\n");
 	return (node);
 }
 

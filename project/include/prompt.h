@@ -9,7 +9,8 @@
 #include "data_structures.h"
 #include "../libft/libft.h"
 
-void	basic_prompt(void);
-void	execute(t_node node);
+void	basic_prompt(t_env *ev);
+void	execute(t_node *node, t_env *ev);
+t_env	*get_env_list(char **env);
 
 #endif
