@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstclear.c                                      :+:      :+:    :+:   */
+/*   ft_lstclear_bonus.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yuak <marvin@42.fr>                        +#+  +:+       +#+        */
+/*   By: byaprak <byaprak@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/06/25 12:07:56 by yuak              #+#    #+#             */
-/*   Updated: 2025/06/28 13:33:20 by yuak             ###   ########.fr       */
+/*   Created: 2025/06/27 15:42:15 by byaprak           #+#    #+#             */
+/*   Updated: 2025/07/03 15:29:51 by byaprak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,15 @@
 
 void	ft_lstclear(t_list **lst, void (*del)(void *))
 {
-	t_list	*head;
-	t_list	*temp;
+	t_list	*node;
 
-	temp = *lst;
-	while (temp != NULL)
+	if (!lst || !del)
+		return ;
+	while (*lst)
 	{
-		head = (*temp).next;
-		ft_lstdelone(temp, del);
-		temp = head;
+		node = (*lst)->next;
+		ft_lstdelone(*lst, del);
+		*lst = node;
 	}
 	*lst = NULL;
 }

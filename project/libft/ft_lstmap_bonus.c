@@ -3,39 +3,46 @@
 /*                                                        :::      ::::::::   */
 /*   ft_lstmap_bonus.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yuak <marvin@42.fr>                        +#+  +:+       +#+        */
+/*   By: byaprak <byaprak@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/06/25 15:54:50 by yuak              #+#    #+#             */
-/*   Updated: 2025/07/03 13:19:29 by yuak             ###   ########.fr       */
+/*   Created: 2025/06/27 17:52:43 by byaprak           #+#    #+#             */
+/*   Updated: 2025/07/03 15:29:38 by byaprak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *))
+static t_list	*ft_listcopy(t_list *lst, void (*del)(void *),
+	void *(*f)(void *))
 {
-	t_list	*new_lst;
-	t_list	*temp_node;
-	t_list	*tail;
+	t_list	*list;
+	t_list	*new;
+	void	*content;
 
-	tail = NULL;
-	new_lst = NULL;
-	if (lst == NULL || f == NULL || del == NULL)
-		return (NULL);
-	while (lst != NULL)
+	list = NULL;
+	new = NULL;
+	while (lst)
 	{
-		temp_node = ft_lstnew(f(lst->content));
-		if (temp_node == NULL)
+		content = f(lst->content);
+		new = (ft_lstnew(content));
+		if (!new)
 		{
-			ft_lstclear(&new_lst, del);
+			del(content);
+			ft_lstclear(&list, del);
 			return (NULL);
 		}
-		if (new_lst == NULL)
-			new_lst = temp_node;
-		else
-			tail->next = temp_node;
-		tail = temp_node;
-		lst = lst->next;
+		ft_lstadd_back(&list, new);
+		lst = lst-> next;
 	}
-	return (new_lst);
+	return (list);
+}
+
+t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *))
+{
+	t_list	*list;
+
+	if (!lst || !f || !del)
+		return (NULL);
+	list = ft_listcopy(lst, del, f);
+	return (list);
 }

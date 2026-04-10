@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstadd_front.c                                  :+:      :+:    :+:   */
+/*   ft_lstadd_front_bonus.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yuak <marvin@42.fr>                        +#+  +:+       +#+        */
+/*   By: byaprak <byaprak@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/06/25 12:07:05 by yuak              #+#    #+#             */
-/*   Updated: 2025/06/25 12:14:21 by yuak             ###   ########.fr       */
+/*   Created: 2025/06/26 19:08:43 by byaprak           #+#    #+#             */
+/*   Updated: 2025/07/03 15:29:56 by byaprak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 void	ft_lstadd_front(t_list **lst, t_list *new)
 {
-	(*new).next = *lst;
+	new -> next = *lst;
+	new -> back = NULL;
 	*lst = new;
 }

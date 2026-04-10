@@ -1,7 +1,7 @@
 #include "prompt.h"
 
-void	run(char *line);
-t_node	*parse(char *line, t_env *ev);
+void	run(char *line, t_env *ev);
+t_node	*parse(char *line);
 
 void	basic_prompt(t_env *ev)
 {

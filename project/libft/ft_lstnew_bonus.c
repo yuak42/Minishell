@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstnew.c                                        :+:      :+:    :+:   */
+/*   ft_lstnew_bonus.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yuak <marvin@42.fr>                        +#+  +:+       +#+        */
+/*   By: byaprak <byaprak@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/06/25 12:06:55 by yuak              #+#    #+#             */
-/*   Updated: 2025/06/25 13:03:51 by yuak             ###   ########.fr       */
+/*   Created: 2025/06/26 18:35:35 by byaprak           #+#    #+#             */
+/*   Updated: 2025/07/03 15:29:33 by byaprak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,13 @@
 
 t_list	*ft_lstnew(void *content)
 {
-	t_list	*head;
+	t_list	*node;
 
-	head = (t_list *) malloc(sizeof(t_list));
-	if (!head)
-		return (NULL);
-	(*head).content = content;
-	(*head).next = NULL;
-	return (head);
+	node = malloc(sizeof(t_list));
+	if (!node)
+		return (0);
+	node -> content = content;
+	node -> next = NULL;
+	node -> back = NULL;
+	return (node);
 }
