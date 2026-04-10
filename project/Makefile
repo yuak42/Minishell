@@ -1,6 +1,6 @@
 NAME = minishell
 
-SRC = prompt/basic_prompt.c main.c prompt/execute.c
+SRC = prompt/basic_prompt.c main.c prompt/execute.c prompt/get_env_list.c
 
 OBJ = $(SRC:.c=.o)
 
