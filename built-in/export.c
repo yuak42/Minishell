@@ -16,18 +16,19 @@ static char	*get_variable(char *av)
 {
 	int		i;
 	char	*variable;
-	int		res;
+	char	check;
 
-	res = 0;
 	i = 0;
-	while(av[i] != '=')
+	while(av[i] != '=' && av[i])
 		i++;
-	av[i] = '\0';
-	res = i;
+	check = av[i];
+	if (av[i])
+		av[i] = '\0';
 	variable = ft_strdup(av);
 	if (!variable)
 		return (0);
-	av[res] = '='; 
+	if (check == '=')
+		av[i] = '='; 
 	return (variable);
 }
 
@@ -76,24 +77,54 @@ static void	run_export(char *av, t_list *env)
 	free(variable);
 	}
 
-void	ft_export(char **av, t_list *env)
+static int	is_valid(char **av)
 {
-	//printf("av[1]:%s\n", av[1]);
-	if(!av[1] &&ft_strlen(*av)==6 && ft_strnstr(*av, "export", 6))
+	while (*av)
+	{
+		if (!(**av == '_' || (**av >= 'a' && **av <= 'z') || (**av >= 'A' && **av <= 'Z')))
+		{
+			ft_perror("-minishell: export: `%s': not a valid identifier\n", *av);
+			return (0);
+		}
+		while (**av)
+		{
+			if (!(**av == '_' || (**av >= 'a' && **av <= 'z') || (**av >= 'A' && **av <= 'Z') || (**av >= '0' && **av <= '9')))
+			{
+				ft_perror("-minishell: export: `%s': not a valid identifier\n", *av);
+				return (0);
+			}
+			(*av)++;
+		}
+		av++;
+	}
+	return (1);
+}
+
+int	ft_export(char **av, t_list *env)
+{
+	if(!av[1] && ft_strlen(*av) == 6 && ft_strnstr(*av, "export", 6))
 	{
 		while (env)
 		{
-			printf("declare -x %s\n", (char *)env->content);
+			if (printf("declare -x %s\n", (char *)env->content) < 0)
+			{
+				perror("");
+				return(1);
+			}
 			env = env->next;
 		}
-		return ;
+		return (0);
 	}
+	av++;
+	if (!is_valid(av))
+		return (1);
 	while (*av)
 	{
 		run_export(*av, env);
 		av++;
 	}
-	return ;
+	return (1);
 }
 
-// Yeni değişkeni hangi sırada eklediğini fixle. 
+// export yazıldığında alfabetik sırada yazdıracak. değişken değeri "" içinde olacak.
+// readonly değişken durmunu fixle.
