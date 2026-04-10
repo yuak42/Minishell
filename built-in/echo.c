@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: byaprak <byaprak@student.42istanbul.com.tr>  #+#  +:+       +#+        */
+/*   By: byaprak <byaprak@student.42istanbul.com.tr>  #+#  +:+       +#+      */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026-03-23 22:13:56 by byaprak           #+#    #+#             */
 /*   Updated: 2026-03-23 22:13:56 by byaprak          ###   ########.fr       */
@@ -31,7 +31,7 @@ static void	print_env(t_list *ev, char *av)
 
 }
 
-static void	echo_print(char *av, t_list *ev)
+static int	echo_print(char *av, t_list *ev)
 {
 	//char	*n_check;
 
@@ -42,21 +42,26 @@ static void	echo_print(char *av, t_list *ev)
 		{
 			print_env(ev, av);
 			av++;
-			return ;
+			return (1);
 		}
-		if (!ft_putchar_fd(av, 1))
+		if (!ft_putchar_fd(*av, 1))
 			return (0);
 		av++;
-		return (1);
 	}
+	return (1);
 	// if (ft_strnstr(n_check, "-n", 2))
 	// 	return ;
 }
+
 static int	is_print(char *str)
 {
+	if (!str)
+		return (1);
 	if (*str != '-')
 		return (1);
 	str++;
+	if (!(*str))
+		return (1);
 	while (*str)
 	{
 		if (*str != 'n')
@@ -77,14 +82,18 @@ static int	run_echo(char **av, t_list *ev)
 	{
 		if (!echo_print(*av, ev))
 			return (0);
-		if (!ft_putchar_fd(" ", 1))
-			return (0)
+		if (*(av + 1))
+		{
+
+			if (!ft_putchar_fd(' ', 1))
+				return (0);
+		}
 		av++;
 	}
 	if (new_line)
 	{
-		if (!ft_putchar_fd("\n", 1))
-			return (0)
+		if (!ft_putchar_fd('\n', 1))
+			return (0);
 	}
 	return (1);
 }
@@ -93,8 +102,8 @@ int	ft_echo(char **av, t_list *ev)
 {
 	if (!av[1])
 	{
-		if (!ft_putchar_fd("\n", 1))
-			return (1)
+		if (!ft_putchar_fd('\n', 1))
+			return (1);
 		return (0);
 	}
 	av++;
