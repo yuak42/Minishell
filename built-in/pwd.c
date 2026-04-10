@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   pwd.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: byaprak <byaprak@student.42istanbul.com.tr>  #+#  +:+       +#+        */
+/*   By: byaprak <byaprak@student.42istanbul.com.tr>  #+#  +:+       +#+      */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026-03-30 22:32:41 by byaprak           #+#    #+#             */
 /*   Updated: 2026-03-30 22:32:41 by byaprak          ###   ########.fr       */
@@ -12,7 +12,7 @@
 
 #include "builtin.h"
 
-void	ft_pwd(void)
+int	ft_pwd(void)
 {
 	char	*path;
 
@@ -20,10 +20,15 @@ void	ft_pwd(void)
 	if (!path)
 	{
 		perror("");
-		free(path);
-		return ;
+		return (1);
 	}
-	printf("%s\n", path);
+	if (printf("%s\n", path) < 0)
+	{
+		perror("");
+		free(path);
+		return (1);
+	}
 	free(path);
+	return (0);
 }
 //get_pwd parametrelerini araştır
