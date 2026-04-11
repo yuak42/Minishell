@@ -2,10 +2,8 @@
 #define NODES_H
 
 typedef enum e_token {
-	comm,
-	pipe_op,
-	redi_op,
-	dire_op
+	word,
+	operator
 } t_token;
 
 typedef struct s_node {
