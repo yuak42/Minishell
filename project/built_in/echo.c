@@ -12,26 +12,21 @@
 
 #include "builtin.h"
 
-static void	print_env(t_list *ev, char *av)
+static void	print_env(t_env *ev, char *av)
 {
-	char	*str;
-
 	av++;
 	while (ev)
 	{
-		if (ft_strnstr(ev->content, av, ft_strlen(av)))
+		if (!ft_strncmp(av, ev->key, ft_strlen(av)))
 		{
-			str = ft_strchr(ev->content, '=');
-			str++;
-			write(1, str, ft_strlen(str));
-			return ;
+			write(1, ev->value, ft_strlen(ev->value)); // maybe error check here too
+			break ;
 		}
-		ev = ev->next;
 	}
-
+		ev = ev->next;
 }
 
-static void	echo_print(char *av, t_list *ev)
+static void	echo_print(char *av, t_env *ev)
 {
 	//char	*n_check;
 
@@ -40,14 +35,18 @@ static void	echo_print(char *av, t_list *ev)
 	{
 		if (*av == '$')
 		{
-			print_env(ev, av);
 			av++;
+			print_env(ev, av);
 			return ;
 		}
-		if (!ft_putchar_fd(av, 1))
-			return (0);
-		av++;
-		return (1);
+		else
+		{
+			write(1, av, ft_strlen(av));
+		}
+		// if (!ft_putchar_fd(av, 1)) // ??
+		// 	return (0);
+		// av++;  // ??
+		// return (1);
 	}
 	// if (ft_strnstr(n_check, "-n", 2))
 	// 	return ;
@@ -66,7 +65,7 @@ static int	is_print(char *str)
 	return (0);
 }
 
-static int	run_echo(char **av, t_list *ev)
+static int	run_echo(char **av, t_env *ev)
 {
 	int	new_line; 
 
@@ -75,21 +74,22 @@ static int	run_echo(char **av, t_list *ev)
 		av++;
 	while (*av)
 	{
-		if (!echo_print(*av, ev))
+		// if (!echo_print(*av, ev))
+		// 	return (0);
+		echo_print(*av, ev);
+		if (!ft_putchar_fd(' ', 1))
 			return (0);
-		if (!ft_putchar_fd(" ", 1))
-			return (0)
 		av++;
 	}
 	if (new_line)
 	{
 		if (!ft_putchar_fd("\n", 1))
-			return (0)
+			return (0);
 	}
 	return (1);
 }
 
-int	ft_echo(char **av, t_list *ev)
+int	ft_echo(char **av, t_env *ev)
 {
 	if (!av[1])
 	{

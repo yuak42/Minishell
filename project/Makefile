@@ -1,7 +1,7 @@
 NAME = minishell
 
 SRC = prompt/basic_prompt.c main.c prompt/execute.c prompt/get_env_list.c \
-		built_in/env.c built_in/pwd.c #built_in/echo.c built_in/export.c built_in/cd.c built_in/unset.c
+		built_in/env.c built_in/pwd.c built_in/echo.c #built_in/export.c built_in/cd.c built_in/unset.c
 
 OBJ = $(SRC:.c=.o)
 
