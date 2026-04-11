@@ -17,20 +17,17 @@ static void	print_env(t_env *ev, char *av)
 	av++;
 	while (ev)
 	{
-		if (!ft_strncmp(av, ev->key, ft_strlen(av)))
+		if (!ft_strncmp(av, ev->key, ft_strlen(av) + 1))
 		{
 			write(1, ev->value, ft_strlen(ev->value)); // maybe error check here too
 			break ;
 		}
 	}
-		ev = ev->next;
+	ev = ev->next;
+	(void) av;
 }
 
-<<<<<<< HEAD:project/built_in/echo.c
-static void	echo_print(char *av, t_env *ev)
-=======
-static int	echo_print(char *av, t_list *ev)
->>>>>>> built-in:built-in/echo.c
+static int	echo_print(char *av, t_env *ev)
 {
 	//char	*n_check;
 
@@ -39,28 +36,16 @@ static int	echo_print(char *av, t_list *ev)
 	{
 		if (*av == '$')
 		{
+			print_env(ev, av + 1);
 			av++;
-<<<<<<< HEAD:project/built_in/echo.c
-			print_env(ev, av);
-			return ;
-		}
-		else
-		{
-			write(1, av, ft_strlen(av));
-		}
-		// if (!ft_putchar_fd(av, 1)) // ??
-		// 	return (0);
-		// av++;  // ??
-		// return (1);
-=======
 			return (1);
 		}
 		if (!ft_putchar_fd(*av, 1))
 			return (0);
 		av++;
->>>>>>> built-in:built-in/echo.c
 	}
 	return (1);
+	(void) ev;
 	// if (ft_strnstr(n_check, "-n", 2))
 	// 	return ;
 }
@@ -97,24 +82,17 @@ static int	run_echo(char **av, t_env *ev)
 		echo_print(*av, ev);
 		if (!ft_putchar_fd(' ', 1))
 			return (0);
-<<<<<<< HEAD:project/built_in/echo.c
-=======
 		if (*(av + 1))
 		{
 
 			if (!ft_putchar_fd(' ', 1))
 				return (0);
 		}
->>>>>>> built-in:built-in/echo.c
 		av++;
 	}
 	if (new_line)
 	{
-<<<<<<< HEAD:project/built_in/echo.c
-		if (!ft_putchar_fd("\n", 1))
-=======
 		if (!ft_putchar_fd('\n', 1))
->>>>>>> built-in:built-in/echo.c
 			return (0);
 	}
 	return (1);
@@ -124,13 +102,8 @@ int	ft_echo(char **av, t_env *ev)
 {
 	if (!av[1])
 	{
-<<<<<<< HEAD:project/built_in/echo.c
-		if (!ft_putchar_fd("\n", 1)) // write(1, "\n", 1); write error dondurebilirmis
-			return (1)
-=======
 		if (!ft_putchar_fd('\n', 1))
 			return (1);
->>>>>>> built-in:built-in/echo.c
 		return (0);
 	}
 	av++;
