@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: byaprak <byaprak@student.42istanbul.com.tr>  #+#  +:+       +#+        */
+/*   By: byaprak <byaprak@student.42istanbul.com.tr>  #+#  +:+       +#+      */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026-03-23 22:13:56 by byaprak           #+#    #+#             */
 /*   Updated: 2026-03-23 22:13:56 by byaprak          ###   ########.fr       */
@@ -26,7 +26,11 @@ static void	print_env(t_env *ev, char *av)
 		ev = ev->next;
 }
 
+<<<<<<< HEAD:project/built_in/echo.c
 static void	echo_print(char *av, t_env *ev)
+=======
+static int	echo_print(char *av, t_list *ev)
+>>>>>>> built-in:built-in/echo.c
 {
 	//char	*n_check;
 
@@ -36,6 +40,7 @@ static void	echo_print(char *av, t_env *ev)
 		if (*av == '$')
 		{
 			av++;
+<<<<<<< HEAD:project/built_in/echo.c
 			print_env(ev, av);
 			return ;
 		}
@@ -47,15 +52,28 @@ static void	echo_print(char *av, t_env *ev)
 		// 	return (0);
 		// av++;  // ??
 		// return (1);
+=======
+			return (1);
+		}
+		if (!ft_putchar_fd(*av, 1))
+			return (0);
+		av++;
+>>>>>>> built-in:built-in/echo.c
 	}
+	return (1);
 	// if (ft_strnstr(n_check, "-n", 2))
 	// 	return ;
 }
+
 static int	is_print(char *str)
 {
+	if (!str)
+		return (1);
 	if (*str != '-')
 		return (1);
 	str++;
+	if (!(*str))
+		return (1);
 	while (*str)
 	{
 		if (*str != 'n')
@@ -79,11 +97,24 @@ static int	run_echo(char **av, t_env *ev)
 		echo_print(*av, ev);
 		if (!ft_putchar_fd(' ', 1))
 			return (0);
+<<<<<<< HEAD:project/built_in/echo.c
+=======
+		if (*(av + 1))
+		{
+
+			if (!ft_putchar_fd(' ', 1))
+				return (0);
+		}
+>>>>>>> built-in:built-in/echo.c
 		av++;
 	}
 	if (new_line)
 	{
+<<<<<<< HEAD:project/built_in/echo.c
 		if (!ft_putchar_fd("\n", 1))
+=======
+		if (!ft_putchar_fd('\n', 1))
+>>>>>>> built-in:built-in/echo.c
 			return (0);
 	}
 	return (1);
@@ -93,8 +124,13 @@ int	ft_echo(char **av, t_env *ev)
 {
 	if (!av[1])
 	{
+<<<<<<< HEAD:project/built_in/echo.c
 		if (!ft_putchar_fd("\n", 1)) // write(1, "\n", 1); write error dondurebilirmis
 			return (1)
+=======
+		if (!ft_putchar_fd('\n', 1))
+			return (1);
+>>>>>>> built-in:built-in/echo.c
 		return (0);
 	}
 	av++;
