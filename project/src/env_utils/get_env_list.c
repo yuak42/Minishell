@@ -20,11 +20,13 @@ t_env	*get_env_list(char **env)
 		if (head == NULL)
 		{
 			head = ev_node;
+			head->prev = NULL;
 			last = ev_node;
 		}
 		else
 		{
 			last->next = ev_node;
+			ev_node->prev = last;
 			last = last->next;
 		}
 		env++;

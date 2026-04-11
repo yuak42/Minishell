@@ -102,7 +102,7 @@ static int	is_valid(char **av)
 
 int	ft_export(char **av, t_env *env)
 {
-	if(!av[1] && ft_strlen(*av) == 6 && ft_strnstr(*av, "export", 6))
+	if(!av[1])
 	{
 		while (env)
 		{

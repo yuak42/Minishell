@@ -25,4 +25,5 @@ void	set_env_value(t_env *ev, char *key, char *value)
 	new_node->value = value;
 	new_node->next = NULL;
 	head->next = new_node;
+	new_node->prev = head;
 }

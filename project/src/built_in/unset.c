@@ -12,40 +12,35 @@
 
 #include "builtin.h"
 
-static t_list	*is_target(t_list *env, char *av)
+static t_env	*is_target(t_env *env, char *av)
 {
-	char	*str;
-
 	while (env)
 	{
-		str = ft_strnstr(env->content, av, ft_strlen(av));
-		if (str && (*(str + ft_strlen(av)) == '=' || *(str + ft_strlen(av)) == '\0'))
+		if (!ft_strncmp(env->key, av, ft_strlen(av) + 1))
+		{
 			return (env);
+		}
 		env = env->next;
 	}
 	return (NULL);
 }
 
-static void	break_node(t_list **head, t_list **node)
+static void	delete_node(t_env *node)
 {
-	t_list	*back;
-	t_list	*next;
-
-	back = (*node)->back;
-	next = (*node)->next;
-	(*node)->back = NULL;
-	(*node)->next = NULL;
-	if (back)
-		back->next = next;
+	if (node->prev)
+		node->prev->next = node->next;
 	else
-		*head = next;
-	if (next)
-		next->back = back;
+		node->next->prev = NULL;
+	if (node->next)
+		node->next->prev = node->prev;
+	else
+		node->prev->next = NULL;
+	free_env_node(node);
 }
 
-int	ft_unset(char **av, t_list **env)
+int	ft_unset(char **av, t_env **env)
 {
-	t_list	*node;
+	t_env	*node;
 
 	av++;
 	if (!*av)
@@ -54,10 +49,7 @@ int	ft_unset(char **av, t_list **env)
 	{
 		node = is_target(*env, *av);
 		if (node)
-		{
-			break_node(env, &node);
-			ft_lstdelone(node, free);
-		}
+			delete_node(node);
 		av++;
 	}
 	return (0);
@@ -65,4 +57,4 @@ int	ft_unset(char **av, t_list **env)
 }
 
 // unset 1=gdtt gibi bir durumda hata yzdıracak mı?
-// uset new durumunu kontrol et
+// unset new durumunu kontrol et
