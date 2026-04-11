@@ -83,3 +83,27 @@ int	ft_cd(char **av, t_env *env)
 }
 //env'de pwd ve old pwd update et.
 
+/* yuak notes
+
+1. Eğer CDPATH diye bir çevre değişken set edilmişse önce gideceği klasörü orada arıyor. -> buna evo page'de var mı bakalım
+
+Örnek olarak
+1.1 home klasöründeyken deneme diye bir klasör aç
+1.2 sonra Desktop içinde bir tane daha deneme klasörü aç
+1.3 home klasöründe olduğundan emin ol.
+1.4 "export CDPATH=Desktop" çalıştır.
+1.5 şimdi "cd deneme" çalıştır
+1.6 nereye gittiğini gözlemle, normalde direkt /home/deneme klasörüne gidecektin ama CDPATH ataması yaptığımız
+	için /home/Desktop/deneme yoluna gittin.
+
+2. "cd -" komutu $OLDPWD değişkenine götürecek
+
+
+3. If cd uses a non-empty directory name from CDPATH, or if ‘-’ is the first argu-
+ment, and the directory change is successful, cd writes the absolute pathname
+of the new working directory to the standard output.
+---->> Yani cd CDPATH kullanarak gittiyse veya - kullanarak gittiyse gittiği yerin
+tam adresini yazmalı
+örnek olarak "cd -" yazıp dene
+
+*/
