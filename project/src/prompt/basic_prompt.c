@@ -37,7 +37,7 @@ t_node	*parse(char *line)
 	node = (t_node *) malloc(sizeof(t_node));
 	if (!node)
 		return (NULL);
-	node->token = comm;
+	node->token = word;
 	node->args = ft_split(line, ' '); // free later after execution
 	node->stdin = 1;
 	node->stdout = 0;
