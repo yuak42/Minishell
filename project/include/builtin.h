@@ -4,6 +4,7 @@
 #include <stdio.h>
 #include "../libft/libft.h"
 #include "data_structures.h"
+#include "prompt.h"
 
 int		ft_echo(char **av, t_env *ev);
 int		ft_export(char **av, t_env *env);
