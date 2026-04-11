@@ -23,57 +23,40 @@
 // 	return (NULL);
 // }
 
-static int	get_home(t_list *env)
+static int	get_home(t_env *env)
 {
-	t_list	*node;
 	int		ex;
+	char	*value;
 
-	node = ft_getenv(env, "HOME");
-	if (node)
-	{
-		ex = chdir(node->content + 5);
-	}
+	value = get_env_value(env, "HOME");
+	if (value)
+		ex = chdir(value);
 	else
 	{
 		ex = -2;
-		ft_perror("-minishell: cd: %s not set\n", "HOME");
+		ft_perror("bash: cd: %s not set\n", "HOME"); // Niye boyle ??? normal perror boyle degil???
 	}
 	return (ex);
 }
 
-static void pwd_update(t_list *env)
+static void pwd_update(t_env *env)
 {
-	char	*content;
-	char	*pwd;
+	char	*new_pwd;
 
-	pwd = getcwd(NULL, 0);
-	if (!env || !pwd)
+	new_pwd = getcwd(NULL, 0); // dinamik zaten
+	if (!env || !new_pwd)
 		return ;
-	content = ft_strjoin("PWD=", pwd);
-	if (!content)
-	{
-		free(pwd);
-		return ;
-	}
-	free(env->content);
-	env->content = content;
-	free(pwd);
+	set_env_value(env, "PWD", new_pwd);
 }
 
-static void old_pwd_update(t_list *env, char *here)
+static void old_pwd_update(t_env *env, char *here)
 {
-	char	*content;
-
 	if (!env)
 		return ;
-	content = ft_strjoin("OLDPWD=", here);
-	if (!content)
-		return ;
-	free(env->content);
-	env->content = content;
+	set_env_value(env, "OLDPWD", here);
 }
 
-int	ft_cd(char **av, t_list *env)
+int	ft_cd(char **av, t_env *env)
 {
 	int		ex;
 	char	*here;
@@ -93,8 +76,8 @@ int	ft_cd(char **av, t_list *env)
 		free(here);
 		return (1);
 	}
-	pwd_update(ft_getenv(env, "PWD"));
-	old_pwd_update(ft_getenv(env, "OLDPWD"), here);
+	pwd_update(env);
+	old_pwd_update(env, here);
 	free(here);
 	return (0);
 }
