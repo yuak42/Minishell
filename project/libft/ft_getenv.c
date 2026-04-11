@@ -1,34 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pwd.c                                              :+:      :+:    :+:   */
+/*   ft_getenv.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: byaprak <byaprak@student.42istanbul.com.tr>  #+#  +:+       +#+      */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026-03-30 22:32:41 by byaprak           #+#    #+#             */
-/*   Updated: 2026-03-30 22:32:41 by byaprak          ###   ########.fr       */
+/*   Created: 2026-04-07 19:37:21 by byaprak           #+#    #+#             */
+/*   Updated: 2026-04-07 19:37:21 by byaprak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "builtin.h"
+#include "libft.h"
 
-int	ft_pwd(void)
+t_list	*ft_getenv(t_list *ev, char *av)
 {
-	char	*path;
+	char	*str;
+	char	*equals;
 
-	path = getcwd(NULL, 0);
-	if (!path)
+	while (ev)
 	{
-		perror("");
-		return (1);
+		str = ft_strnstr(ev->content, av, ft_strlen(av));
+		if (str)
+		{
+			equals = (str + ft_strlen(av));
+			if (!ft_strncmp(equals, "=", 1))
+				return (ev);
+		}
+		ev = ev->next;
 	}
-	if (printf("%s\n", path) < 0)
-	{
-		perror("");
-		free(path);
-		return (1);
-	}
-	free(path);
-	return (0);
+	return (NULL);
 }
-//get_pwd parametrelerini araştır

@@ -5,10 +5,17 @@
 #include "../libft/libft.h"
 #include "data_structures.h"
 
+<<<<<<< HEAD:project/include/builtin.h
 void	ft_echo(char **av, t_env *ev);
 void	ft_export(char **av, t_list *env);
 void	ft_env(t_env *ev);
 void	ft_pwd(void);
+=======
+int		ft_echo(char **av, t_list *ev);
+int		ft_export(char **av, t_list *env);
+int		ft_env(t_list *env);
+int		ft_pwd(void);
+>>>>>>> built-in:built-in/builtin.h
 int		ft_cd(char **av, t_list *env);
 int		ft_unset(char **av, t_list **env);
 
