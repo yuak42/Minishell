@@ -6,7 +6,7 @@
 #include "data_structures.h"
 
 int		ft_echo(char **av, t_env *ev);
-void	ft_export(char **av, t_list *env);
+int		ft_export(char **av, t_env *env);
 void	ft_env(t_env *ev);
 int		ft_pwd(void);
 int		ft_cd(char **av, t_env *env);

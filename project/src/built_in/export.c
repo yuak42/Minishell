@@ -32,13 +32,13 @@ static char	*get_variable(char *av)
 	return (variable);
 }
 
-static t_list	*is_variable(char *variable, t_list *node)
+static t_env	*is_variable(char *variable, t_env *node)
 {
 	char	*str;
 
 	while(node)
 	{
-		str = get_variable(node->content);
+		str = get_variable(node->value); // change done
 		if (ft_strnstr(str ,variable, ft_strlen(variable)))
 		{
 			free(str);
@@ -50,11 +50,11 @@ static t_list	*is_variable(char *variable, t_list *node)
 	return (NULL);
 }
 
-static void	run_export(char *av, t_list *env)
+static void	run_export(char *av, t_env *env)
 {
 	char	*variable;
-	t_list	*node;
-	t_list	*new;
+	t_env	*node;
+	// t_env	*new;
 
 	variable = get_variable(av);
 	if (!variable)
@@ -65,14 +65,14 @@ static void	run_export(char *av, t_list *env)
 	node = is_variable(variable, env);
 	if (node)
 	{
-		free(node->content);
-		node->content = ft_strdup(av);
+		//free(node->content);
+		//node->content = ft_strdup(av);
 	}
 	else
 	{
-		new = ft_lstnew(ft_strdup(av));
-		if (new)	
-			ft_lstadd_back(&env, new);
+		// new = ft_lstnew(ft_strdup(av));
+		// if (new)	
+		// 	ft_lstadd_back(&env, new);
 	}
 	free(variable);
 	}
@@ -100,13 +100,13 @@ static int	is_valid(char **av)
 	return (1);
 }
 
-int	ft_export(char **av, t_list *env)
+int	ft_export(char **av, t_env *env)
 {
 	if(!av[1] && ft_strlen(*av) == 6 && ft_strnstr(*av, "export", 6))
 	{
 		while (env)
 		{
-			if (printf("declare -x %s\n", (char *)env->content) < 0)
+			if (printf("declare -x %s=\"%s\"\n", env->key, env->value) < 0)
 			{
 				perror("");
 				return(1);
