@@ -13,6 +13,13 @@ SRC = prompt/basic_prompt.c main.c prompt/execute.c prompt/get_env_list.c \
 
 OBJ = $(SRC:.c=.o)
 
+# daha sonra silinecek
+include byaprak.mk
+SRC += $(BYPARAK_SRC)
+
+include yuak.mk
+SRC += $(YUAK_SRC)
+
 SRC_P = $(addprefix $(SRC_DIR)/, $(SRC))
 OBJ_P = $(addprefix $(OBJ_DIR)/, $(OBJ))
 
@@ -30,7 +37,8 @@ $(LIBFT):
 
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
 	mkdir -p $(dir $@)
-	$(CC) $(CFLAGS) -I$(INC_DIR) -c $< -o $@ 
+	$(CC) -g $(CFLAGS) -I$(INC_DIR) -c $< -o $@ 
+# -g flag'i daha sonra kaldır
 
 clean:
 	make -C $(LIBFT_DIR) clean
