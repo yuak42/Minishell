@@ -22,8 +22,8 @@ static void	print_env(t_env *ev, char *av)
 			write(1, ev->value, ft_strlen(ev->value)); // maybe error check here too
 			break ;
 		}
+		ev = ev->next;
 	}
-	ev = ev->next;
 	(void) av;
 }
 
@@ -36,8 +36,8 @@ static int	echo_print(char *av, t_env *ev)
 	{
 		if (*av == '$')
 		{
-			print_env(ev, av + 1);
 			av++;
+			print_env(ev, av);
 			return (1);
 		}
 		if (!ft_putchar_fd(*av, 1))
