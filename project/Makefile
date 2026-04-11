@@ -16,7 +16,7 @@ OBJ = $(SRC:.c=.o)
 
 # daha sonra silinecek
 include byaprak.mk
-SRC += $(BYPARAK_SRC)
+SRC += $(BYAPRAK_SRC)
 
 include yuak.mk
 SRC += $(YUAK_SRC)
