@@ -37,8 +37,8 @@ $(LIBFT):
 	make -C $(LIBFT_DIR)
 
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
-	mkdir -p $(dir $@)
-	$(CC) -g $(CFLAGS) -I$(INC_DIR) -c $< -o $@ 
+	@mkdir -p $(dir $@)
+	@$(CC) -g $(CFLAGS) -I$(INC_DIR) -c $< -o $@ 
 # -g flag'i daha sonra kaldır
 
 clean:
