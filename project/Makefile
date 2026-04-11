@@ -7,9 +7,10 @@ LIBFT_DIR = libft
 
 LIBFT = $(LIBFT_DIR)/libft.a
 
-SRC = prompt/basic_prompt.c main.c prompt/execute.c prompt/get_env_list.c \
-	built_in/env.c built_in/pwd.c built_in/echo.c built_in/get_env_value.c built_in/cd.c \
-	built_in/set_env_value.c built_in/export.c # built_in/unset.c
+SRC = prompt/basic_prompt.c main.c prompt/execute.c  \
+	built_in/env.c built_in/pwd.c built_in/echo.c  built_in/cd.c \
+	built_in/export.c built_in/unset.c \
+	env_utils/get_env_list.c env_utils/set_env_value.c env_utils/get_env_value.c env_utils/free_env_node.c
 
 OBJ = $(SRC:.c=.o)
 
