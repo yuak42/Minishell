@@ -1,1 +1,1 @@
-YUAK_SRC = 
+YUAK_SRC = token_utils/generate_tokens.c token_utils/print_tokens.c
