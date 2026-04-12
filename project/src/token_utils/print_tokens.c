@@ -6,9 +6,9 @@ void	print_tokens(t_token	*tokens)
 	{
 		if (tokens->type == token_word)
 		{
-			if (tokens->state == normal)
+			if (tokens->state == state_normal)
 				printf("[WORD: %s, NORMAL] ", tokens->value);
-			else if (tokens->state == quote_single)
+			else if (tokens->state == state_quote_single)
 				printf("[WORD: %s, SINGLE_QUOTE] ", tokens->value);
 			else
 				printf("[WORD: %s, DOUBLE_QUOTE] ", tokens->value);

@@ -11,9 +11,9 @@ typedef enum e_token_type {
 } t_token_type;
 
 typedef enum e_state {
-	normal,
-	quote_single,
-	quote_double
+	state_normal,
+	state_quote_single,
+	state_quote_double
 } t_state;
 
 typedef struct s_token {

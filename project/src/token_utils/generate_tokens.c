@@ -1,8 +1,8 @@
 #include "prompt.h"
 
-static void	decide_token_type(t_token *token, char *str);
 static t_token	*create_token(char *str, size_t start, size_t i, char state);
-static void	add_token_next(t_token **tokens, t_token *token);
+static int	normal(t_token **tokens, char *line, size_t *start, size_t *i);
+static int	quote(t_token **tokens, char *line, size_t *start, size_t *i, char q);
 
 t_token	*generate_tokens(char *line)
 {
@@ -19,59 +19,20 @@ t_token	*generate_tokens(char *line)
 
 		if (line[i] == ' ')
 		{
-			token = create_token(line, start, i, ' ');
-			while (line[i] == ' ' && line[i] != '\0')
-				i++;
-			i--;
-			start = i + 1;
-			add_token_next(&tokens, token);
+			if (normal(&tokens, line, &start, &i))
+				return (NULL); // free before what is malloced sonra
 		}
-		else if (line[i] == '"')
+		else if (line[i] == '"' || line[i] == '\'')
 		{
-			i++;
-			start++;
-			while (line[i] != '\0' && line[i] != '"')
-				i++;
-			if (line[i] == '"')
-				token = create_token(line, start, i, '"');
-			else
-				printf("syntax error!"); // free everything later
-			add_token_next(&tokens, token);
-			i++;
-			while (line[i] == ' ' && line[i] != '\0')
-				i++;
-			i--;
-			start = i + 1;
+			if (quote(&tokens, line, &start, &i, line[i]))
+				return (NULL); // free before
 		}
-		else if (line[i] == '\'')
-		{
-			i++;
-			start++;
-			while (line[i] != '\0' && line[i] != '\'')
-				i++;
-			if (line[i] == '\'')
-				token = create_token(line, start, i, '\'');
-			else
-				printf("syntax error!"); // free everything later
-			add_token_next(&tokens, token);
-			i++;
-			while (line[i] == ' ' && line[i] != '\0')
-				i++;
-			i--;
-			start = i + 1;
-		}
-
-
-
-		// if (!token)
-		// 	return (NULL); // should free later tokens
-
 		i++;
 	}
 	if (start != i)
 	{
 		token = create_token(line, start, i, ' ');
-		add_token_next(&tokens, token);
+		add_token_last(&tokens, token);
 	}
 	return (tokens);
 }
@@ -90,45 +51,52 @@ static t_token	*create_token(char *str, size_t start, size_t i, char state)
 		return (NULL); //free later token
 	token->value = value;
 	if (state == ' ')
-		token->state = normal;
+		token->state = state_normal;
 	else if (state == '\'')
-		token->state = quote_single;
+		token->state = state_quote_single;
 	else if (state == '"')
-		token->state = quote_double;
+		token->state = state_quote_double;
 	decide_token_type(token, value);
 	token->next = NULL;
 	return (token);
 }
 
-static void	decide_token_type(t_token *token, char *str)
+static int	normal(t_token **tokens, char *line, size_t *start, size_t *i)
 {
-	if (!ft_strncmp(str, "|", 2))
-		token->type = token_pipe;
-	else if (!ft_strncmp(str, ">", 2))
-		token->type = token_redir_out;
-	else if (!ft_strncmp(str, "<", 2))
-		token->type = token_redir_in;
-	else if (!ft_strncmp(str, ">>", 3))
-		token->type = token_redir_app;
-	else if (!ft_strncmp(str, "<<", 3))
-		token->type = token_here_doc;
-	else
-		token->type = token_word;
+	t_token	*token;
+
+	token = create_token(line, *start, *i, ' ');
+	if (!token)
+		return (1);
+	while (line[*i] == ' ' && line[*i] != '\0')
+		(*i)++;
+	(*i)--;
+	*start = *i + 1;
+	add_token_last(tokens, token);
+	return (0);
 }
 
-static void	add_token_next(t_token **tokens, t_token *token)
+static int	quote(t_token **tokens, char *line, size_t *start, size_t *i, char q)
 {
-	t_token	*tmp;
+	t_token *token;
 
-	tmp = *tokens;
-	if (!tmp)
-		*tokens = token;
-	else
+	(*i)++;
+	(*start)++;
+	while (line[*i] != '\0' && line[*i] != q)
+		(*i)++;
+	if (line[*i] == q)
 	{
-		while (tmp->next)
-			tmp = tmp->next;
-		tmp->next = token;
+		token = create_token(line, *start, *i, q);
+		if (!token)
+			return (1); // add free later
 	}
+	else
+		printf("syntax error!"); // free everything later print to stderr
+	add_token_last(tokens, token);
+	(*i)++;
+	while (line[*i] == ' ' && line[*i] != '\0')
+		(*i)++;
+	(*i)--;
+	*start = *i + 1;
+	return (0);
 }
-
-// This is not efficient, later maybe change

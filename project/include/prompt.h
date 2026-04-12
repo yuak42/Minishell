@@ -14,6 +14,9 @@ void	basic_prompt(t_env *ev);
 void	execute(t_node *node, t_env *ev);
 t_env	*get_env_list(char **env);
 t_token	*generate_tokens(char *line);
+void	add_token_last(t_token **tokens, t_token *token);
+void	decide_token_type(t_token *token, char *str);
+
 
 
 // To be deleted later
