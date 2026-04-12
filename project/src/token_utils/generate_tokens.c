@@ -43,6 +43,23 @@ t_token	*generate_tokens(char *line)
 			i--;
 			start = i + 1;
 		}
+		else if (line[i] == '\'')
+		{
+			i++;
+			start++;
+			while (line[i] != '\0' && line[i] != '\'')
+				i++;
+			if (line[i] == '\'')
+				token = create_token(line, start, i, '\'');
+			else
+				printf("syntax error!"); // free everything later
+			add_token_next(&tokens, token);
+			i++;
+			while (line[i] == ' ' && line[i] != '\0')
+				i++;
+			i--;
+			start = i + 1;
+		}
 
 
 
