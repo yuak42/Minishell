@@ -115,21 +115,22 @@ t_token	*lexer(char *line)
 	return (tokens);
 }
 
-char	*get_token_value(t_token *token, char **splitted)
-{
-	char	*value;
-	char	**tmp_splitted;
-	char	*tmp_str;
-	size_t	i;
-	size_t	j;
+// char	*get_token_value(t_token *token, char **splitted)
+// {
+// 	char	*value;
+// 	char	**tmp_splitted;
+// 	char	*tmp_str;
+// 	size_t	i;
+// 	size_t	j;
 
-	i = 0;
-	j = 0;
-	tmp_splitted = splitted;
-	if (*splitted[0] == '"')
-	{
-		token->quote = quote_double;
-		while ()
-	}
-}
+// 	i = 0;
+// 	j = 0;
+// 	tmp_splitted = splitted;
+// 	if (*splitted[0] == '"')
+// 	{
+// 		token->quote = quote_double;
+
+// 	}
+// 	return NULL
+// }
 // burada şunu yapmaya çalış -> echo "deneme | asks" ---> [WORD, "deneme | asks"]

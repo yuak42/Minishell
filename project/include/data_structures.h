@@ -14,7 +14,7 @@ typedef enum e_quote_type {
 	quote_none,
 	quote_single,
 	quote_double
-}
+} t_quote_type;
 
 typedef struct s_token {
 	t_token_type	type;
