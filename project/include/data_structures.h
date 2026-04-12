@@ -10,16 +10,16 @@ typedef enum e_token_type {
 	token_here_doc
 } t_token_type;
 
-typedef enum e_quote_type {
-	quote_none,
+typedef enum e_state {
+	normal,
 	quote_single,
 	quote_double
-} t_quote_type;
+} t_state;
 
 typedef struct s_token {
 	t_token_type	type;
 	char			*value;
-	t_quote_type	quote;
+	t_state			state;
 	struct s_token	*next;
 } t_token;
 
