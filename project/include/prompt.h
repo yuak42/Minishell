@@ -21,6 +21,9 @@ int		normal(t_token **tokens, char *line, size_t *s, size_t *i);
 int		quote(t_token **tokens, char *line, size_t *s, size_t *i, char q);
 int		get_token(t_token **tokens, char *line, size_t *s, size_t *i);
 void	expansion(t_token *tokens, t_env *ev);
+void	replace(char **str, char *var_name, t_env *ev);
+void	change_invalid_identifier(char **str);
+void	change_to_none(char **str, char *var_name);
 
 
 // To be deleted later
