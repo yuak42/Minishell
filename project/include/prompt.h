@@ -10,7 +10,7 @@
 #include "../libft/libft.h"
 #include "builtin.h"
 
-void	basic_prompt(t_env *ev);
+void	basic_prompt(t_shell *shell);
 void	execute(t_node *node, t_env *ev);
 t_env	*get_env_list(char **env);
 t_token	*generate_tokens(char *line);
@@ -20,10 +20,11 @@ t_token	*create_token(char *str, size_t s, size_t i, char state);
 int		normal(t_token **tokens, char *line, size_t *s, size_t *i);
 int		quote(t_token **tokens, char *line, size_t *s, size_t *i, char q);
 int		get_token(t_token **tokens, char *line, size_t *s, size_t *i);
-void	expansion(t_token *tokens, t_env *ev);
+void	expansion(t_token *tokens, t_shell *shell);
 void	replace(char **str, char *var_name, t_env *ev);
 void	change_invalid_identifier(char **str);
 void	change_to_none(char **str, char *var_name);
+void	change_to_exit_status(char **str, int exit_status);
 
 
 // To be deleted later

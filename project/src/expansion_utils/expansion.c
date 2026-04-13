@@ -1,8 +1,8 @@
 #include "prompt.h"
 
-static void	expand(char **str, size_t i, t_env *ev);
+static void	expand(char **str, size_t i, t_shell *shell);
 
-void	expansion(t_token *tokens, t_env *ev)
+void	expansion(t_token *tokens, t_shell *shell)
 {
 	size_t	i;
 
@@ -18,28 +18,28 @@ void	expansion(t_token *tokens, t_env *ev)
 			if (tokens->value[i] == '\0')
 				tokens = tokens->next;
 			else
-				expand(&tokens->value, i, ev);
+				expand(&tokens->value, i, shell);
 		}
 	}
 }
 
-static void	expand(char **str, size_t i, t_env *ev)
+static void	expand(char **str, size_t i, t_shell *shell)
 {
 	size_t	j;
 	char	*var_name;
 
 	i++;
-	// if ((*str)[i] == '?')
-	// 	change_to_exit_status(str); else ekle aşağıya
-	if (!(ft_isalpha((*str)[i]) || (*str)[i] == '_'))
-		change_invalid_identifier(str); // burada ? mi kontrol etmeliyiz sonra
+	if ((*str)[i] == '?')
+		change_to_exit_status(str, shell->exit_status);
+	else if (!(ft_isalpha((*str)[i]) || (*str)[i] == '_'))
+		change_invalid_identifier(str);
 	else
 	{
 		j = i;
 		while (ft_isalpha((*str)[i]) || ft_isdigit((*str)[i]) || (*str)[i] == '_')
 			i++;
 		var_name = ft_substr(*str, j, i - j);
-		replace(str, var_name, ev);
+		replace(str, var_name, shell->ev);
 		free(var_name);
 	}
 }

@@ -2,10 +2,14 @@
 
 int	main(int ac, char **av, char **env)
 {
-	t_env	*ev;
+	t_shell	*shell;
 	(void) ac;
 	(void) av;
-	ev = get_env_list(env);
-	basic_prompt(ev);
+	shell = (t_shell *) malloc(sizeof(t_shell));
+	if (!shell)
+		return (1);
+	shell->ev = get_env_list(env);
+	shell->exit_status = 0;
+	basic_prompt(shell);
 	return 0;
 }
