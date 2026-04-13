@@ -29,6 +29,8 @@ static void	expand(char **str, size_t i, t_env *ev)
 	char	*var_name;
 
 	i++;
+	// if ((*str)[i] == '?')
+	// 	change_to_exit_status(str); else ekle aşağıya
 	if (!(ft_isalpha((*str)[i]) || (*str)[i] == '_'))
 		change_invalid_identifier(str); // burada ? mi kontrol etmeliyiz sonra
 	else
