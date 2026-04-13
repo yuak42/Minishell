@@ -2,6 +2,8 @@
 
 static void	replace(char **str, char *var_name, t_env *ev);
 static void	expand(char **str, size_t i, t_env *ev);
+static void	change_invalid_identifier(char **str);
+static void	change_to_none(char **str, char *var_name);
 
 void	expansion(t_token *tokens, t_env *ev)
 {
@@ -9,13 +11,18 @@ void	expansion(t_token *tokens, t_env *ev)
 
 	while (tokens)
 	{
-		i = 0;
-		while (tokens->value[i] && tokens->value[i] != '$')
-			i++;
-		if (tokens->value[i] == '\0')
+		if (tokens->state == state_quote_single)
 			tokens = tokens->next;
 		else
-			expand(&tokens->value, i, ev);
+		{
+			i = 0;
+			while (tokens->value[i] && tokens->value[i] != '$')
+				i++;
+			if (tokens->value[i] == '\0')
+				tokens = tokens->next;
+			else
+				expand(&tokens->value, i, ev);
+		}
 	}
 }
 
@@ -26,7 +33,7 @@ static void	expand(char **str, size_t i, t_env *ev)
 
 	i++;
 	if (!(ft_isalpha((*str)[i]) || (*str)[i] == '_'))
-		return ;// change_none(str, i);
+		change_invalid_identifier(str); // burada ? mi kontrol etmeliyiz sonra
 	else
 	{
 		j = i;
@@ -51,7 +58,7 @@ static void	replace(char **str, char *var_name, t_env *ev)
 	{
 		if (!(ft_strncmp(var_name, ev->key, sbt + 1)))
 		{
-			new_value = (char *) malloc(sizeof(char) * (ft_strlen(*str) - sbt + ft_strlen(ev->value) + 1));
+			new_value = (char *) ft_calloc((ft_strlen(*str) - sbt + ft_strlen(ev->value) + 1), sizeof(char));
 			// if (!new_value) TODO later
 			// 	return ;
 			while ((*str)[i] != '$')
@@ -84,5 +91,63 @@ static void	replace(char **str, char *var_name, t_env *ev)
 		ev = ev->next;
 	}
 	// expansion bulunamadı ne yapılacak
-	change_none()
+	change_to_none(str, var_name);
+}
+
+static void	change_invalid_identifier(char **str)
+{
+	char	*new_value;
+	size_t	i;
+	size_t	j;
+
+	new_value = (char *) ft_calloc(ft_strlen(*str) - 1, sizeof(char));
+	// if (!new_value) TODO later
+	// 	return ;
+	i = 0;
+	while ((*str)[i] != '$')
+	{
+		new_value[i] = (*str)[i];
+		i++;
+	}
+	j = i + 2;
+	while ((*str)[j])
+	{
+		new_value[i] = (*str)[j];
+		i++;
+		j++;
+	}
+	free(*str);
+	*str = new_value;
+}
+
+static void	change_to_none(char **str, char *var_name)
+{
+	char	*new_value;
+	size_t	i;
+	size_t	j;
+
+	i = 0;
+	new_value = (char *) ft_calloc(sizeof(char), ft_strlen(*str) - ft_strlen(var_name));
+	// if (!new_value) // deal later
+	// 	return ;
+	while ((*str)[i] != '$')
+	{
+		new_value[i] = (*str)[i];
+		i++;
+	}
+	j = i;
+	i++;
+	while (*var_name)
+	{
+		var_name++;
+		i++;
+	}
+	while ((*str)[i])
+	{
+		new_value[j] = (*str)[i];
+		j++;
+		i++;
+	}
+	free(*str);
+	*str = new_value;
 }
