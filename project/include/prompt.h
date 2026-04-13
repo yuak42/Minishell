@@ -20,6 +20,7 @@ t_token	*create_token(char *str, size_t s, size_t i, char state);
 int		normal(t_token **tokens, char *line, size_t *s, size_t *i);
 int		quote(t_token **tokens, char *line, size_t *s, size_t *i, char q);
 int		get_token(t_token **tokens, char *line, size_t *s, size_t *i);
+void	expansion(t_token *tokens, t_env *ev);
 
 
 // To be deleted later

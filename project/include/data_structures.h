@@ -23,6 +23,8 @@ typedef struct s_token {
 	struct s_token	*next;
 } t_token;
 
+
+// will be deleted
 typedef struct s_node {
 	t_token 		token;
 	struct s_node	*left;
