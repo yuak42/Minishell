@@ -34,12 +34,17 @@ typedef struct s_node {
 	char			**args;
 } t_node;
 
-typedef struct s_env{
+typedef struct s_env {
 	char			*key;
 	char			*value;
 	struct s_env	*next;
 	struct s_env	*prev;
 } t_env;
+
+typedef struct s_shell {
+	t_env	*ev;
+	int		exit_status;
+} t_shell;
 
 
 #endif
