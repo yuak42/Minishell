@@ -15,7 +15,7 @@ t_token	*generate_tokens(char *line)
 		if (line[i] == ' ' || line[i] == '"' || line[i] == '\'')
 		{
 			if (get_token(&tokens, line, &start, &i))
-				return (NULL);
+				return (NULL); // free_tokens() eklenecek
 		}
 		i++;
 	}
