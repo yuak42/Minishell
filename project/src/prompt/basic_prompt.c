@@ -14,8 +14,8 @@ void	basic_prompt(t_env *ev)
 		// run(line, ev);
 		tokens = generate_tokens(line);
 		print_tokens(tokens);
-		// expansion(tokens, ev);
-		// print_tokens(tokens);
+		expansion(tokens, ev);
+		print_tokens(tokens);
 		// execute(tokens, ev); to do later
 		// free_token(tokens); to do later
 		free(line);
