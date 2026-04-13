@@ -34,7 +34,7 @@ int	get_token(t_token **tokens, char *line, size_t *s, size_t *i)
 	else
 	{
 		if (quote(tokens, line, s, i, line[*i]))
-			return (1); // free before
+			return (1);
 	}
 	return (0);
 }
@@ -66,10 +66,13 @@ int	quote(t_token **tokens, char *line, size_t *s, size_t *i, char q)
 	{
 		token = create_token(line, *s, *i, q);
 		if (!token)
-			return (1); // add free later
+			return (1);
 	}
 	else
-		printf("syntax error!"); // free everything later print to stderr
+	{
+		ft_perror("syntax error!%s\n", "");
+		return (1);
+	}
 	add_token_last(tokens, token);
 	(*i)++;
 	while (line[*i] == ' ' && line[*i] != '\0')
