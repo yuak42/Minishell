@@ -26,16 +26,26 @@ void	change_invalid_identifier(char **str)
 	*str = new_value;
 }
 
+static void	fill(char **str, char *var_name, char *new_value);
+
 void	change_to_none(char **str, char *var_name)
 {
 	char	*new_value;
+
+	new_value = (char *) ft_calloc(sizeof(char), ft_strlen(*str) - ft_strlen(var_name));
+	// if (!new_value) // deal later
+	// 	return ;
+	fill(str, var_name, new_value);
+	free(*str);
+	*str = new_value;
+}
+
+static void	fill(char **str, char *var_name, char *new_value)
+{
 	size_t	i;
 	size_t	j;
 
 	i = 0;
-	new_value = (char *) ft_calloc(sizeof(char), ft_strlen(*str) - ft_strlen(var_name));
-	// if (!new_value) // deal later
-	// 	return ;
 	while ((*str)[i] != '$')
 	{
 		new_value[i] = (*str)[i];
@@ -54,8 +64,6 @@ void	change_to_none(char **str, char *var_name)
 		j++;
 		i++;
 	}
-	free(*str);
-	*str = new_value;
 }
 
 // void	change_to_exit_status(char **str)
