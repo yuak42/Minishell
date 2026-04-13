@@ -57,3 +57,10 @@ void	change_to_none(char **str, char *var_name)
 	free(*str);
 	*str = new_value;
 }
+
+// void	change_to_exit_status(char **str)
+// {
+
+
+
+// }
