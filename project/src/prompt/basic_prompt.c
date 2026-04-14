@@ -24,8 +24,7 @@ void	basic_prompt(t_shell *shell)
 			continue ;
 		}
 		print_tokens(tokens);
-		// execute(tokens, ev); to do later
-		// free_token(tokens); to do later
+		// execute(tokens, shell); to do later
 		free(line);
 		free_tokens(tokens);
 		line = readline("$ ");
