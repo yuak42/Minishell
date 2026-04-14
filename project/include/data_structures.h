@@ -24,13 +24,12 @@ typedef struct s_token {
 } t_token;
 
 
-// will be deleted
+// open node type
 typedef struct s_node {
-	t_token 		token;
-	struct s_node	*left;
-	struct s_node	*right;
+	// t_node_type	type;
 	int				stdin;
 	int				stdout;
+	struct s_node	*next;
 	char			**args;
 } t_node;
 

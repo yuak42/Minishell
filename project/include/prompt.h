@@ -11,9 +11,11 @@
 #include "builtin.h"
 
 void	basic_prompt(t_shell *shell);
-void	execute(t_node *node, t_env *ev);
 t_env	*get_env_list(char **env);
 void	free_ev(t_env *ev);
+char	*get_env_value(t_env *ev, char *key);
+void	set_env_value(t_env *ev, char *key, char *value);
+void	free_env_node(t_env *node);
 t_token	*generate_tokens(char *line);
 void	add_token_last(t_token **tokens, t_token *token);
 void	decide_token_type(t_token *token, char *str);
