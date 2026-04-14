@@ -15,13 +15,15 @@ t_token	*generate_tokens(char *line)
 		if (line[i] == ' ' || line[i] == '"' || line[i] == '\'')
 		{
 			if (get_token(&tokens, line, &start, &i))
-				return (NULL); // free_tokens() eklenecek
+				return (free_tokens(tokens), NULL); // free_tokens() eklenecek
 		}
 		i++;
 	}
 	if (start != i)
 	{
 		token = create_token(line, start, i, ' ');
+		if (!token)
+			return (free_tokens(tokens), NULL);
 		add_token_last(&tokens, token);
 	}
 	return (tokens);

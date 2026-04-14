@@ -11,5 +11,8 @@ int	main(int ac, char **av, char **env)
 	shell->ev = get_env_list(env);
 	shell->exit_status = 0;
 	basic_prompt(shell);
+
+	free_ev(shell->ev);
+	free(shell);
 	return 0;
 }
