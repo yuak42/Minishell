@@ -2,7 +2,7 @@
 
 static void	expand(char **str, size_t i, t_shell *shell);
 
-void	expansion(t_token *tokens, t_shell *shell)
+int	expansion(t_token *tokens, t_shell *shell)
 {
 	size_t	i;
 
@@ -18,9 +18,15 @@ void	expansion(t_token *tokens, t_shell *shell)
 			if (tokens->value[i] == '\0')
 				tokens = tokens->next;
 			else
+			{
 				expand(&tokens->value, i, shell);
+				if (!tokens->value)
+					return (1);
+			}
+
 		}
 	}
+	return (0);
 }
 
 static void	expand(char **str, size_t i, t_shell *shell)

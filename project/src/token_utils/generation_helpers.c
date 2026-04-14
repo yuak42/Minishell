@@ -9,9 +9,8 @@ t_token	*create_token(char *str, size_t s, size_t i, char state)
 	if (!token)
 		return (NULL);
 	value = ft_substr(str, s, i - s);
-	// printf("substr -> %s\n", value);
 	if (!value)
-		return (NULL); //free later token
+		return (free(token), NULL); //free later token
 	token->value = value;
 	if (state == ' ')
 		token->state = state_normal;
@@ -29,7 +28,7 @@ int	get_token(t_token **tokens, char *line, size_t *s, size_t *i)
 	if (line[*i] == ' ')
 	{
 		if (normal(tokens, line, s, i))
-			return (1); // free before what is malloced sonra
+			return (1);
 	}
 	else
 	{

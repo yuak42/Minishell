@@ -1,8 +1,5 @@
 #include "prompt.h"
 
-// void	run(char *line, t_env *ev);
-// t_node	*parse(char *line);
-
 void	basic_prompt(t_shell *shell)
 {
 	char	*line;
@@ -11,14 +8,26 @@ void	basic_prompt(t_shell *shell)
 	line = readline("$ ");
 	while (line)
 	{
-		// run(line, ev);
 		tokens = generate_tokens(line);
+		if (!tokens)
+		{
+			perror("minishell");
+			shell->exit_status = 1;
+			continue ;
+		}
 		print_tokens(tokens);
-		expansion(tokens, shell);
+		if (expansion(tokens, shell))
+		{
+			perror("minishell");
+			free_tokens(tokens);
+			shell->exit_status = 1;
+			continue ;
+		}
 		print_tokens(tokens);
 		// execute(tokens, ev); to do later
 		// free_token(tokens); to do later
 		free(line);
+		free_tokens(tokens);
 		line = readline("$ ");
 	}
 }
