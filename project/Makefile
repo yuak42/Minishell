@@ -35,6 +35,7 @@ $(NAME): $(LIBFT) $(OBJ_P)
 
 $(LIBFT):
 	make -C $(LIBFT_DIR)
+	make -C $(LIBFT_DIR) bonus
 
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
 	@mkdir -p $(dir $@)
@@ -50,5 +51,7 @@ fclean: clean
 	rm -f $(LIBFT)
 
 re: fclean all
+
+
 
 .PHONY: all clean fclean re
