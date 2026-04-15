@@ -17,7 +17,7 @@ void	basic_prompt(t_shell *shell)
 			line = readline("$ ");
 			continue ;
 		}
-		print_tokens(tokens);
+		// print_tokens(tokens);
 		if (expansion(tokens, shell))
 		{
 			perror("minishell");
@@ -27,7 +27,7 @@ void	basic_prompt(t_shell *shell)
 			line = readline("$ ");
 			continue ;
 		}
-		print_tokens(tokens);
+		// print_tokens(tokens);
 		nodes = create_nodes(tokens);
 		print_nodes(nodes);
 		// execute(tokens, shell);

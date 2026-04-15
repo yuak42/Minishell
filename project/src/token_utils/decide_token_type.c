@@ -11,7 +11,7 @@ void	decide_token_type(t_token *token, char *str)
 	else if (!ft_strncmp(str, ">>", 3))
 		token->type = token_redir_app;
 	else if (!ft_strncmp(str, "<<", 3))
-		token->type = token_here_doc;
+		token->type = token_heredoc;
 	else
 		token->type = token_word;
 }

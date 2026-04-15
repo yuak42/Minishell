@@ -13,23 +13,22 @@ t_node	*create_nodes(t_token *tokens)
 	t_node	*node;
 
 	head = NULL;
-	printf("was here\n");
 	while (tokens)
 	{
 		node = create_node(tokens);
 		if (!node)
 			return (free_nodes(head), NULL);
-		printf("(1)\n");
+		// printf("(1)\n");
 		add_last_node(&head, node);
-		printf("(2)\n");
+		// printf("(2)\n");
 		get_token_end(&tokens);
 		if (!tokens)
 			break ;
 		if (tokens->type == token_pipe)
 			node->pipe_out = 1;
-		printf("(3)\n");
+		// printf("(3)\n");
 	}
-	printf("create_nodes end\n");
+	// printf("create_nodes end\n");
 	return (head);
 }
 

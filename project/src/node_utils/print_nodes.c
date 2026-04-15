@@ -5,7 +5,7 @@ void	print_nodes(t_node *nodes)
 	char	**argv;
 	int		i = 0;
 
-	printf("print_nodes start\n");
+	// printf("print_nodes start\n");
 	while (nodes)
 	{
 		argv = nodes->argv;
@@ -37,5 +37,5 @@ void	print_nodes(t_node *nodes)
 		i++;
 		nodes = nodes->next;
 	}
-	printf("print_nodes end\n");
+	// printf("print_nodes end\n");
 }
