@@ -1,18 +1,20 @@
 #include "prompt.h"
 
-static void	replace_value(char **str, char *value, size_t new_len);
-static void	fill(char **str, char *value,  char *new_value);
+static void	replace_value(char **str, size_t var_len, char *value, size_t new_len);
+static void	fill(char **str, size_t var_len, char *value,  char *new_value);
 
 void	replace(char **str, char *var_name, t_env *ev)
 {
 	size_t	len;
+	size_t	var_len;
 	
-	len = ft_strlen(*str) - ft_strlen(var_name) + ft_strlen(ev->value) + 1;
+	var_len = ft_strlen(var_name);
+	len = ft_strlen(*str) - var_len + ft_strlen(ev->value);
 	while (ev)
 	{
-		if (!(ft_strncmp(var_name, ev->key, ft_strlen(var_name) + 1)))
+		if (!(ft_strncmp(var_name, ev->key, var_len + 1)))
 		{
-			replace_value(str, ev->value, len);
+			replace_value(str, var_len, ev->value, len);
 			return ; // NULL mu diye disarda kontrol
 		}
 		ev = ev->next;
@@ -21,7 +23,7 @@ void	replace(char **str, char *var_name, t_env *ev)
 	change_to_none(str, var_name);
 }
 
-static void	replace_value(char **str, char *value, size_t new_len)
+static void	replace_value(char **str, size_t var_len, char *value, size_t new_len)
 {
 	char	*new_value;
 
@@ -32,12 +34,12 @@ static void	replace_value(char **str, char *value, size_t new_len)
 		*str = NULL;
 		return ;
 	}
-	fill(str, value, new_value);
+	fill(str, var_len, value, new_value);
 	free(*str);
 	*str = new_value;
 }
 
-static void	fill(char **str, char *value, char *new_value)
+static void	fill(char **str, size_t var_len, char *value, char *new_value)
 {
 	size_t	i;
 	size_t	j;
@@ -55,7 +57,7 @@ static void	fill(char **str, char *value, char *new_value)
 		new_value[i] = value[i];
 		i++;
 	}
-	j++;
+	j += var_len + 1;
 	while ((*str)[j])
 	{
 		new_value[i] = (*str)[j];
