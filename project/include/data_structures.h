@@ -7,7 +7,7 @@ typedef enum e_token_type {
 	token_redir_in,
 	token_redir_out,
 	token_redir_app,
-	token_here_doc
+	token_heredoc
 } t_token_type;
 
 typedef enum e_state {
