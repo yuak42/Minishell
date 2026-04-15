@@ -21,8 +21,8 @@ void	print_tokens(t_token	*tokens)
 			printf("[REDIR_OUT: %s] ", tokens->value);
 		else if (tokens->type == token_redir_app)
 			printf("[REDIR_APP: %s] ", tokens->value);
-		else if (tokens->type == token_here_doc)
-			printf("[REDIR_HERE_DOC: %s] ", tokens->value);
+		else if (tokens->type == token_heredoc)
+			printf("[REDIR_HEREDOC: %s] ", tokens->value);
 		tokens = tokens->next;
 	}
 	printf("\n");
