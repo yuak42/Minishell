@@ -13,6 +13,7 @@ void	basic_prompt(t_shell *shell)
 		if (!tokens)
 		{
 			shell->exit_status = 1;
+			free(line);
 			line = readline("$ ");
 			continue ;
 		}
@@ -22,6 +23,7 @@ void	basic_prompt(t_shell *shell)
 			perror("minishell");
 			free_tokens(tokens);
 			shell->exit_status = 1;
+			free(line);
 			line = readline("$ ");
 			continue ;
 		}

@@ -1,9 +1,10 @@
 #include "prompt.h"
 
-void	fill_args(char **args, t_token *tokens);
+void	fill_args(char **argv, t_token *tokens);
 size_t	get_args_len(t_token *tokens);
 t_node	*create_node(t_token *tokens);
 void	get_token_end(t_token **tokens);
+char	*get_infile(t_token *tokens);
 
 t_node	*create_nodes(t_token *tokens)
 {
@@ -42,6 +43,12 @@ t_node	*create_node(t_token *tokens)
 		return (free(node), NULL);
 	fill_args(argv, tokens);
 	node->argv = argv;
+	node->infile = get_infile(tokens);
+	node->outfile = NULL;
+	node->append = 0;
+	node->heredoc = 0;
+	node->pipe_in = 0;
+	node->pipe_out = 0;
 	node->next = NULL;
 	return (node);
 }
@@ -51,7 +58,7 @@ size_t	get_args_len(t_token *tokens)
 	size_t	l;
 
 	l = 0;
-	while (tokens)
+	while (tokens && tokens->type == token_word)
 	{
 		tokens = tokens->next;
 		l++;
@@ -59,22 +66,35 @@ size_t	get_args_len(t_token *tokens)
 	return (l);
 }
 
-void	fill_args(char **args, t_token *tokens)
+void	fill_args(char **argv, t_token *tokens)
 {
 	size_t	i;
 
 	i = 0;
-	while (tokens)
+	while (tokens && tokens->type == token_word)
 	{
-		args[i] = tokens->value;
+		argv[i] = tokens->value;
 		i++;
 		tokens = tokens->next;
 	}
-	args[i] = NULL;
+	argv[i] = NULL;
 }
 
 void	get_token_end(t_token **tokens)
 {
 	while (*tokens)
 		*tokens = (*tokens)->next;
+}
+
+char	*get_infile(t_token *tokens)
+{
+	while (tokens && tokens->type == token_word)
+	{
+		tokens = tokens->next;
+	}
+	if (!tokens)
+		return (NULL);
+	if (tokens->type == token_redir_in)
+		return (tokens->next->value);
+	return (NULL);
 }
