@@ -4,7 +4,7 @@ void	basic_prompt(t_shell *shell)
 {
 	char	*line;
 	t_token	*tokens;
-	// t_node	*nodes;
+	t_node	*nodes;
 
 	line = readline("$ ");
 	while (line)
@@ -26,7 +26,8 @@ void	basic_prompt(t_shell *shell)
 			continue ;
 		}
 		print_tokens(tokens);
-		// nodes = create_nodes(tokens);
+		nodes = create_nodes(tokens);
+		print_nodes(nodes);
 		// execute(tokens, shell);
 		free(line);
 		shell->exit_status = 0;

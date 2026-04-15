@@ -25,13 +25,30 @@ typedef struct s_token {
 
 
 // open node type
-typedef struct s_node {
-	// t_node_type	type;
-	int				stdin;
-	int				stdout;
-	struct s_node	*next;
-	char			**args;
-} t_node;
+// typedef struct s_node {
+// 	// t_node_type	type;
+// 	int				stdin;
+// 	int				stdout;
+// 	struct s_node	*next;
+// 	char			**args;
+// } t_node;
+
+typedef struct s_node
+{
+    char            **argv;     // komut + argümanlar (execve için)
+    
+    char            *infile;    // <
+    char            *outfile;   // > veya >>
+    int             append;     // 1 ise >>, 0 ise >
+    int             heredoc;    // << varsa 1
+
+    int             pipe_in;    // önceki pipeden input alıyor mu
+    int             pipe_out;   // sonraki pipe'a output veriyor mu
+
+    struct s_node   *next;
+}   t_node;
+
+
 
 typedef struct s_env {
 	char			*key;
