@@ -29,7 +29,10 @@ void	replace(char **str, char *var_name, t_env *ev);
 void	change_invalid_identifier(char **str);
 void	change_to_none(char **str, char *var_name);
 void	change_to_exit_status(char **str, int exit_status);
-
+void	print_nodes(t_node *nodes);
+t_node	*create_nodes(t_token *tokens);
+void	free_nodes(t_node *nodes);
+void	add_last_node(t_node **head, t_node *node);
 
 // To be deleted later
 void	print_tokens(t_token	*tokens);
