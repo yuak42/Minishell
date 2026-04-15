@@ -4,6 +4,7 @@ void	basic_prompt(t_shell *shell)
 {
 	char	*line;
 	t_token	*tokens;
+	// t_node	*nodes;
 
 	line = readline("$ ");
 	while (line)
@@ -11,8 +12,8 @@ void	basic_prompt(t_shell *shell)
 		tokens = generate_tokens(line);
 		if (!tokens)
 		{
-			perror("minishell");
 			shell->exit_status = 1;
+			line = readline("$ ");
 			continue ;
 		}
 		print_tokens(tokens);
@@ -21,12 +22,15 @@ void	basic_prompt(t_shell *shell)
 			perror("minishell");
 			free_tokens(tokens);
 			shell->exit_status = 1;
+			line = readline("$ ");
 			continue ;
 		}
 		print_tokens(tokens);
-		execute(tokens, shell);
+		// nodes = create_nodes(tokens);
+		// execute(tokens, shell);
 		free(line);
-		free_tokens(tokens);
+		shell->exit_status = 0;
 		line = readline("$ ");
+		free_tokens(tokens);
 	}
 }
