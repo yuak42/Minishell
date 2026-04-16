@@ -45,6 +45,12 @@ static void	expand(char **str, size_t i, t_shell *shell)
 		while (ft_isalpha((*str)[i]) || ft_isdigit((*str)[i]) || (*str)[i] == '_')
 			i++;
 		var_name = ft_substr(*str, j, i - j);
+		if (!var_name)
+		{
+			free(*str);
+			*str = NULL;
+			return ;
+		}
 		replace(str, var_name, shell->ev);
 		free(var_name);
 	}
