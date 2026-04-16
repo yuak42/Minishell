@@ -9,17 +9,16 @@ void	replace(char **str, char *var_name, t_env *ev)
 	size_t	var_len;
 	
 	var_len = ft_strlen(var_name);
-	len = ft_strlen(*str) - var_len + ft_strlen(ev->value);
 	while (ev)
 	{
 		if (!(ft_strncmp(var_name, ev->key, var_len + 1)))
 		{
+			len = ft_strlen(*str) - var_len + ft_strlen(ev->value);
 			replace_value(str, var_len, ev->value, len);
-			return ; // NULL mu diye disarda kontrol
+			return ;
 		}
 		ev = ev->next;
 	}
-	// expansion bulunamadı ne yapılacak
 	change_to_none(str, var_name);
 }
 
