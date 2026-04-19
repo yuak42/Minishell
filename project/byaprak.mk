@@ -1,1 +1,1 @@
-BYAPRAK_SRC = 
+BYAPRAK_SRC = deneme.c
