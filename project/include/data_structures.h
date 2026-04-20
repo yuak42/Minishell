@@ -23,16 +23,6 @@ typedef struct s_token {
 	struct s_token	*next;
 } t_token;
 
-
-// open node type
-// typedef struct s_node {
-// 	// t_node_type	type;
-// 	int				stdin;
-// 	int				stdout;
-// 	struct s_node	*next;
-// 	char			**args;
-// } t_node;
-
 typedef struct s_node
 {
     char            **argv;     // komut + argümanlar (execve için)
