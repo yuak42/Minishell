@@ -13,7 +13,7 @@ void	print_nodes(t_node *nodes)
 		printf("argv = [");
 		while (*argv)
 		{
-			printf("%s ", *argv);
+			printf("\"%s\", ", *argv); // later to be make better
 			argv++;
 		}
 		printf("]\n");
