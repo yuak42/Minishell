@@ -12,6 +12,8 @@ t_node	*create_nodes(t_token *tokens)
 	head = NULL;
 	while (tokens)
 	{
+		if (tokens->type == token_pipe)
+			node->pipe_in = 1;
 		node = get_node(&tokens);
 		if (!node)
 			return (free_nodes(head), NULL);
@@ -27,6 +29,11 @@ t_node	*get_node(t_token **tokens)
 	node = (t_node *) ft_calloc(1, sizeof(t_node));
 	if (!node)
 		return (NULL);
+	if ((*tokens)->type == token_pipe)
+	{
+		node->pipe_out = 1;
+		*tokens = (*tokens)->next;
+	}
 	while (*tokens && (*tokens)->type != token_pipe)
 	{
 		if ((*tokens)->type == token_word)
@@ -46,9 +53,10 @@ t_node	*get_node(t_token **tokens)
 
 void	handle_op(t_token **tokens, t_node *node)
 {
-	if ((*tokens)->next->type != token_word)
+	if (!(*tokens)->next || (*tokens)->next->type != token_word) // check syntax error later
 	{
 		free_nodes(node);
+		*tokens = (*tokens)->next;
 		node = NULL;
 		printf("syntax error!\n"); // later add a print_error function
 		return ;
