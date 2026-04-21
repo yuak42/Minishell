@@ -24,21 +24,22 @@ t_node	*get_node(t_token **tokens)
 {
 	t_node	*node;
 
-	// bunun yerine init_node ekle append falan sıfır ata
 	node = (t_node *) ft_calloc(1, sizeof(t_node));
 	if (!node)
 		return (NULL);
 	while (*tokens && (*tokens)->type != token_pipe)
 	{
 		if ((*tokens)->type == token_word)
+		{
 			add_arg(&node->argv, (*tokens)->value);
+			*tokens = (*tokens)->next;
+		}
 		else
 		{
 			handle_op(tokens, node); // inside of it, tokens also can be shifted
 			if (!node)
 				return (NULL);
 		}
-		*tokens = (*tokens)->next;
 	}
 	return (node);
 }
@@ -49,18 +50,19 @@ void	handle_op(t_token **tokens, t_node *node)
 	{
 		free_nodes(node);
 		node = NULL;
+		printf("syntax error!\n"); // later add a print_error function
 		return ;
 	}
 	if ((*tokens)->type == token_redir_out)
 		node->outfile = (*tokens)->next->value;
-	if ((*tokens)->type == token_redir_in)
+	else if ((*tokens)->type == token_redir_in)
 		node->infile = (*tokens)->next->value;
-	if ((*tokens)->type == token_redir_app)
+	else if ((*tokens)->type == token_redir_app)
 	{
 		node->outfile = (*tokens)->next->value;
 		node->append = 1;
 	}
-	if ((*tokens)->type == token_heredoc)
+	else if ((*tokens)->type == token_heredoc)
 	{
 		node->infile = (*tokens)->next->value; // bundan emin degilim
 		node->heredoc = 1;
@@ -76,7 +78,7 @@ void	add_arg(char ***argv, char *arg)
 
 	temp = *argv;
 	len = 0;
-	while (*temp)
+	while (temp != NULL && *temp)
 	{
 		len++;
 		temp++;
@@ -84,12 +86,13 @@ void	add_arg(char ***argv, char *arg)
 	new_argv = (char **) malloc(sizeof(char *)*(len + 2));
 	if (!new_argv)
 	{
+		free(argv);
 		*argv = NULL; //perror later maybe
 		return ;
 	}
 	temp = *argv;
 	len = 0;
-	while (*temp)
+	while (temp != NULL && *temp)
 	{
 		new_argv[len] = *temp; 
 		len++;
