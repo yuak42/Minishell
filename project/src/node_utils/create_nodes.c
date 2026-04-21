@@ -13,7 +13,7 @@ t_node	*create_nodes(t_token *tokens)
 	while (tokens)
 	{
 		if (tokens->type == token_pipe)
-			node->pipe_in = 1;
+			node->pipe_out = 1;
 		node = get_node(&tokens);
 		if (!node)
 			return (free_nodes(head), NULL);
@@ -31,7 +31,7 @@ t_node	*get_node(t_token **tokens)
 		return (NULL);
 	if ((*tokens)->type == token_pipe)
 	{
-		node->pipe_out = 1;
+		node->pipe_in = 1;
 		*tokens = (*tokens)->next;
 	}
 	while (*tokens && (*tokens)->type != token_pipe)

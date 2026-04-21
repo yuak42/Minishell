@@ -2,6 +2,11 @@
 
 void	decide_token_type(t_token *token, char *str)
 {
+	if (token->state != state_normal)
+	{
+		token->type = token_word;
+		return ;
+	}
 	if (!ft_strncmp(str, "|", 2))
 		token->type = token_pipe;
 	else if (!ft_strncmp(str, ">", 2))
