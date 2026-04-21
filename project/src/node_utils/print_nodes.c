@@ -11,10 +11,16 @@ void	print_nodes(t_node *nodes)
 		argv = nodes->argv;
 		printf("-------------------\nnode %d\n", i);
 		printf("argv = [");
-		while (*argv)
+		if (argv == NULL)
+			printf("NULL");
+		else
 		{
-			printf("\"%s\", ", *argv); // later to be make better
-			argv++;
+			while (*argv)
+			{
+				printf("\"%s\", ", *argv); // later to be make better
+				argv++;
+			}
+			printf("NULL");
 		}
 		printf("]\n");
 
