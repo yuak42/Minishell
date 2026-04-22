@@ -21,7 +21,7 @@ int	expansion(t_token *tokens, t_shell *shell)
 			{
 				expand(&tokens->value, i, shell);
 				if (!tokens->value)
-					return (1);
+					return (perror("minishell"), 1);
 			}
 
 		}
