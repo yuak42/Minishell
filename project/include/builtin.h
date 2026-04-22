@@ -12,7 +12,7 @@ void	ft_env(t_env *ev);
 int		ft_pwd(void);
 int		ft_cd(char **av, t_env *env);
 int		ft_unset(char **av, t_env **env);
-void	execute(t_token *tokens, t_shell *shell);
+void	execute(t_node *nodes, t_shell *shell);
 
 
 #endif
