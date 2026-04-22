@@ -13,7 +13,7 @@ void	basic_prompt(t_shell *shell)
 	{
 		line = readline("$ ");
 		if (!line)
-			return ;
+			break ;
 		if (*line && !is_only_spaces(line))
 			add_history(line);
 		tokens = tokenizer(line, shell);
@@ -30,6 +30,7 @@ void	basic_prompt(t_shell *shell)
 		free_tokens(tokens);
 		free(line); // always free at the end of loop
 	}
+	rl_clear_history();
 }
 
 static t_token	*tokenizer(char *line, t_shell *shell)
