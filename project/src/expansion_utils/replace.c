@@ -1,6 +1,6 @@
 #include "prompt.h"
 
-static void	replace_value(char **str, size_t var_len, char *value, size_t new_len);
+static void	replace_value(char **str, size_t var_len, char *value, size_t len);
 static void	fill(char **str, size_t var_len, char *value,  char *new_value);
 
 void	replace(char **str, char *var_name, t_env *ev)
@@ -22,11 +22,11 @@ void	replace(char **str, char *var_name, t_env *ev)
 	change_to_none(str, var_name);
 }
 
-static void	replace_value(char **str, size_t var_len, char *value, size_t new_len)
+static void	replace_value(char **str, size_t var_len, char *value, size_t len)
 {
 	char	*new_value;
 
-	new_value = (char *) ft_calloc(new_len, sizeof(char));
+	new_value = (char *) ft_calloc(len, sizeof(char));
 	if (!new_value)
 	{
 		free(*str);
