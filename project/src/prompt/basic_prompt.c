@@ -9,9 +9,13 @@ void	basic_prompt(t_shell *shell)
 	t_token	*tokens;
 	t_node	*nodes;
 
-	line = readline("$ ");
-	while (line)
+	while (1)
 	{
+		line = readline("$ ");
+		if (!line)
+			return ;
+		if (*line && !is_only_spaces(line))
+			add_history(line);
 		tokens = tokenizer(line, shell);
 		if (tokens)
 		{
@@ -25,7 +29,6 @@ void	basic_prompt(t_shell *shell)
 		}
 		free_tokens(tokens);
 		free(line); // always free at the end of loop
-		line = readline("$ ");
 	}
 }
 
