@@ -1,5 +1,7 @@
 #include "prompt.h"
 
+static int	is_syntax_correct(t_token *tokens);
+
 void	basic_prompt(t_shell *shell)
 {
 	char	*line;
@@ -28,12 +30,43 @@ void	basic_prompt(t_shell *shell)
 			continue ;
 		}
 		// print_tokens(tokens);
-		nodes = create_nodes(tokens);
-		print_nodes(nodes);
-		// execute(tokens, shell);
-		free(line);
-		shell->exit_status = 0;
-		line = readline("$ ");
+		if (!is_syntax_correct(tokens))
+		{
+			printf("syntax error!\n"); // print error maybe
+			shell->exit_status = 1;
+		}
+		else
+		{
+			nodes = create_nodes(tokens);
+			print_nodes(nodes);
+			shell->exit_status = 0;
+			execute(nodes, shell);
+			free_nodes(nodes);
+		}
 		free_tokens(tokens);
+		free(line);
+		line = readline("$ ");
 	}
+}
+
+static int	is_syntax_correct(t_token *tokens)
+{
+	if (tokens->type == token_pipe)
+		return (0);
+	while (tokens)
+	{
+		if (tokens->type != token_word && tokens->type != token_pipe)
+		{
+			if (!tokens->next || tokens->next->type != token_word)
+				return (0);
+			tokens = tokens->next;
+		}
+		if (tokens->type == token_pipe)
+		{
+			if (!tokens->next || tokens->next->type == token_pipe)
+				return (0);
+		}
+		tokens = tokens->next;
+	}
+	return (1);
 }

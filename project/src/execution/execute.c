@@ -1,7 +1,7 @@
 #include "prompt.h"
 
-void	execute(t_token *tokens, t_shell *shell)
+void	execute(t_node *nodes, t_shell *shell)
 {
-	(void) tokens;
+	(void) nodes;
 	(void) shell;
 }
