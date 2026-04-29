@@ -1,6 +1,5 @@
 a.out
 *.o
 minishell
-*.a
 .vscode/
 .idea/
