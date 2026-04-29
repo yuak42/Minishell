@@ -94,7 +94,7 @@ void	add_arg(char ***argv, char *arg)
 	new_argv = (char **) malloc(sizeof(char *)*(len + 2));
 	if (!new_argv)
 	{
-		free(argv);
+		free(*argv);
 		*argv = NULL; //perror later maybe
 		return ;
 	}
