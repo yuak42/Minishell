@@ -15,7 +15,7 @@ t_token	*generate_tokens(char *line)
 		if (line[i] == ' ' || line[i] == '"' || line[i] == '\'')
 		{
 			if (get_token(&tokens, line, &start, &i))
-				return (free_tokens(tokens), NULL); // free_tokens() eklenecek
+				return (free_tokens(tokens), NULL);
 		}
 		i++;
 	}
@@ -28,3 +28,15 @@ t_token	*generate_tokens(char *line)
 	}
 	return (tokens);
 }
+/*
+Change tokenizer behaviour
+
+move on the line with index i
+keep a state that is it in quotes or not
+if it encounters any of the operator while it is in state normal extract it
+(check first << and >>)
+
+
+
+
+*/
