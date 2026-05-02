@@ -15,6 +15,10 @@ int		ft_unset(char **av, t_env **env);
 void	execute(t_node *nodes, t_shell *shell);
 char	**env_to_arry(t_shell *shell);
 int		is_builtin(t_node *nodes, t_shell *shell);
+int		ft_env_size(t_env *lst);
+
+
+
 
 typedef struct s_pipe_list
 {
