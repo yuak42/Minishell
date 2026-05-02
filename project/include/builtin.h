@@ -8,7 +8,7 @@
 
 int		ft_echo(char **av, t_env *ev);
 int		ft_export(char **av, t_env *env);
-void	ft_env(t_env *ev);
+int		ft_env(t_env *ev);
 int		ft_pwd(void);
 int		ft_cd(char **av, t_env *env);
 int		ft_unset(char **av, t_env **env);
