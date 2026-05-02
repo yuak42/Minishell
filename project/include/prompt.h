@@ -9,6 +9,7 @@
 #include "data_structures.h"
 #include "../libft/libft.h"
 #include "builtin.h"
+#include "../src/pip_src/pipex.h"
 
 void	basic_prompt(t_shell *shell);
 t_env	*get_env_list(char **env);
