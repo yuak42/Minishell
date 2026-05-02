@@ -1,1 +1,1 @@
-BYAPRAK_SRC = 
+BYAPRAK_SRC = execution/execute.c execution/env_to_arry.c execution/executor_utils.c
