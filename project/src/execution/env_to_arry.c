@@ -22,21 +22,6 @@ static void	free_str(char **env, int i)
 	free(env);
 }
 
-static int	ft_env_size(t_env *lst)
-{
-	int	count;
-
-	count = 0;
-	if (!lst)
-		return (0);
-	while (lst)
-	{
-		lst = lst->next;
-		count++;
-	}
-	return (count);
-}
-
 static char	*str_append_str(t_env *ev)
 {
 	char	*join;
