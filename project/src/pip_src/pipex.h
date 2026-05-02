@@ -19,8 +19,7 @@
 # include <stdlib.h>
 # include <sys/wait.h>
 # include <unistd.h>
-# include "../libft/libft.h"
-# include "../printf/ft_printf.h"
+# include "prompt.h"
 
 typedef struct s_pipe_list
 {
