@@ -43,25 +43,25 @@ static char	*str_append_str(t_env *ev)
 	return(append);
 }
 
-char	**env_to_arry(t_shell *shell)
+char	**env_to_arry(t_env *ev)
 {
 	char	**env;
 	int		i;
 
 	i = 0;
-	env = ft_calloc(sizeof(char *), ft_env_size(shell->ev) + 1);
+	env = ft_calloc(sizeof(char *), ft_env_size(ev) + 1);
 	if (!env)
 		return (NULL);
-	while (shell->ev)
+	while (ev)
 	{
-		env[i] = str_append_str(shell->ev);
+		env[i] = str_append_str(ev);
 		if (!env[i])
 		{
-			perror("-minishell");
+			perror("-minishell:");
 			free_str(env, i);
 			return (NULL);
 		}
-		shell->ev = shell->ev->next;
+		ev = ev->next;
 		i++;
 	}
 	env[i] = NULL;
