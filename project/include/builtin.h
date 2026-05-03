@@ -14,7 +14,7 @@ int		ft_cd(char **av, t_env *env);
 int		ft_unset(char **av, t_env **env);
 void	execute(t_node *nodes, t_shell *shell);
 char	**env_to_arry(t_shell *shell);
-int		is_builtin(t_node *nodes, t_shell *shell);
+int		is_builtin(char **argv, t_shell *shell);
 int		ft_env_size(t_env *lst);
 
 
