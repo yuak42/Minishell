@@ -80,8 +80,8 @@ static int	run_echo(char **av, t_env *ev)
 		// if (!echo_print(*av, ev))
 		// 	return (0);
 		echo_print(*av, ev);
-		if (!ft_putchar_fd(' ', 1))
-			return (0);
+		// if (!ft_putchar_fd(' ', 1))
+		// 	return (0);
 		if (*(av + 1))
 		{
 
