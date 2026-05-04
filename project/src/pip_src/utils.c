@@ -32,34 +32,57 @@ int	ft_fdswap(int std_new, int std_old)
 {
 	if (std_new == -1)
 	{
-		perror("");
+		perror("-minishell:");
 		return (0);
 	}
 	if (dup2(std_new, std_old) == -1)
 	{
-		perror("");
+		perror("-minishell:");
 		return (0);
 	}
 	return (1);
 }
 
-void	ft_run_process(char *path, char **argv, char **envp)
+void	ft_run_process(char *path, char **argv, t_env *envp)
 {
-	if (execve(path, argv, envp) == -1)
+	int		status;
+	char	**ev;
+// node-> argv içinde mallocla açılmış mı 
+	ev = env_to_arry(envp);// hata kontrolü ekle
+	status = is_builtin(argv, envp);
+	if (status)
+	{
+		free(path);
+		free(argv);
+		free_ev(envp);
+		free_str(ev, - 1);
+		exit(status);
+	}
+	if (execve(path, argv, ev) == -1)
 	{
 		free(path);
 		ft_free(argv);
+		free_ev(envp);
+		free_str(ev, -1);
 		exit(EXIT_FAILURE);
 	}
 }
 
-t_pipe	ft_struct(char *argv, char **envp, int inp, int out)
+t_pipe	ft_struct(t_node *node, t_env *envp, int (*fd)[2], int i)
 {
 	t_pipe	p_list;
 
-	p_list.argv = argv;
+	p_list.argv = node->argv;
 	p_list.envp = envp;
-	p_list.inp = inp;
-	p_list.out = out;
+    p_list.inp = STDIN_FILENO;
+    p_list.out = STDOUT_FILENO;
+	if (node->infile)
+		p_list.inp = ft_of(node->infile);
+	else if (node->pipe_out)
+		p_list.inp = fd[i - 1][0];
+	if (node->outfile)
+		p_list.out = ft_cf(node->outfile);
+	else if (node->pipe_in)
+		p_list.out = fd[i][1];
 	return (p_list);
 }
