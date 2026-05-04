@@ -45,7 +45,7 @@ void	ft_pip(int ac, int (*fd)[2])
 	int	i;
 
 	i = 0;
-	while (i < ac - 4)
+	while (i < ac - 1)
 	{
 		if (pipe(fd[i]) == -1)
 		{
