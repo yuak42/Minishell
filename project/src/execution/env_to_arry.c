@@ -12,16 +12,6 @@
 
 #include"prompt.h"
 
-static void	free_str(char **env, int i)
-{
-	while(i >= 0)
-	{
-		free(env[i]);
-		i--;
-	}
-	free(env);
-}
-
 static char	*str_append_str(t_env *ev)
 {
 	char	*join;

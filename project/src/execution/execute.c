@@ -4,7 +4,13 @@
 
 void	execute(t_node *nodes, t_shell *shell)
 {
-	(void) nodes;
-	(void) shell;
+	int status;
+	if (!nodes->next)
+	{
+		status = is_builtin(nodes->argv, shell->ev);
+		if (status)
+			return ;
+	}
+	//ft_pipex(nodes, shell->ev, nodes_len(nodes));
 	printf("execution ...\n");
 }

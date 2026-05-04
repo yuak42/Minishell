@@ -23,15 +23,15 @@
 
 typedef struct s_pipe_list
 {
-	char	*argv;
-	char	**envp;
+	char	**argv;
+	t_env	*envp;
 	int		inp;
 	int		out;
 }	t_pipe;
 
 void	ft_free(char **str);
 char	*ft_path_access(char **envp, char *command);
-int		ft_pipex(char **argv, char **envp, int argc);
+int		ft_pipex(t_node *node, t_env *ev, int ac);
 int		ft_fdswap(int std_new, int std_old);
 void	ft_run_process(char *path, char **argv, t_env *envp);
 int		ft_of(char *s);

@@ -12,30 +12,32 @@
 
 #include "pipex.h"
 
-void	ft_child(char *argv, t_env *envp, int std_int, int std_out)
+void	ft_child(char **argv, t_env *envp, int std_int, int std_out)
 {
-	char	**cmd;
 	char	*path;
-
-	cmd = ft_split(argv, ' ');
-	if (!cmd)
-		path = NULL;
-	else
-		path = ft_path(argv, envp, cmd);
+	char	**ev;
+	// cmd = ft_split(argv, ' ');
+	// if (!cmd)
+	// 	path = NULL;
+	//else
+	ev = env_to_arry(envp);
+	path = ft_path(argv[0], ev, argv);
 	if (!path)
 	{
-		perror("");
-		ft_free(cmd);
+		perror("-minishell:");
+		free_str(ev, -1);
+		ft_free(argv);
 		exit(127);
 	}
+	free_str(ev, -1);
 	if (!ft_fdswap(std_int, 0) || !ft_fdswap(std_out, 1))
 	{
-		ft_exit(path, cmd);
+		ft_exit(path, argv);
 	}
 	close(std_int);
 	close(std_out);
 	
-	ft_run_process(path, cmd, envp);
+	ft_run_process(path, argv, envp);
 }
 
 int	ft_process(t_pipe plist, int (*pipefd)[2], int pc, int *pd)
@@ -75,7 +77,7 @@ int	ft_pipex(t_node *node, t_env *ev, int ac)
 	fd = malloc(sizeof(*fd) * (ac - 1));
 	ft_pip(ac, fd);
 	//pd[0] = ft_process(ft_struct(node, ev, fd, 0), fd, ac - 1, pd);
-	i = 1;
+	i = 0;
 	while (i < ac)
 	{
 		pd[i] = ft_process(ft_struct(node, ev, fd, i), fd, ac - 1, pd);
