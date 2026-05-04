@@ -22,7 +22,7 @@ void	basic_prompt(t_shell *shell)
 			nodes = create_nodes(tokens);
 			if (nodes)
 			{
-				print_nodes(nodes);
+				//print_nodes(nodes);
 				execute(nodes, shell);
 				free_nodes(nodes);
 			}

@@ -45,30 +45,18 @@ void	ft_exit(char *path, char **cmd)
 	exit(0);
 }
 
-char	*ft_path(char *argv, char **envp, char **cmd)
+char	*ft_path(char **argv, char **envp)
 {
 	char	*path;
 
-	if (cmd)
+	if (ft_strnstr(argv[0], "/", 1))
 	{
-		if (ft_strnstr(cmd[0], "/", 1))
-		{
-			if (access(cmd[0], F_OK | X_OK) == 0)
-				return (ft_strdup(cmd[0]));
-		}
+		if (access(argv[0], F_OK | X_OK) == 0)
+			return (ft_strdup(argv[0]));
+		else
+			return (NULL);
 	}
-	else
-	{
-		if (ft_strnstr(cmd[0], "/", 1))
-		{
-			if (access(cmd[0], F_OK | X_OK) == 0)
-				return (ft_strdup(cmd[0]));
-		}
-	}
-	if (cmd)
-		path = ft_path_access(envp, cmd[0]);
-	else
-		path = ft_path_access(envp, argv);
+	path = ft_path_access(envp, argv[0]);
 	return (path);
 }
 
