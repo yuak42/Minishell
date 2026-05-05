@@ -52,7 +52,7 @@ void	ft_run_process(char *path, char **argv, t_env **envp)
 	ev = env_to_arry(*envp);// hata kontrolü ekle
 	if (is_builtin(argv))
 	{
-		status = run_builtin(argv, envp);
+		status = run_builtin(argv, envp, 1);
 		free(path);
 		free(argv);
 		free_ev(*envp);
