@@ -20,8 +20,8 @@ void	execute(t_node *nodes, t_shell *shell)
 	fd = 1;
 	if (!nodes->next && is_builtin(nodes->argv))
 	{
-		if (nodes->infile)
-			fd = ft_of(nodes->infile);
+		if (nodes->outfile)
+			fd = ft_cf(nodes->outfile);
 		status = run_builtin(nodes->argv, &shell->ev, fd);
 		printf("-------%d--------\n", status);
 		if (status)
