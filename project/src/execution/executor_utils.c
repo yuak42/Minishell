@@ -30,12 +30,12 @@ int	is_builtin(char **argv)
 		return (0);
 }
 
-int	run_builtin(char **argv, t_env **ev)
+int	run_builtin(char **argv, t_env **ev, int fd)
 {
 	if (ft_strnstr(argv[0], "cd", 2) && ft_strlen(argv[0]) == 2)
 		return (ft_cd(argv, *ev));
 	else if (ft_strnstr(argv[0], "echo", 4) && ft_strlen(argv[0]) == 4)
-		return (ft_echo(argv, *ev));
+		return (ft_echo(argv, *ev, fd));
 	else if (ft_strnstr(argv[0], "env", 3) && ft_strlen(argv[0]) == 3)
 		return (ft_env(*ev));
 	else if (ft_strnstr(argv[0], "export", 6) && ft_strlen(argv[0]) == 6)
