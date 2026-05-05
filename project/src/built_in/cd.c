@@ -67,6 +67,8 @@ int	ft_cd(char **av, t_env *env)
 		return (1);
 	if (!*av)
 		ex = get_home(env);
+	else if (!ft_strncmp(*av, "-", 2))
+		ex = chdir(get_env_value(env, "OLDPWD"));
 	else
 		ex = chdir(*av);
 	if (ex == -1 || ex == -2)
@@ -78,7 +80,7 @@ int	ft_cd(char **av, t_env *env)
 	}
 	pwd_update(env);
 	old_pwd_update(env, here);
-	free(here);
+	//free(here);
 	return (0);
 }
 //env'de pwd ve old pwd update et.
