@@ -100,13 +100,13 @@ static int	is_valid(char **av)
 	return (1);
 }
 
-int	ft_export(char **av, t_env *env)
+int	ft_export(char **av, t_env *env, int fd)
 {
 	if(!av[1])
 	{
 		while (env)
 		{
-			if (printf("declare -x %s=\"%s\"\n", env->key, env->value) < 0)
+			if (ft_printf_fd(fd, "declare -x %s=\"%s\"\n", env->key, env->value) < 0)
 			{
 				perror("");
 				return(1);
