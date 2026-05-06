@@ -12,13 +12,13 @@
 
 #include "builtin.h"
 
-int	ft_env(t_env *ev)
+int	ft_env(t_env *ev, int fd)
 {
 	int	status;
 
 	while (ev != NULL)
 	{
-		status = printf("%s=%s\n", ev->key, ev->value);
+		status = ft_printf_fd(fd, "%s=%s\n", ev->key, ev->value);
 		if (status < 0)
 		{
 			perror("-minishell");
