@@ -21,5 +21,5 @@ int	ft_putchar_fd(char c, int fd)
 	{
 		return (0);
 	}
-	return (check);
+	return (1);
 }
