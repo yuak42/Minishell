@@ -43,5 +43,6 @@ void	ft_pipeclose(int (*pipefd)[2], int pc);
 int		ft_wait(int *array, int count);
 void	ft_pip(int ac, int (*fd)[2]);
 char	*ft_path(char **argv, char **envp);
+int		ft_af(char *s);
 
 #endif

@@ -20,8 +20,10 @@ void	execute(t_node *nodes, t_shell *shell)
 	fd = 1;
 	if (!nodes->next && is_builtin(nodes->argv))
 	{
-		if (nodes->outfile)
+		if (nodes->outfile && !nodes->append)
 			fd = ft_cf(nodes->outfile);
+		if (nodes->outfile && nodes->append)
+			fd = ft_af(nodes->outfile);
 		status = run_builtin(nodes->argv, &shell->ev, fd);
 		printf("-------%d--------\n", status);
 		if (status)

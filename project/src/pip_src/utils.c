@@ -81,8 +81,10 @@ t_pipe	ft_struct(t_node *node, t_env **envp, int (*fd)[2], int i)
 		p_list.inp = ft_of(node->infile);
 	else if (node->pipe_in)
 		p_list.inp = fd[i - 1][0];
-	if (node->outfile)
+	if (node->outfile && !node->append)
 		p_list.out = ft_cf(node->outfile);
+	else if (node->outfile && node->append)
+		p_list.out = ft_af(node->outfile);
 	else if (node->pipe_out)
 		p_list.out = fd[i][1];
 	return (p_list);
