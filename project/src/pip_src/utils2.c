@@ -25,6 +25,14 @@ void	ft_pipeclose(int (*pipefd)[2], int pc)
 	}
 }
 
+int	ft_af(char *s)
+{
+	int	fd;
+
+	fd = open(s, O_WRONLY | O_CREAT | O_APPEND, 0777);
+	return (fd);
+}
+
 int	ft_wait(int *array, int count)
 {
 	int	i;

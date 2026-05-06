@@ -18,11 +18,14 @@ int	ft_env(t_env *ev, int fd)
 
 	while (ev != NULL)
 	{
-		status = ft_printf_fd(fd, "%s=%s\n", ev->key, ev->value);
-		if (status < 0)
+		if (ev->value)
 		{
-			perror("-minishell");
-			return (status);
+			status = ft_printf_fd(fd, "%s=%s\n", ev->key, ev->value);
+			if (status < 0)
+			{
+				perror("-minishell");
+				return (status);
+			}
 		}
 		ev = ev->next;
 	}
