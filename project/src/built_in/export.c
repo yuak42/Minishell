@@ -12,7 +12,7 @@
 
 #include "builtin.h"
 
-static char	*get_variable(char *av)
+static char	*get_key(char *av)
 {
 	int		i;
 	char	*variable;
@@ -38,8 +38,8 @@ static t_env	*is_variable(char *variable, t_env *node)
 
 	while(node)
 	{
-		str = get_variable(node->value); // change done
-		if (ft_strnstr(str ,variable, ft_strlen(variable)))
+		str = get_key(node->key); // change done
+		if (ft_strncmp(str ,variable, ft_strlen(variable) + 1))
 		{
 			free(str);
 			return (node);
@@ -50,55 +50,54 @@ static t_env	*is_variable(char *variable, t_env *node)
 	return (NULL);
 }
 
-static void	run_export(char *av, t_env *env)
+static int	run_export(char *av, t_env *env)
 {
-	char	*variable;
+	char	*key;
+	char	*value;
 	t_env	*node;
-	// t_env	*new;
 
-	variable = get_variable(av);
-	if (!variable)
+	key = get_key(av);
+	if (!key)
 	{
-		//free(content);
-		return ;
+		perror("-minishell");
+		return (0);
 	}
-	node = is_variable(variable, env);
-	if (node)
+	node = is_variable(key, env);
+	if (node && !env->value)
+		return (0);
+	if(ft_strchr(av, '='))
 	{
-		//free(node->content);
-		//node->content = ft_strdup(av);
-	}
-	else
-	{
-		// new = ft_lstnew(ft_strdup(av));
-		// if (new)	
-		// 	ft_lstadd_back(&env, new);
-	}
-	free(variable);
-	}
-
-static int	is_valid(char **av)
-{
-	while (*av)
-	{
-		if (!(**av == '_' || (**av >= 'a' && **av <= 'z') || (**av >= 'A' && **av <= 'Z')))
+		value = ft_strdup(ft_strchr(av, '=') + 1);
+		if(!value)
 		{
-			ft_perror("-minishell: export: `%s': not a valid identifier\n", *av);
+			perror("-minishell");
 			return (0);
 		}
-		while (**av)
+		set_env_value(env, key, value);
+	}
+	free(key);
+	return (1);
+}
+
+static int	is_valid(char *av)
+{
+	if (!(*av == '_' || ft_isalpha(*av)))
+	{
+		ft_perror("-minishell: export: `%s': not a valid identifier\n", av);
+		return (0);
+	}
+	av++;
+	while (*av != '=' && *av)
+	{
+		if (!(*av == '_' || ft_isalpha(*av) || ft_isdigit(*av)))
 		{
-			if (!(**av == '_' || (**av >= 'a' && **av <= 'z') || (**av >= 'A' && **av <= 'Z') || (**av >= '0' && **av <= '9')))
-			{
-				ft_perror("-minishell: export: `%s': not a valid identifier\n", *av);
-				return (0);
-			}
-			(*av)++;
+			ft_perror("-minishell: export: `%s': not a valid identifier\n", av);
+			return (0);
 		}
 		av++;
 	}
-	return (1);
-}
+		return (1);
+	}
 
 int	ft_export(char **av, t_env *env, int fd)
 {
@@ -116,14 +115,11 @@ int	ft_export(char **av, t_env *env, int fd)
 		return (0);
 	}
 	av++;
-	if (!is_valid(av))
+	if (!is_valid(*av))
 		return (1);
-	while (*av)
-	{
-		run_export(*av, env);
-		av++;
-	}
-	return (1);
+	if(!run_export(*av, env))
+		return(1);
+	return (0);
 }
 
 // export yazıldığında alfabetik sırada yazdıracak. değişken değeri "" içinde olacak.
