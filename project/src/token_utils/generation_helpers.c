@@ -6,7 +6,7 @@
 /*   By: yuak <yuak@student.42istanbul.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/10 11:53:05 by yuak              #+#    #+#             */
-/*   Updated: 2026/05/10 15:04:11 by yuak             ###   ########.fr       */
+/*   Updated: 2026/05/10 15:30:03 by yuak             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,21 +83,8 @@ static int	meta(t_token **tokens, char *line, size_t *s, size_t *i)
 {
 	t_token	*token;
 
-	if (line[*i] == '<' || line[*i] == '>' || line[*i] == '|')
-	{
-		token = create_token(line, *s, *i, ' ');
-		if (!token)
-			return (1);
-		(*i)++;
-	}
-	else
-	{
-		token = create_token(line, *s, *i, ' ');
-		if (!token)
-			return (1);
-		(*i) = (*i) + 2;
-	}
+	token = get_meta_token(&line[*i], i);
 	add_token_last(tokens, token);
-	*s = *i;
+	*s = (*i) + 1;
 	return (0);
 }
