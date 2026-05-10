@@ -11,7 +11,7 @@ LIBFT = $(LIBFT_DIR)/libft.a
 
 SRC = prompt/basic_prompt.c main.c execution/execute.c  \
 	built_in/env.c built_in/pwd.c built_in/echo.c  built_in/cd.c \
-	built_in/export.c built_in/unset.c \
+	built_in/export.c built_in/unset.c built_in/exit.c \
 	env_utils/get_env_list.c env_utils/set_env_value.c env_utils/get_env_value.c env_utils/free_env_node.c \
 	token_utils/generate_tokens.c token_utils/print_tokens.c token_utils/add_token_last.c \
 	token_utils/decide_token_type.c token_utils/generation_helpers.c token_utils/free_tokens.c \

@@ -26,24 +26,28 @@ int	is_builtin(char **argv)
 		return (1);
 	else if (ft_strnstr(argv[0], "unset", 5) && ft_strlen(argv[0]) == 5)
 		return (1);
+	else if (ft_strnstr(argv[0], "exit", 4) && ft_strlen(argv[0]) == 4)
+		return (1);
 	else
 		return (0);
 }
 
-int	run_builtin(char **argv, t_env **ev, int fd)
+int	run_builtin(char **argv, t_shell *shell, int fd)
 {
 	if (ft_strnstr(argv[0], "cd", 2) && ft_strlen(argv[0]) == 2)
-		return (ft_cd(argv, *ev));
+		return (ft_cd(argv, shell->ev));
 	else if (ft_strnstr(argv[0], "echo", 4) && ft_strlen(argv[0]) == 4)
-		return (ft_echo(argv, *ev, fd));
+		return (ft_echo(argv, shell->ev, fd));
 	else if (ft_strnstr(argv[0], "env", 3) && ft_strlen(argv[0]) == 3)
-		return (ft_env(*ev, fd));
+		return (ft_env(shell->ev, fd));
 	else if (ft_strnstr(argv[0], "export", 6) && ft_strlen(argv[0]) == 6)
-		return (ft_export(argv, *ev, fd));
+		return (ft_export(argv, shell->ev, fd));
 	else if (ft_strnstr(argv[0], "pwd", 3) && ft_strlen(argv[0]) == 3)
 		return (ft_pwd());
 	else if (ft_strnstr(argv[0], "unset", 5) && ft_strlen(argv[0]) == 5)
-		return (ft_unset(argv, ev));
+		return (ft_unset(argv, &shell->ev));
+	else if (ft_strnstr(argv[0], "exit", 4) && ft_strlen(argv[0]) == 4)
+		return (ft_exit_ft(argv, shell));
 	else
 		return (-1);
 }

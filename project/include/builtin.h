@@ -19,7 +19,8 @@ int		is_builtin(char **argv);
 int		ft_env_size(t_env *lst);
 void	free_str(char **env, int i);
 int		nodes_len(t_node *nodes);
-int		run_builtin(char **argv, t_env **ev, int fd);
+int		run_builtin(char **argv, t_shell *shell, int fd);
 int		ft_printf_fd(int fd, const char *input, ...);
+int		ft_exit_ft(char **av, t_shell *shell);
 
 #endif
