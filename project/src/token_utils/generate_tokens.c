@@ -6,13 +6,13 @@
 /*   By: yuak <yuak@student.42istanbul.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/10 11:48:35 by yuak              #+#    #+#             */
-/*   Updated: 2026/05/10 15:11:56 by yuak             ###   ########.fr       */
+/*   Updated: 2026/05/10 20:41:26 by yuak             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "prompt.h"
 
-static int	is_delimeter(char *s);
+static int	is_delimeter(char c);
 
 t_token	*generate_tokens(char *line)
 {
@@ -26,7 +26,7 @@ t_token	*generate_tokens(char *line)
 	start = 0;
 	while (line[i])
 	{
-		if (is_delimeter(&line[i]))
+		if (is_delimeter(line[i]))
 		{
 			if (get_token(&tokens, line, &start, &i))
 				return (free_tokens(tokens), NULL);
@@ -43,11 +43,11 @@ t_token	*generate_tokens(char *line)
 	return (tokens);
 }
 
-static int	is_delimeter(char *s)
+static int	is_delimeter(char c)
 {
-	if (*s == ' ' || *s == '\t' || *s == '"' || *s == '\'')
+	if (c == ' ' || c == '\t' || c == '"' || c == '\'')
 		return (1);
-	if (*s == '<' || *s == '>' || *s == '|')
+	if (c == '<' || c == '>' || c == '|')
 		return (1);
 	return (0);
 }
