@@ -1,5 +1,6 @@
 a.out
 *.o
 minishell
+libft.a
 .vscode/
 .idea/
