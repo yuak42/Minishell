@@ -12,31 +12,31 @@
 
 #include "pipex.h"
 
-void	ft_child(char **argv, t_env **envp, int std_int, int std_out)
+void	ft_child(t_pipe plist)
 {
 	char	*path;
 	char	**ev;
 
-	ev = env_to_arry(*envp);
-	path = ft_path(argv, ev);
+	ev = env_to_arry(*plist.envp);
+	path = ft_path(plist.argv, ev);
 	if (!path)
 	{
 		perror("-minishell:");
 		free_str(ev, -1);
-		ft_free(argv);
+		ft_free(plist.argv);
 		exit(127);
 	}
 	free_str(ev, -1);
-	if (!ft_fdswap(std_int, 0) || !ft_fdswap(std_out, 1))
+	if (!ft_fdswap(plist.inp, 0) || !ft_fdswap(plist.out, 1))
 	{
-		ft_exit(path, argv);
+		ft_exit(path, plist.argv);
 	}
-	if (std_int != 0)
-		close(std_int);
-	if (std_out != 1)
-		close(std_out);
+	if (plist.inp != 0)
+		close(plist.inp);
+	if (plist.out != 1)
+		close(plist.out);
 	
-	ft_run_process(path, argv, envp);
+	ft_run_process(path, plist);
 }
 
 int	ft_process(t_pipe plist, int (*pipefd)[2], int pc, int *pd)
@@ -60,12 +60,12 @@ int	ft_process(t_pipe plist, int (*pipefd)[2], int pc, int *pd)
 		}
 		free(pipefd);
 		free(pd);
-		ft_child(plist.argv, plist.envp, plist.inp, plist.out);
+		ft_child(plist);
 	}
 	return (pid);
 }
 
-int	ft_pipex(t_node *node, t_env **ev, int ac)
+int	ft_pipex(t_node *node, t_shell *shell, int ac)
 {
 	int	(*fd)[2];
 	int	*pd;
@@ -75,16 +75,13 @@ int	ft_pipex(t_node *node, t_env **ev, int ac)
 	pd = malloc(sizeof(int) * (ac));
 	fd = malloc(sizeof(*fd) * (ac - 1));
 	ft_pip(ac, fd);
-	//pd[0] = ft_process(ft_struct(node, ev, fd, 0), fd, ac - 1, pd);
 	i = 0;
 	while (i < ac)
 	{
-		pd[i] = ft_process(ft_struct(node, ev, fd, i), fd, ac - 1, pd);
+		pd[i] = ft_process(ft_struct(node, shell, fd, i), fd, ac - 1, pd);
 		i++;
 		node = node->next;
 	}
-	// if (ac != 1)
-	// 	pd[ac - 1] = ft_process(ft_struct(node, ev, fd, ac - 2), fd, ac - 1, pd);
 	ft_pipeclose(fd, ac - 1);
 	status = ft_wait(pd, ac - 1);
 	free(fd);

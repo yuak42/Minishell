@@ -43,38 +43,40 @@ int	ft_fdswap(int std_new, int std_old)
 	return (1);
 }
 
-void	ft_run_process(char *path, char **argv, t_env **envp)
+void	ft_run_process(char *path, t_pipe plist)
 {
 	int		status;
 	char	**ev;
 // node-> argv içinde mallocla açılmış mı 
 	//status = 1;
-	ev = env_to_arry(*envp);// hata kontrolü ekle
-	if (is_builtin(argv))
+	ev = env_to_arry(*plist.envp);// hata kontrolü ekle
+	if (is_builtin(plist.argv))
 	{
-		status = run_builtin(argv, envp, 1);
+		status = run_builtin(plist.argv, plist.shell, 1);
 		free(path);
-		free(argv);
-		free_ev(*envp);
+		free(plist.argv);
+		free_ev(*plist.envp);
 		free_str(ev, - 1);
 		exit(status);
 	}
-	else if (execve(path, argv, ev) == -1)
+	else if (execve(path, plist.argv, ev) == -1)
 	{
 		free(path);
-		ft_free(argv);
-		free_ev(*envp);
+		ft_free(plist.argv);
+		free_ev(*plist.envp);
 		free_str(ev, -1);
 		exit(EXIT_FAILURE);
 	}
 }
 
-t_pipe	ft_struct(t_node *node, t_env **envp, int (*fd)[2], int i)
+t_pipe	ft_struct(t_node *node, t_shell *shell, int (*fd)[2], int i)
 {
 	t_pipe	p_list;
 
+	p_list.node = node;
+	p_list.shell = shell;
 	p_list.argv = node->argv;
-	p_list.envp = envp;
+	p_list.envp = &shell->ev;
     p_list.inp = STDIN_FILENO;
     p_list.out = STDOUT_FILENO;
 	if (node->infile)
