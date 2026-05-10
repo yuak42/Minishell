@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   generation_helpers.c                               :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: yuak <yuak@student.42istanbul.com>         +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/05/10 11:53:05 by yuak              #+#    #+#             */
+/*   Updated: 2026/05/10 12:06:07 by yuak             ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "prompt.h"
 
 t_token	*create_token(char *str, size_t s, size_t i, char state)
@@ -10,7 +22,7 @@ t_token	*create_token(char *str, size_t s, size_t i, char state)
 		return (NULL);
 	value = ft_substr(str, s, i - s);
 	if (!value)
-		return (free(token), NULL); //free later token
+		return (free(token), NULL); //free need
 	token->value = value;
 	if (state == ' ')
 		token->state = state_normal;
@@ -55,7 +67,7 @@ int	normal(t_token **tokens, char *line, size_t *s, size_t *i)
 
 int	quote(t_token **tokens, char *line, size_t *s, size_t *i, char q)
 {
-	t_token *token;
+	t_token	*token;
 
 	(*i)++;
 	(*s)++;

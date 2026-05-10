@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   generate_tokens.c                                  :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: yuak <yuak@student.42istanbul.com>         +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/05/10 11:48:35 by yuak              #+#    #+#             */
+/*   Updated: 2026/05/10 12:04:56 by yuak             ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "prompt.h"
 
 t_token	*generate_tokens(char *line)
@@ -15,7 +27,7 @@ t_token	*generate_tokens(char *line)
 		if (line[i] == ' ' || line[i] == '"' || line[i] == '\'')
 		{
 			if (get_token(&tokens, line, &start, &i))
-				return (free_tokens(tokens), NULL); // free_tokens() eklenecek
+				return (free_tokens(tokens), NULL);
 		}
 		i++;
 	}
