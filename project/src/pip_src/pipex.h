@@ -27,18 +27,21 @@ typedef struct s_pipe_list
 	t_env	**envp;
 	int		inp;
 	int		out;
+	int		(*pipefd)[2];
+	t_shell *shell;
+	t_node	*node;
 }	t_pipe;
 
 void	ft_free(char **str);
 char	*ft_path_access(char **envp, char *command);
-int		ft_pipex(t_node *node, t_env **ev, int ac);
+int		ft_pipex(t_node *node, t_shell *shell, int ac);
 int		ft_fdswap(int std_new, int std_old);
-void	ft_run_process(char *path, char **argv, t_env **envp);
+void	ft_run_process(char *path, t_pipe plist);
 int		ft_of(char *s);
 int		ft_cf(char *s);
 int		ft_process(t_pipe plist, int (*pipefd)[2], int pc, int *pd);
 void	ft_exit(char *path, char **cmd);
-t_pipe	ft_struct(t_node *node, t_env **envp, int (*fd)[2], int i);
+t_pipe	ft_struct(t_node *node, t_shell *shell, int (*fd)[2], int i);
 void	ft_pipeclose(int (*pipefd)[2], int pc);
 int		ft_wait(int *array, int count);
 void	ft_pip(int ac, int (*fd)[2]);
