@@ -1,20 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   free_env_node.c                                    :+:      :+:    :+:   */
+/*   print_error.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yuak <yuak@student.42istanbul.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/05/10 11:54:23 by yuak              #+#    #+#             */
-/*   Updated: 2026/05/10 12:10:44 by yuak             ###   ########.fr       */
+/*   Created: 2026/05/10 12:51:48 by yuak              #+#    #+#             */
+/*   Updated: 2026/05/10 12:51:49 by yuak             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "prompt.h"
 
-void	free_env_node(t_env *node)
+void	print_error(char *s)
 {
-	free(node->key);
-	free(node->value);
-	free(node);
+	size_t	len;
+
+	len = ft_strlen(s);
+	write(2, s, len);
 }
