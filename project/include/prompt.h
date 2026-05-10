@@ -6,7 +6,7 @@
 /*   By: yuak <yuak@student.42istanbul.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/10 12:32:31 by yuak              #+#    #+#             */
-/*   Updated: 2026/05/10 12:52:54 by yuak             ###   ########.fr       */
+/*   Updated: 2026/05/10 14:57:34 by yuak             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,11 +32,9 @@ void	free_env_node(t_env *node);
 t_token	*generate_tokens(char *line);
 void	add_token_last(t_token **tokens, t_token *token);
 void	decide_token_type(t_token *token, char *str);
-t_token	*create_token(char *str, size_t s, size_t i, char state);
 void	free_tokens(t_token *tokens);
-int		normal(t_token **tokens, char *line, size_t *s, size_t *i);
-int		quote(t_token **tokens, char *line, size_t *s, size_t *i, char q);
 int		get_token(t_token **tokens, char *line, size_t *s, size_t *i);
+t_token	*create_token(char *str, size_t s, size_t i, char state);
 int		expansion(t_token *tokens, t_shell *shell);
 void	replace(char **str, char *var_name, t_env *ev);
 void	change_invalid_identifier(char **str);
