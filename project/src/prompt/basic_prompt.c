@@ -6,7 +6,7 @@
 /*   By: yuak <yuak@student.42istanbul.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/10 11:53:22 by yuak              #+#    #+#             */
-/*   Updated: 2026/05/10 12:52:18 by yuak             ###   ########.fr       */
+/*   Updated: 2026/05/10 15:03:11 by yuak             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	basic_prompt(t_shell *shell)
 			shell->nodes = create_nodes(shell->tokens);
 			if (shell->nodes)
 			{
-				//print_nodes(nodes);
+				print_nodes(shell->nodes);
 				execute(shell->nodes, shell);
 				free_nodes(shell->nodes);
 			}

@@ -1,39 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   deneme.c                                           :+:      :+:    :+:   */
+/*   generation_helpers.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yuak <yuak@student.42istanbul.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/10 11:53:05 by yuak              #+#    #+#             */
-/*   Updated: 2026/05/10 13:07:46 by yuak             ###   ########.fr       */
+/*   Updated: 2026/05/10 15:04:11 by yuak             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "prompt.h"
 
-t_token	*create_token(char *str, size_t s, size_t i, char state)
-{
-	char	*value;
-	t_token	*token;
-
-	token = (t_token *) malloc(sizeof(t_token));
-	if (!token)
-		return (NULL);
-	value = ft_substr(str, s, i - s);
-	if (!value)
-		return (free(token), NULL); //free need
-	token->value = value;
-	if (state == ' ')
-		token->state = state_normal;
-	else if (state == '\'')
-		token->state = state_quote_single;
-	else if (state == '"')
-		token->state = state_quote_double;
-	decide_token_type(token, value);
-	token->next = NULL;
-	return (token);
-}
+static int	normal(t_token **tokens, char *line, size_t *s, size_t *i);
+static int	quote(t_token **tokens, char *line, size_t *s, size_t *i, char q);
+static int	meta(t_token **tokens, char *line, size_t *s, size_t *i);
 
 int	get_token(t_token **tokens, char *line, size_t *s, size_t *i)
 {
@@ -42,15 +23,20 @@ int	get_token(t_token **tokens, char *line, size_t *s, size_t *i)
 		if (normal(tokens, line, s, i))
 			return (1);
 	}
-	else
+	else if (line[*i] == '\'' || line[*i] == '"')
 	{
 		if (quote(tokens, line, s, i, line[*i]))
+			return (1);
+	}
+	else
+	{
+		if (meta(tokens, line, s, i))
 			return (1);
 	}
 	return (0);
 }
 
-int	normal(t_token **tokens, char *line, size_t *s, size_t *i)
+static int	normal(t_token **tokens, char *line, size_t *s, size_t *i)
 {
 	t_token	*token;
 
@@ -65,7 +51,7 @@ int	normal(t_token **tokens, char *line, size_t *s, size_t *i)
 	return (0);
 }
 
-int	quote(t_token **tokens, char *line, size_t *s, size_t *i, char q)
+static int	quote(t_token **tokens, char *line, size_t *s, size_t *i, char q)
 {
 	t_token	*token;
 
@@ -90,5 +76,28 @@ int	quote(t_token **tokens, char *line, size_t *s, size_t *i, char q)
 		(*i)++;
 	(*i)--;
 	*s = *i + 1;
+	return (0);
+}
+
+static int	meta(t_token **tokens, char *line, size_t *s, size_t *i)
+{
+	t_token	*token;
+
+	if (line[*i] == '<' || line[*i] == '>' || line[*i] == '|')
+	{
+		token = create_token(line, *s, *i, ' ');
+		if (!token)
+			return (1);
+		(*i)++;
+	}
+	else
+	{
+		token = create_token(line, *s, *i, ' ');
+		if (!token)
+			return (1);
+		(*i) = (*i) + 2;
+	}
+	add_token_last(tokens, token);
+	*s = *i;
 	return (0);
 }
