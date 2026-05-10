@@ -6,7 +6,7 @@
 /*   By: yuak <yuak@student.42istanbul.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/10 11:48:35 by yuak              #+#    #+#             */
-/*   Updated: 2026/05/10 15:06:30 by yuak             ###   ########.fr       */
+/*   Updated: 2026/05/10 15:11:56 by yuak             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,8 +46,6 @@ t_token	*generate_tokens(char *line)
 static int	is_delimeter(char *s)
 {
 	if (*s == ' ' || *s == '\t' || *s == '"' || *s == '\'')
-		return (1);
-	if (!ft_strncmp(s, ">>", 3) || !ft_strncmp(s, "<<", 3))
 		return (1);
 	if (*s == '<' || *s == '>' || *s == '|')
 		return (1);
