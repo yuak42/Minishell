@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   prompt.h                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: yuak <yuak@student.42istanbul.com>         +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/05/10 12:32:31 by yuak              #+#    #+#             */
+/*   Updated: 2026/05/10 12:52:54 by yuak             ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef PROMPT_H
 #define PROMPT_H
 
@@ -34,9 +46,12 @@ t_node	*create_nodes(t_token *tokens);
 void	free_nodes(t_node *nodes);
 void	add_last_node(t_node **head, t_node *node);
 int		is_only_spaces(char *line);
+t_token	*tokenizer(char *line, t_shell *shell);
+void	print_error(char *s);
 
 // To be deleted later
 void	print_tokens(t_token	*tokens);
 void	print_nodes(t_node *nodes);
+void	print_ev(t_env *ev);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: yuak <yuak@student.42istanbul.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/10 11:53:57 by yuak              #+#    #+#             */
-/*   Updated: 2026/05/10 11:53:58 by yuak             ###   ########.fr       */
+/*   Updated: 2026/05/10 12:10:13 by yuak             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,6 @@ void	change_to_none(char **str, char *var_name)
 	free(*str);
 	*str = new_value;
 }
-
 
 void	change_to_exit_status(char **str, int exit_status)
 {
@@ -114,7 +113,6 @@ static void	fill_question(char **str, char *num_str, char *new_value)
 		new_value[i] = *num_str;
 		num_str++;
 	}
-
 	while ((*str)[j])
 	{
 		new_value[i] = (*str)[j];

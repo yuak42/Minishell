@@ -6,7 +6,7 @@
 /*   By: yuak <yuak@student.42istanbul.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/10 11:53:54 by yuak              #+#    #+#             */
-/*   Updated: 2026/05/10 11:53:55 by yuak             ###   ########.fr       */
+/*   Updated: 2026/05/10 12:09:23 by yuak             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,6 @@ int	expansion(t_token *tokens, t_shell *shell)
 				if (!tokens->value)
 					return (perror("minishell"), 1);
 			}
-
 		}
 	}
 	return (0);

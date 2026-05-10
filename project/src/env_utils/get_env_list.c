@@ -6,12 +6,11 @@
 /*   By: yuak <yuak@student.42istanbul.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/10 11:54:19 by yuak              #+#    #+#             */
-/*   Updated: 2026/05/10 11:54:20 by yuak             ###   ########.fr       */
+/*   Updated: 2026/05/10 12:10:49 by yuak             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "prompt.h"
-
 
 static char	*get_key(char *env);
 static char	*get_value(char *env);
