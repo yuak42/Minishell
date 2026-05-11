@@ -6,7 +6,7 @@
 /*   By: yuak <yuak@student.42istanbul.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/10 12:32:27 by yuak              #+#    #+#             */
-/*   Updated: 2026/05/11 14:30:13 by yuak             ###   ########.fr       */
+/*   Updated: 2026/05/11 15:36:22 by yuak             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,6 @@ typedef enum e_state {
 typedef struct s_token {
 	t_token_type	type;
 	char			*value;
-	t_state			state;
 	struct s_token	*next;
 } t_token;
 
