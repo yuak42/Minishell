@@ -6,7 +6,7 @@
 /*   By: yuak <yuak@student.42istanbul.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/10 12:32:31 by yuak              #+#    #+#             */
-/*   Updated: 2026/05/11 16:48:47 by yuak             ###   ########.fr       */
+/*   Updated: 2026/05/11 17:09:44 by yuak             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ t_token	*generate_tokens(char *line);
 void	add_token_last(t_token **tokens, t_token *token);
 void	free_tokens(t_token *tokens);
 t_token	*get_word(char *line, size_t *i);
+t_token *get_operator(char *line, size_t *i);
 int		expansion(t_token *tokens, t_shell *shell);
 void	replace(char **str, char *var_name, t_env *ev);
 void	change_invalid_identifier(char **str);

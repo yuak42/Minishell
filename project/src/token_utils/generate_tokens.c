@@ -6,14 +6,13 @@
 /*   By: yuak <yuak@student.42istanbul.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/10 11:48:35 by yuak              #+#    #+#             */
-/*   Updated: 2026/05/11 16:49:36 by yuak             ###   ########.fr       */
+/*   Updated: 2026/05/11 17:13:42 by yuak             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "prompt.h"
 
-
-// static int	is_operator(char c);
+static int	is_operator(char c);
 
 t_token	*generate_tokens(char *line)
 {
@@ -27,22 +26,20 @@ t_token	*generate_tokens(char *line)
 	{
 		while (line[i] == ' ' || line[i] == '\t')
 			i++;
-		// if (is_operator(line[i]))
-		// {
-		// 	token = get_operator(line, &i);
-		// }
-		// else
-		// {
+		if (is_operator(line[i]))
+			token = get_operator(line, &i);
+		else
 			token = get_word(line, &i);
-			add_token_last(&tokens, token);
-		// }
+		if (!token)
+			return (free_tokens(tokens), NULL);
+		add_token_last(&tokens, token);
 	}
 	return (tokens);
 }
 
-// static int	is_operator(char c)
-// {
-// 	if (c == '<' || c == '>' || c == '|')
-// 		return (1);
-// 	return (0);
-// }
+static int	is_operator(char c)
+{
+	if (c == '<' || c == '>' || c == '|')
+		return (1);
+	return (0);
+}
