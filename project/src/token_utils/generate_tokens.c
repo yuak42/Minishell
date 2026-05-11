@@ -6,7 +6,7 @@
 /*   By: yuak <yuak@student.42istanbul.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/10 11:48:35 by yuak              #+#    #+#             */
-/*   Updated: 2026/05/11 15:41:18 by yuak             ###   ########.fr       */
+/*   Updated: 2026/05/11 16:12:40 by yuak             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,20 +86,13 @@ static void	skip_current(char *line, size_t *i)
 		while (line[j] == ' ' || line[j] == '\t')
 			j++;
 	}
-	else if (line[j] == '"')
+	else if (line[j] == '"' || line[j] == '\'')
 	{
-		j++;
-		while (line[j] != '"' && line[j] != '\0')
-			j++;
-		j++;
-		while (line[j] == ' ' && line[j] != '\0')
+		while (line[j] != ' ' && line[j] != '\0')
 			j++;		
 	}
-	else if (line[j] == '\'')
+	else
 	{
-		j++;
-		while (line[j] != '\'' && line[j] != '\0')
-			j++;
 		j++;
 	}
 	*i = j;
