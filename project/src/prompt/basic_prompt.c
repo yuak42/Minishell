@@ -6,7 +6,7 @@
 /*   By: yuak <yuak@student.42istanbul.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/10 11:53:22 by yuak              #+#    #+#             */
-/*   Updated: 2026/05/10 15:32:18 by yuak             ###   ########.fr       */
+/*   Updated: 2026/05/11 14:31:54 by yuak             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,19 +24,19 @@ void	basic_prompt(t_shell *shell)
 		if (*line && !is_only_spaces(line))
 			add_history(line);
 		shell->tokens = tokenizer(line, shell);
-		printf("-----before expansion----\n");
+		// printf("-----before expansion----\n");
 		print_tokens(shell->tokens);
-		printf("\n----after expansion----\n");
-		if (shell->tokens)
-		{
-			shell->nodes = create_nodes(shell->tokens);
-			if (shell->nodes)
-			{
-				print_nodes(shell->nodes);
-				execute(shell->nodes, shell);
-				free_nodes(shell->nodes);
-			}
-		}
+		// printf("\n----after expansion----\n");
+		// if (shell->tokens)
+		// {
+		// 	shell->nodes = create_nodes(shell->tokens);
+		// 	if (shell->nodes)
+		// 	{
+		// 		print_nodes(shell->nodes);
+		// 		execute(shell->nodes, shell);
+		// 		free_nodes(shell->nodes);
+		// 	}
+		// }
 		free_tokens(shell->tokens);
 		free(line);
 	}
