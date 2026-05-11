@@ -6,13 +6,14 @@
 /*   By: yuak <yuak@student.42istanbul.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/10 11:53:05 by yuak              #+#    #+#             */
-/*   Updated: 2026/05/11 15:21:12 by yuak             ###   ########.fr       */
+/*   Updated: 2026/05/11 16:13:45 by yuak             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "prompt.h"
 
-static int assign_quote_token(t_token *token, char *line, size_t s, size_t i);
+static int	assign_quote_token(t_token *token, char *line, size_t s, size_t i);
+static int	assign_operator(t_token *token, char *line, size_t s, size_t i);
 
 t_token	*get_token(char *line, size_t start, size_t i)
 {
@@ -21,7 +22,7 @@ t_token	*get_token(char *line, size_t start, size_t i)
 	token = (t_token *) ft_calloc(1, sizeof(t_token));
 	if (!token)
 		return (print_error("Error: ft_calloc\n"), NULL);
-	if (line[i] == ' ' || line[i] == '\0')
+	if (line[i] == ' ' || line[i] == '\0' || line[i] == '>')
 	{
 		token->value = ft_substr(line, start, i - start);
 		token->type = token_word;
@@ -36,35 +37,44 @@ t_token	*get_token(char *line, size_t start, size_t i)
 	}
 	else
 	{
-		print_error("Error: syntax error\n");
-		free(token);
-		return (NULL);
+		if (assign_operator(token, line, start, i))
+		{
+			free(token);
+			return (NULL);
+		}
 	}
 	token->next = NULL;
 	return (token);
 }
 
-static int assign_quote_token(t_token *token, char *line, size_t s, size_t i)
+static int	assign_quote_token(t_token *token, char *line, size_t s, size_t i)
 {
-	char	q;
-
-	q = line[i];
 	i++;
-	while (line[i] != q && line[i] != '\0')
+	while (line[i] != ' ' && line[i] != '\0')
 		i++;
-	if (line[i] == q)
-	{
-		while (line[i] != ' ' && line[i] != '\0')
-			i++;
-		token->value = ft_substr(line, s, i - s);
-		if (!token->value)
-			return (print_error("Error: ft_substr\n"), 1);
-		token->type = token_word;
-	}
-	else
-	{
-		print_error("Error: syntax error\n");
-		return (1);
-	}
+	token->value = ft_substr(line, s, i - s);
+	if (!token->value)
+		return (print_error("Error: ft_substr\n"), 1);
+	token->type = token_word;
 	return (0);
+}
+
+static int	assign_operator(t_token *token, char *line, size_t s, size_t i)
+{
+	// burada oncesini ayıracak
+
+	
+	if (!ft_strncmp(&line[i], ">>", 2))
+		token->type = token_redir_out;
+	else if (!ft_strncmp(&line[i], "<<", 2))
+		token->type = token_heredoc;
+	else if (line[i] == '>')
+		token->type = token_redir_out;
+	else if (line[i] == '<')
+		token->type = token_redir_in;
+	else
+		token->type = token_pipe;
+	(void) s;
+	return (0);
+	// burada sonrasini da ayiracak
 }
