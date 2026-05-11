@@ -49,8 +49,9 @@ char	*ft_path(char **argv, char **envp)
 {
 	char	*path;
 
-	if (ft_strnstr(argv[0], "/", 1))
+	if (ft_strnstr(argv[0], "/", 1) || ft_strnstr(argv[0], "./", 2))
 	{
+		//printf("---------------------------------------------\n");
 		if (access(argv[0], F_OK | X_OK) == 0)
 			return (ft_strdup(argv[0]));
 		else

@@ -50,8 +50,8 @@ int ft_exit_ft(char **av, t_shell *shell)
 	}
 	if (!arry_isdigit(*av))
 	{
-		ft_printf_fd(2, "-minishell: exit: %s: numeric argument required", *av);
-		exit(255);
+		ft_printf_fd(2, "-minishell: exit: %s: numeric argument required\n", *av);
+		exit(2);
 	}
 	code = ft_atoi(av[0]);
 	if (code < 0 || code > 255)

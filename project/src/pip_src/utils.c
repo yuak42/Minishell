@@ -43,24 +43,35 @@ int	ft_fdswap(int std_new, int std_old)
 	return (1);
 }
 
-void	ft_run_process(char *path, t_pipe plist)
+void	ft_run_process(t_pipe plist)
 {
-	int		status;
+	//int		status;
 	char	**ev;
+	char	*path;
 // node-> argv içinde mallocla açılmış mı 
 	//status = 1;
 	ev = env_to_arry(*plist.envp);// hata kontrolü ekle
-	if (is_builtin(plist.argv))
+	path = ft_path(plist.argv, ev);
+	if (!path)
 	{
-		status = run_builtin(plist.argv, plist.shell, 1);
-		free(path);
-		free(plist.argv);
-		free_ev(*plist.envp);
-		free_str(ev, - 1);
-		exit(status);
+		ft_printf_fd(2,"bash: %s: command not found\n", plist.argv[0]);
+		free_str(ev, -1);
+		ft_free(plist.argv);
+		exit(127);
 	}
-	else if (execve(path, plist.argv, ev) == -1)
+	// if (is_builtin(plist.argv))
+	// {
+	// 	printf("-------------BUİLTİN------------------------------\n");
+	// 	status = run_builtin(plist.argv, plist.shell, 1);
+	// 	free(path);
+	// 	free(plist.argv);
+	// 	free_ev(*plist.envp);
+	// 	free_str(ev, - 1);
+	// 	exit(status);
+	// }
+	if (execve(path, plist.argv, ev) == -1)
 	{
+		//printf("-------------PROCESSSSSSSSSSS-----------------\n");
 		free(path);
 		ft_free(plist.argv);
 		free_ev(*plist.envp);

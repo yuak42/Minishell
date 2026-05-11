@@ -36,7 +36,7 @@ void	ft_free(char **str);
 char	*ft_path_access(char **envp, char *command);
 int		ft_pipex(t_node *node, t_shell *shell, int ac);
 int		ft_fdswap(int std_new, int std_old);
-void	ft_run_process(char *path, t_pipe plist);
+void	ft_run_process(t_pipe plist);
 int		ft_of(char *s);
 int		ft_cf(char *s);
 int		ft_process(t_pipe plist, int (*pipefd)[2], int pc, int *pd);
