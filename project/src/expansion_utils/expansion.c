@@ -6,41 +6,51 @@
 /*   By: yuak <yuak@student.42istanbul.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/10 11:53:54 by yuak              #+#    #+#             */
-/*   Updated: 2026/05/11 15:37:58 by yuak             ###   ########.fr       */
+/*   Updated: 2026/05/11 18:08:42 by yuak             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "prompt.h"
 
-// static void	expand(char **str, size_t i, t_shell *shell);
+static int	expand(char **value, size_t *i, t_shell *shell);
 
-int	expansion(t_token *tokens, t_shell *shell)
+int	expansion(t_shell *shell)
 {
-	(void) tokens;
-	(void)	shell;
-	// size_t	i;
+	int		state;
+	size_t	i;
+	t_token	*tokens;
 
-	// while (tokens)
-	// {
-	// 	if (tokens->state == state_quote_single)
-	// 		tokens = tokens->next;
-	// 	else
-	// 	{
-	// 		i = 0;
-	// 		while (tokens->value[i] && tokens->value[i] != '$')
-	// 			i++;
-	// 		if (tokens->value[i] == '\0')
-	// 			tokens = tokens->next;
-	// 		else
-	// 		{
-	// 			expand(&tokens->value, i, shell);
-	// 			if (!tokens->value)
-	// 				return (perror("minishell"), 1);
-	// 		}
-	// 	}
-	// }
+	tokens = shell->tokens;
+	while (tokens)
+	{
+		i = 0;
+		if (tokens->value[i] == '\'')
+			state = 1;
+		else
+			state = 0;
+		while (tokens->value && tokens->value[i])
+		{
+			if (state == 0)
+				expand(&tokens->value, &i, shell);
+			if (state == 0 && tokens->value[i] == '\'')
+				state = 1;
+			else if (state == 1 && tokens->value[i] == '\'')
+				state = 0;
+			i++;
+		}
+		tokens = tokens->next;
+	}
 	return (0);
 }
+
+static int	expand(char **value, size_t *i, t_shell *shell)
+{
+	(void) value;
+	(void) i;
+	(void) shell;
+	return (0);
+}
+
 
 // static void	expand(char **str, size_t i, t_shell *shell)
 // {
