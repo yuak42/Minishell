@@ -6,24 +6,25 @@
 /*   By: yuak <yuak@student.42istanbul.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/10 11:53:54 by yuak              #+#    #+#             */
-/*   Updated: 2026/05/11 20:50:43 by yuak             ###   ########.fr       */
+/*   Updated: 2026/05/12 09:38:05 by yuak             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "prompt.h"
 
 static int	expand(char **value, t_shell *shell);
+int	get_state(char c, int quote);
+int	connect_str(char *res, char *conn);
 
 int	expansion(t_shell *shell)
 {
-	int		state;
 	t_token	*tokens;
 
 	tokens = shell->tokens;
 	while (tokens)
 	{
 		if (expand(&tokens->value, shell))
-			continue ;
+			return (1);
 		else
 			tokens = tokens->next;
 	}
@@ -34,34 +35,90 @@ static int	expand(char **value, t_shell *shell)
 {
 	size_t	i;
 	char	*str;
-	int		state;
-
+	int		quote;
+	size_t	start;
+	char	*final;
+	char	*temp;
+	(void) shell;
 	i = 0;
+	quote = 0;
+	start = 0;
 	str = *value;
-	state = 0;
+	final = ft_strdup("");
+	temp = NULL;
 	while (str[i])
 	{
-		if (state = 0 && str[i] == '\'')
-			state = 1;
-		else if (state = 1 && str[i] == '\'')
-			state = 0;
-		if (state == 0 && str[i] == '$')
-			break ;
+		quote = get_state(str[i], quote);
+		// if (quote == 0)
+		// {
+		// 	if (str[i] != '$')
+		// 		new_str[i] = str[i];
+		// 	else
+		// 		fill_exp(new_str, str, i);
+		// 	start = i + 1;
+		// }
+		// else if (quote == 2 && str[i] != '"')
+		// {
+		// 	if (str[i] != '$')
+		// 		new_str[i] = str[i];
+		// 	else
+		// 		fill_exp(new_str, str, i);
+		// 	start = i + 1;
+		// }
+		// else
+		if (quote == 1 && str[i] != '\'')
+		{
+			while (str[i] && quote == 1)
+			{
+				i++;
+				quote = get_state(str[i], quote);
+			}
+			temp = ft_substr(str, start, i - start);
+			if (!temp)
+				return (free(final), -1);
+			if (connect_str(final, temp))
+				return (free(final), -1);
+			start = i + 1;
+		}
 		i++;
 	}
 	if (str[i] == '\0')
+	{
+		free(*value);
+		*value = final;
 		return (0);
-	replace(value, i, shell);
+	}
 	return (1);
 }
 
-void	replace(char **value, size_t i, t_shell *shell)
+int	get_state(char c, int quote)
 {
-	size_t	j;
+	if (c == '\'' && quote == 0)
+		return (1);
+	if (c == '\'' && quote == 1)
+		return (0);
+	if (c == '"' && quote == 0)
+		return (2);
+	if (c == '"' && quote == 2)
+		return (0);
+	return (1);
+}
 
-	j = i;
-	if (str[i + 1] != '_' && !ft_isalpha(str[i + 1]))
-	{
-		change_with_empty(value, i);
-	}
+// void	fill_exp(char **value, size_t i, t_shell *shell)
+// {
+// 	(void) value;
+// 	(void) i;
+// 	(void) shell;
+// }
+
+int	connect_str(char *res, char *conn)
+{
+	char	*final;
+	
+	final = ft_strjoin(res, conn);
+	if (!final)
+		return (1);
+	free(res);
+	final = res;
+	return (0);
 }
