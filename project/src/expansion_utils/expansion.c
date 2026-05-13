@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expansion.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yuak <yuak@student.42istanbul.com>         +#+  +:+       +#+        */
+/*   By: yuak <yuak@student.42istanbul.com.tr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/10 11:53:54 by yuak              #+#    #+#             */
-/*   Updated: 2026/05/12 09:38:05 by yuak             ###   ########.fr       */
+/*   Updated: 2026/05/13 20:23:27 by yuak             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,9 @@
 
 static int	expand(char **value, t_shell *shell);
 int	get_state(char c, int quote);
-int	connect_str(char *res, char *conn);
+char	*connect_str(char *value, char *conn);
+char	*connect_expansion(char *final, char *value, size_t i, t_shell *shell);
+char	*get_env_value_dup(t_shell *shell, char *key);
 
 int	expansion(t_shell *shell)
 {
@@ -28,67 +30,39 @@ int	expansion(t_shell *shell)
 		else
 			tokens = tokens->next;
 	}
+	// remove quotes
 	return (0);
 }
 
 static int	expand(char **value, t_shell *shell)
 {
 	size_t	i;
-	char	*str;
 	int		quote;
 	size_t	start;
 	char	*final;
-	char	*temp;
-	(void) shell;
+
 	i = 0;
 	quote = 0;
 	start = 0;
-	str = *value;
-	final = ft_strdup("");
-	temp = NULL;
-	while (str[i])
+	while ((*value)[i])
 	{
-		quote = get_state(str[i], quote);
-		// if (quote == 0)
-		// {
-		// 	if (str[i] != '$')
-		// 		new_str[i] = str[i];
-		// 	else
-		// 		fill_exp(new_str, str, i);
-		// 	start = i + 1;
-		// }
-		// else if (quote == 2 && str[i] != '"')
-		// {
-		// 	if (str[i] != '$')
-		// 		new_str[i] = str[i];
-		// 	else
-		// 		fill_exp(new_str, str, i);
-		// 	start = i + 1;
-		// }
-		// else
-		if (quote == 1 && str[i] != '\'')
+		quote = get_state((*value)[i], quote);	
+		if ((*value)[i] == '$' && quote == 0)
 		{
-			while (str[i] && quote == 1)
-			{
-				i++;
-				quote = get_state(str[i], quote);
-			}
-			temp = ft_substr(str, start, i - start);
-			if (!temp)
-				return (free(final), -1);
-			if (connect_str(final, temp))
-				return (free(final), -1);
-			start = i + 1;
+			printf("it was here\n");
+			final = connect_str(*value, ft_substr(*value, start, i - start));
+			if (!final)
+				return (1);
+			final = connect_expansion(final, *value, i, shell);
+			if (!final)	
+				return (1);
+			start = i;
 		}
 		i++;
 	}
-	if (str[i] == '\0')
-	{
-		free(*value);
-		*value = final;
-		return (0);
-	}
-	return (1);
+	free(*value);
+	*value = final;
+	return (0);
 }
 
 int	get_state(char c, int quote)
@@ -101,24 +75,52 @@ int	get_state(char c, int quote)
 		return (2);
 	if (c == '"' && quote == 2)
 		return (0);
-	return (1);
-}
-
-// void	fill_exp(char **value, size_t i, t_shell *shell)
-// {
-// 	(void) value;
-// 	(void) i;
-// 	(void) shell;
-// }
-
-int	connect_str(char *res, char *conn)
-{
-	char	*final;
-	
-	final = ft_strjoin(res, conn);
-	if (!final)
-		return (1);
-	free(res);
-	final = res;
 	return (0);
 }
+
+char	*connect_str(char *value, char *conn)
+{
+	char	*final;
+
+	if (!conn)
+		return (NULL);
+	final = ft_strjoin(value, conn);
+	if (!final)
+		return (NULL);
+	// free(conn);
+	final = value;
+	return (final);
+}
+
+char	*connect_expansion(char *final, char *value, size_t i, t_shell *shell)
+{
+	char	*key;
+	char	*temp;
+	size_t	j;
+	
+	j = i + 1;
+	while (value[j] && (value[j] != ' ' || value[j] != '\t'))
+		j++;
+	key = ft_substr(value, i + 1, j - i - 1);
+	if (!key)
+		return (NULL);
+	temp = connect_str(final, get_env_value_dup(shell, key));
+	if (!temp)
+		return (NULL);
+	// free(final);
+	return (temp);
+}
+
+char	*get_env_value_dup(t_shell *shell, char *key)
+{
+	char	*value;
+	char	*s;
+
+	value = get_env_value(shell->ev, key);
+	s = ft_strdup(value);
+	if (!s)
+		return (NULL);
+	return (s);
+}
+
+//FIX NORM HEADER MAIL IS WRONG

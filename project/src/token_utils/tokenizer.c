@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokenizer.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yuak <yuak@student.42istanbul.com>         +#+  +:+       +#+        */
+/*   By: yuak <yuak@student.42istanbul.com.tr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/10 12:49:03 by yuak              #+#    #+#             */
-/*   Updated: 2026/05/12 09:37:08 by yuak             ###   ########.fr       */
+/*   Updated: 2026/05/13 20:13:51 by yuak             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ t_token	*tokenizer(char *line, t_shell *shell)
 	print_tokens(shell->tokens);
 	if (expansion(shell))
 	{
+		printf("is here\n");
 		free_tokens(shell->tokens);
 		shell->exit_status = 1;
 		return (NULL);
