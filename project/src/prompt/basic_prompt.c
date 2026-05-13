@@ -16,9 +16,15 @@ void	basic_prompt(t_shell *shell)
 			break ;
 		if (*line && !is_only_spaces(line))
 			add_history(line);
+		if (!*line)
+		{
+    		free(line);
+    		continue;  // tokenizer, execute gibi kodları atla, sonraki while iterasyonuna git
+		}
 		tokens = tokenizer(line, shell);
 		if (tokens)
 		{
+			//print_tokens(tokens);
 			nodes = create_nodes(tokens);
 			if (nodes)
 			{

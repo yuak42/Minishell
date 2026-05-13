@@ -100,6 +100,7 @@ static void	fill_question(char **str, char *num_str, char *new_value)
 	while (*num_str)
 	{
 		new_value[i] = *num_str;
+		i++;
 		num_str++;
 	}
 
@@ -109,4 +110,5 @@ static void	fill_question(char **str, char *num_str, char *new_value)
 		j++;
 		i++;
 	}
+	new_value[i] = '\0';
 }
