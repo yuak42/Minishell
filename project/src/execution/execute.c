@@ -18,19 +18,17 @@ void	execute(t_node *nodes, t_shell *shell)
 	int	fd;
 
 	fd = 1;
-	if (!nodes->next && is_builtin(nodes->argv))
+	if (!nodes->next && ((!nodes->argv) || !nodes->argv[0] || nodes->argv[0][0] == '\0'))
+		status = 0;
+	else if (!nodes->next && is_builtin(nodes->argv))
 	{
 		if (nodes->outfile && !nodes->append)
 			fd = ft_cf(nodes->outfile);
 		if (nodes->outfile && nodes->append)
 			fd = ft_af(nodes->outfile);
 		status = run_builtin(nodes->argv, shell, fd);
-		//printf("-------%d--------\n", status);
-		// if (status)
-		// 	return ;
 	}
 	else
 		status = ft_pipex(nodes, shell, nodes_len(nodes));
 	shell->exit_status = status;
-	//printf("execution ...\n");
 }

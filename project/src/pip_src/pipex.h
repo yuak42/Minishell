@@ -20,6 +20,7 @@
 # include <sys/wait.h>
 # include <unistd.h>
 # include "prompt.h"
+#include  <sys/stat.h>
 
 typedef struct s_pipe_list
 {
@@ -33,7 +34,7 @@ typedef struct s_pipe_list
 }	t_pipe;
 
 void	ft_free(char **str);
-char	*ft_path_access(char **envp, char *command);
+char	*ft_path_access(char *command, char *path_dir);
 int		ft_pipex(t_node *node, t_shell *shell, int ac);
 int		ft_fdswap(int std_new, int std_old);
 void	ft_run_process(t_pipe plist);
@@ -45,7 +46,7 @@ t_pipe	ft_struct(t_node *node, t_shell *shell, int (*fd)[2], int i);
 void	ft_pipeclose(int (*pipefd)[2], int pc);
 int		ft_wait(int *array, int count);
 void	ft_pip(int ac, int (*fd)[2]);
-char	*ft_path(char **argv, char **envp);
+char	*ft_path(char **argv, char **envp, struct stat *statbuf);
 int		ft_af(char *s);
 
 #endif
