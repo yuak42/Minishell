@@ -45,33 +45,37 @@ int	ft_fdswap(int std_new, int std_old)
 
 void	ft_run_process(t_pipe plist)
 {
-	//int		status;
 	char	**ev;
 	char	*path;
-// node-> argv içinde mallocla açılmış mı 
-	//status = 1;
+	struct stat statbuf;
+
 	ev = env_to_arry(*plist.envp);// hata kontrolü ekle
-	path = ft_path(plist.argv, ev);
+	path = ft_path(plist.argv, ev, &statbuf);
 	if (!path)
 	{
-		ft_printf_fd(2,"bash: %s: command not found\n", plist.argv[0]);
-		free_str(ev, -1);
-		ft_free(plist.argv);
-		exit(127);
+		//free_str(ev, -1);
+		//ft_free(plist.argv);
+		if (errno == EACCES)
+		{
+			ft_printf_fd(2,"-minishell: %s: Permission denied\n", plist.argv[0]);
+			exit(126);
+		}
+		else if (errno == ENOENT)
+		{
+			if (ft_strchr(plist.argv[0], '/'))
+				ft_printf_fd(2,"-minishell: %s: No such file or directory\n", plist.argv[0]);
+			else
+				ft_printf_fd(2,"-minishell: %s: command not found\n", plist.argv[0]);
+			exit(127);
+		}
+		else if(S_ISDIR(statbuf.st_mode))
+		{
+			ft_printf_fd(2, "minishell: %s: Is a directory\n", plist.argv[0]);
+			exit (126);
+		}
 	}
-	// if (is_builtin(plist.argv))
-	// {
-	// 	printf("-------------BUİLTİN------------------------------\n");
-	// 	status = run_builtin(plist.argv, plist.shell, 1);
-	// 	free(path);
-	// 	free(plist.argv);
-	// 	free_ev(*plist.envp);
-	// 	free_str(ev, - 1);
-	// 	exit(status);
-	// }
 	if (execve(path, plist.argv, ev) == -1)
 	{
-		//printf("-------------PROCESSSSSSSSSSS-----------------\n");
 		free(path);
 		ft_free(plist.argv);
 		free_ev(*plist.envp);

@@ -45,40 +45,41 @@ void	ft_exit(char *path, char **cmd)
 	exit(0);
 }
 
-char	*ft_path(char **argv, char **envp)
+char	*ft_path(char **argv, char **envp, struct stat *statbuf)
 {
 	char	*path;
+	char	*path_dir;
 
-	if (ft_strnstr(argv[0], "/", 1) || ft_strnstr(argv[0], "./", 2))
+	path_dir = ft_path_search(envp);
+	if (!path_dir)
 	{
-		//printf("---------------------------------------------\n");
-		if (access(argv[0], F_OK | X_OK) == 0)
-			return (ft_strdup(argv[0]));
-		else
-			return (NULL);
+		perror("-minishell");
+		return (NULL);
 	}
-	path = ft_path_access(envp, argv[0]);
+	if (ft_strrchr(argv[0], '/'))
+	{
+		stat(argv[0], statbuf);
+		if(S_ISDIR(statbuf->st_mode))
+			return (NULL);//free(path_dir)
+		if (access(argv[0], F_OK | X_OK) == 0)
+			return (free(path_dir), ft_strdup(argv[0]));
+		else
+			return (free(path_dir), NULL);
+	}
+	path = ft_path_access(argv[0], path_dir);
 	return (path);
 }
 
-char	*ft_path_access(char **envp, char *command)
+char	*ft_path_access(char *command, char *path_dir)
 {
 	char	*ptr;
 	int		i;	
 	char	**split;
-	char	*path;
 	char	*cmd;
 
 	i = 0;
 	cmd = ft_strjoin("/", command);
-	path = ft_path_search(envp);
-	if (!path)
-	{
-		free(cmd);
-		perror("");
-		return (NULL);
-	}
-	split = ft_split(path + 5, ':');
+	split = ft_split(path_dir + 5, ':');
 	while (split[i])
 	{
 		ptr = ft_strjoin(split[i], cmd);
