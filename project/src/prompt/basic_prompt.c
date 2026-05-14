@@ -6,7 +6,7 @@
 /*   By: yuak <yuak@student.42istanbul.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/10 11:53:22 by yuak              #+#    #+#             */
-/*   Updated: 2026/05/14 09:49:55 by yuak             ###   ########.fr       */
+/*   Updated: 2026/05/14 09:53:23 by yuak             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,19 +28,20 @@ void	basic_prompt(t_shell *shell)
     		free(line);
     		continue;  // tokenizer, execute gibi kodları atla, sonraki while iterasyonuna git
 		}
-		tokens = tokenizer(line, shell);
-		if (tokens)
+		shell->line = line;
+		shell->tokens = tokenizer(line, shell);
+		if (shell->tokens)
 		{
 			//print_tokens(tokens);
-			nodes = create_nodes(tokens);
-			if (nodes)
+			shell->nodes = create_nodes(shell->tokens);
+			if (shell->nodes)
 			{
 				//print_nodes(nodes);
-				execute(nodes, shell);
-				free_nodes(nodes);
+				execute(shell->nodes, shell);
+				free_nodes(shell->nodes);
 			}
 		}
-		free_tokens(tokens);
+		free_tokens(shell->tokens);
 		free(line); // always free at the end of loop
 	}
 	rl_clear_history();
