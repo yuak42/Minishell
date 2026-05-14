@@ -1,57 +1,126 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   expansion.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: yuak <yuak@student.42istanbul.com.tr>      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/05/10 11:53:54 by yuak              #+#    #+#             */
+/*   Updated: 2026/05/13 20:23:27 by yuak             ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "prompt.h"
 
-static void	expand(char **str, size_t i, t_shell *shell);
+static int	expand(char **value, t_shell *shell);
+int	get_state(char c, int quote);
+char	*connect_str(char *value, char *conn);
+char	*connect_expansion(char *final, char *value, size_t i, t_shell *shell);
+char	*get_env_value_dup(t_shell *shell, char *key);
 
-int	expansion(t_token *tokens, t_shell *shell)
+int	expansion(t_shell *shell)
 {
-	size_t	i;
+	t_token	*tokens;
 
+	tokens = shell->tokens;
 	while (tokens)
 	{
-		if (tokens->state == state_quote_single)
-			tokens = tokens->next;
+		if (expand(&tokens->value, shell))
+			return (1);
 		else
-		{
-			i = 0;
-			while (tokens->value[i] && tokens->value[i] != '$')
-				i++;
-			if (tokens->value[i] == '\0')
-				tokens = tokens->next;
-			else
-			{
-				expand(&tokens->value, i, shell);
-				if (!tokens->value)
-					return (perror("minishell"), 1);
-			}
-
-		}
+			tokens = tokens->next;
 	}
+	// remove quotes
 	return (0);
 }
 
-static void	expand(char **str, size_t i, t_shell *shell)
+static int	expand(char **value, t_shell *shell)
 {
-	size_t	j;
-	char	*var_name;
+	size_t	i;
+	int		quote;
+	size_t	start;
+	char	*final;
 
-	i++;
-	if ((*str)[i] == '?')
-		change_to_exit_status(str, shell->exit_status);
-	else if (!(ft_isalpha((*str)[i]) || (*str)[i] == '_'))
-		change_invalid_identifier(str);
-	else
+	i = 0;
+	quote = 0;
+	start = 0;
+	while ((*value)[i])
 	{
-		j = i;
-		while (ft_isalpha((*str)[i]) || ft_isdigit((*str)[i]) || (*str)[i] == '_')
-			i++;
-		var_name = ft_substr(*str, j, i - j);
-		if (!var_name)
+		quote = get_state((*value)[i], quote);	
+		if ((*value)[i] == '$' && quote == 0)
 		{
-			free(*str);
-			*str = NULL;
-			return ;
+			printf("it was here\n");
+			final = connect_str(*value, ft_substr(*value, start, i - start));
+			if (!final)
+				return (1);
+			final = connect_expansion(final, *value, i, shell);
+			if (!final)	
+				return (1);
+			start = i;
 		}
-		replace(str, var_name, shell->ev);
-		free(var_name);
+		i++;
 	}
+	free(*value);
+	*value = final;
+	return (0);
 }
+
+int	get_state(char c, int quote)
+{
+	if (c == '\'' && quote == 0)
+		return (1);
+	if (c == '\'' && quote == 1)
+		return (0);
+	if (c == '"' && quote == 0)
+		return (2);
+	if (c == '"' && quote == 2)
+		return (0);
+	return (0);
+}
+
+char	*connect_str(char *value, char *conn)
+{
+	char	*final;
+
+	if (!conn)
+		return (NULL);
+	final = ft_strjoin(value, conn);
+	if (!final)
+		return (NULL);
+	// free(conn);
+	final = value;
+	return (final);
+}
+
+char	*connect_expansion(char *final, char *value, size_t i, t_shell *shell)
+{
+	char	*key;
+	char	*temp;
+	size_t	j;
+	
+	j = i + 1;
+	while (value[j] && (value[j] != ' ' || value[j] != '\t'))
+		j++;
+	key = ft_substr(value, i + 1, j - i - 1);
+	if (!key)
+		return (NULL);
+	temp = connect_str(final, get_env_value_dup(shell, key));
+	if (!temp)
+		return (NULL);
+	// free(final);
+	return (temp);
+}
+
+char	*get_env_value_dup(t_shell *shell, char *key)
+{
+	char	*value;
+	char	*s;
+
+	value = get_env_value(shell->ev, key);
+	s = ft_strdup(value);
+	if (!s)
+		return (NULL);
+	return (s);
+}
+
+//FIX NORM HEADER MAIL IS WRONG

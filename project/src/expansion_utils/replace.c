@@ -1,13 +1,25 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   replace.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: yuak <yuak@student.42istanbul.com>         +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/05/10 11:53:51 by yuak              #+#    #+#             */
+/*   Updated: 2026/05/10 12:09:04 by yuak             ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "prompt.h"
 
 static void	replace_value(char **str, size_t var_len, char *value, size_t len);
-static void	fill(char **str, size_t var_len, char *value,  char *new_value);
+static void	fill(char **str, size_t var_len, char *value, char *new_value);
 
 void	replace(char **str, char *var_name, t_env *ev)
 {
 	size_t	len;
 	size_t	var_len;
-	
+
 	var_len = ft_strlen(var_name);
 	while (ev)
 	{

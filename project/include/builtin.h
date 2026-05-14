@@ -7,6 +7,9 @@
 #include "data_structures.h"
 #include "prompt.h"
 
+/* HEADER EKLE REIS */
+
+
 int		ft_echo(char **av, t_env *ev, int fd);
 int		ft_export(char **av, t_env *env, int fd);
 int		ft_env(t_env *ev, int fd);
