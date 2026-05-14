@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   prompt.h                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: yuak <yuak@student.42istanbul.com>         +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/05/10 12:32:31 by yuak              #+#    #+#             */
+/*   Updated: 2026/05/11 18:05:38 by yuak             ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef PROMPT_H
 #define PROMPT_H
 
@@ -19,13 +31,10 @@ void	set_env_value(t_env *ev, char *key, char *value);
 void	free_env_node(t_env *node);
 t_token	*generate_tokens(char *line);
 void	add_token_last(t_token **tokens, t_token *token);
-void	decide_token_type(t_token *token, char *str);
-t_token	*create_token(char *str, size_t s, size_t i, char state);
 void	free_tokens(t_token *tokens);
-int		normal(t_token **tokens, char *line, size_t *s, size_t *i);
-int		quote(t_token **tokens, char *line, size_t *s, size_t *i, char q);
-int		get_token(t_token **tokens, char *line, size_t *s, size_t *i);
-int		expansion(t_token *tokens, t_shell *shell);
+t_token	*get_word(char *line, size_t *i);
+t_token *get_operator(char *line, size_t *i);
+int		expansion(t_shell *shell);
 void	replace(char **str, char *var_name, t_env *ev);
 void	change_invalid_identifier(char **str);
 void	change_to_none(char **str, char *var_name);
@@ -34,9 +43,12 @@ t_node	*create_nodes(t_token *tokens);
 void	free_nodes(t_node *nodes);
 void	add_last_node(t_node **head, t_node *node);
 int		is_only_spaces(char *line);
+t_token	*tokenizer(char *line, t_shell *shell);
+void	print_error(char *s);
 
 // To be deleted later
 void	print_tokens(t_token	*tokens);
 void	print_nodes(t_node *nodes);
+void	print_ev(t_env *ev);
 
 #endif

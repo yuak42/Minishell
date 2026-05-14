@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   data_structures.h                                  :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: yuak <yuak@student.42istanbul.com>         +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/05/10 12:32:27 by yuak              #+#    #+#             */
+/*   Updated: 2026/05/11 15:51:25 by yuak             ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef NODES_H
 #define NODES_H
 
@@ -19,7 +31,6 @@ typedef enum e_state {
 typedef struct s_token {
 	t_token_type	type;
 	char			*value;
-	t_state			state;
 	struct s_token	*next;
 } t_token;
 
@@ -38,8 +49,6 @@ typedef struct s_node
     struct s_node   *next;
 }   t_node;
 
-
-
 typedef struct s_env {
 	char			*key;
 	char			*value;
@@ -50,6 +59,8 @@ typedef struct s_env {
 typedef struct s_shell {
 	t_env	*ev;
 	int		exit_status;
+	t_token	*tokens;
+	t_node	*nodes;
 } t_shell;
 
 
