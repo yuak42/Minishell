@@ -6,7 +6,7 @@
 /*   By: yuak <yuak@student.42istanbul.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/10 12:32:27 by yuak              #+#    #+#             */
-/*   Updated: 2026/05/11 15:51:25 by yuak             ###   ########.fr       */
+/*   Updated: 2026/05/14 09:53:02 by yuak             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,7 @@ typedef struct s_shell {
 	int		exit_status;
 	t_token	*tokens;
 	t_node	*nodes;
+	char	*line;
 } t_shell;
 
 
