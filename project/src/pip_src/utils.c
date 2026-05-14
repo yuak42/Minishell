@@ -14,6 +14,7 @@
 
 int	ft_of(char *s)
 {
+	//dfgdfg
 	int	fd;
 
 	fd = open(s, O_RDONLY);
