@@ -6,7 +6,7 @@
 /*   By: yuak <yuak@student.42istanbul.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/10 11:53:05 by yuak              #+#    #+#             */
-/*   Updated: 2026/05/11 17:37:24 by yuak             ###   ########.fr       */
+/*   Updated: 2026/05/15 12:51:57 by yuak             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,10 @@ t_token	*get_word(char *line, size_t *i)
 	int		quote;
 
 	j = (*i);
-	if (line[j] == '"' || line[j] == '\'')
+	if (line[j] == '\'')
 		quote = 1;
+	else if (line[j] == '"')
+		quote = 2;
 	else
 		quote = 0;
 	token = (t_token *) ft_calloc(1, sizeof(t_token));
@@ -31,12 +33,30 @@ t_token	*get_word(char *line, size_t *i)
 		return (print_error("Error: ft_calloc\n"), NULL);
 	start = j;
 	j++;
-	while (quote || (!is_metachar(line[j]) && line[j] != '\0'))
+	if (quote == 1)
 	{
-		if (line[j] == '"' || line[j] == '\'')
-			quote = 0;
-		j++;
+		while (quote == 1 || (!is_metachar(line[j]) && line[j] != '\0'))
+		{
+			if (line[j] == '\'')
+				quote = 0;
+			j++;
+		}
 	}
+	else if (quote == 2)
+	{
+		while (quote == 2 || (!is_metachar(line[j]) && line[j] != '\0'))
+		{
+			if (line[j] == '"')
+				quote = 0;
+			j++;
+		}
+	}
+	else
+	{
+		while (!is_metachar(line[j]) && line[j] != '\0')
+			j++;
+	}
+
 	*i = j;
 	token->value = ft_substr(line, start, j - start);
 	if (!token->value)
@@ -92,3 +112,8 @@ static int	is_metachar(char c)
 		return (1);
 	return (0);
 }
+
+// static char	*get_quote(char *line, int quote)
+// {
+	
+// }
