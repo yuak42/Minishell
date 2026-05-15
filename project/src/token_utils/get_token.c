@@ -6,7 +6,7 @@
 /*   By: yuak <yuak@student.42istanbul.com.tr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/10 11:53:05 by yuak              #+#    #+#             */
-/*   Updated: 2026/05/15 12:53:32 by yuak             ###   ########.fr       */
+/*   Updated: 2026/05/15 13:06:18 by yuak             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,8 @@ t_token	*get_word(char *line, size_t *i)
 		{
 			if (line[j] == '\'')
 				quote = 0;
+			if (line[j] == '\0')
+				break ;
 			j++;
 		}
 	}
@@ -48,6 +50,8 @@ t_token	*get_word(char *line, size_t *i)
 		{
 			if (line[j] == '"')
 				quote = 0;
+			if (line[j] == '\0')
+				break ;
 			j++;
 		}
 	}
@@ -56,7 +60,6 @@ t_token	*get_word(char *line, size_t *i)
 		while (!is_metachar(line[j]) && line[j] != '\0')
 			j++;
 	}
-
 	*i = j;
 	token->value = ft_substr(line, start, j - start);
 	if (!token->value)
