@@ -6,7 +6,7 @@
 /*   By: yuak <yuak@student.42istanbul.com.tr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/10 11:53:54 by yuak              #+#    #+#             */
-/*   Updated: 2026/05/15 12:54:12 by yuak             ###   ########.fr       */
+/*   Updated: 2026/05/15 13:18:07 by yuak             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,13 +44,14 @@ static int	expand(char **value, t_shell *shell)
 	i = 0;
 	quote = 0;
 	start = 0;
+	final = ft_strdup("");
 	while ((*value)[i])
 	{
 		quote = get_state((*value)[i], quote);	
 		if ((*value)[i] == '$' && quote == 0)
 		{
 			printf("it was here\n");
-			final = connect_str(*value, ft_substr(*value, start, i - start));
+			final = connect_str(final, ft_substr(*value, start, i - start));
 			if (!final)
 				return (1);
 			final = connect_expansion(final, *value, i, shell);
@@ -78,21 +79,21 @@ int	get_state(char c, int quote)
 	return (0);
 }
 
-char	*connect_str(char *value, char *conn)
+char	*connect_str(char *initial, char *conn)
 {
 	char	*final;
 
 	if (!conn)
 		return (NULL);
-	final = ft_strjoin(value, conn);
+	final = ft_strjoin(initial, conn);
 	if (!final)
 		return (NULL);
 	// free(conn);
-	final = value;
+	free(initial);
 	return (final);
 }
 
-char	*connect_expansion(char *final, char *value, size_t i, t_shell *shell)
+char	*connect_expansion(char *initial, char *value, size_t i, t_shell *shell)
 {
 	char	*key;
 	char	*temp;
@@ -104,10 +105,10 @@ char	*connect_expansion(char *final, char *value, size_t i, t_shell *shell)
 	key = ft_substr(value, i + 1, j - i - 1);
 	if (!key)
 		return (NULL);
-	temp = connect_str(final, get_env_value_dup(shell, key));
+	temp = connect_str(initial, get_env_value_dup(shell, key));
 	if (!temp)
-		return (NULL);
-	// free(final);
+		return (free(key), NULL);
+	free(key);
 	return (temp);
 }
 
