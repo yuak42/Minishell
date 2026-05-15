@@ -7,7 +7,7 @@
 #include "data_structures.h"
 #include "prompt.h"
 
-/* HEADER EKLE REIS */
+/* HEADER EKLE REIS bir de libft de mailin yanlis onu düzelt sonu .tr ile bitcek */
 
 
 int		ft_echo(char **av, t_env *ev, int fd);
