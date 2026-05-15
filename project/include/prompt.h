@@ -6,7 +6,7 @@
 /*   By: yuak <yuak@student.42istanbul.com.tr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/10 12:32:31 by yuak              #+#    #+#             */
-/*   Updated: 2026/05/15 15:14:02 by yuak             ###   ########.fr       */
+/*   Updated: 2026/05/15 19:39:07 by yuak             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,6 @@ void	free_tokens(t_token *tokens);
 t_token	*get_word(char *line, size_t *i);
 t_token *get_operator(char *line, size_t *i);
 int		expansion(t_shell *shell);
-void	replace(char **str, char *var_name, t_env *ev);
 void	change_invalid_identifier(char **str);
 void	change_to_none(char **str, char *var_name);
 void	change_to_exit_status(char **str, int exit_status);
@@ -47,6 +46,8 @@ t_token	*tokenizer(char *line, t_shell *shell);
 void	print_error(char *s);
 int		is_varchar(char c);
 int		is_start_varchar(char c);
+char	*get_key(char *str, size_t *i);
+char	*connect_str(char *before, char *to_add);
 
 // To be deleted later
 void	print_tokens(t_token	*tokens);
