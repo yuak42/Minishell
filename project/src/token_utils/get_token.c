@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_token.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yuak <yuak@student.42istanbul.com>         +#+  +:+       +#+        */
+/*   By: yuak <yuak@student.42istanbul.com.tr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/10 11:53:05 by yuak              #+#    #+#             */
-/*   Updated: 2026/05/15 12:51:57 by yuak             ###   ########.fr       */
+/*   Updated: 2026/05/15 12:53:32 by yuak             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,8 +112,3 @@ static int	is_metachar(char c)
 		return (1);
 	return (0);
 }
-
-// static char	*get_quote(char *line, int quote)
-// {
-	
-// }
