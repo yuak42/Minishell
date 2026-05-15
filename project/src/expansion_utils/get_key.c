@@ -6,17 +6,17 @@
 /*   By: yuak <yuak@student.42istanbul.com.tr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/15 15:32:48 by yuak              #+#    #+#             */
-/*   Updated: 2026/05/15 15:57:56 by yuak             ###   ########.fr       */
+/*   Updated: 2026/05/15 19:37:38 by yuak             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "prompt.h"
 
-static char	*get_question_mark(size_t *i, t_shell *shell);
+static char	*get_question_mark(size_t *i);
 static char	*empty_string(size_t *i);
 static char	*get_var_name(char *value, size_t start,  size_t *i);
 
-char	*get_key(char *str, size_t *i, t_shell *shell)
+char	*get_key(char *str, size_t *i)
 {
 	size_t	start;
 	char	*key;
@@ -34,7 +34,7 @@ char	*get_key(char *str, size_t *i, t_shell *shell)
 	return (key);
 }
 
-static char	*get_question_mark(size_t *i, t_shell *shell)
+static char	*get_question_mark(size_t *i)
 {
 	char	*key;
 
