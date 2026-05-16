@@ -38,11 +38,43 @@ static char	*ft_path_search(char **envp)
 	return (0);
 }
 
-void	ft_exit(char *path, char **cmd)
+char	*path_check(t_pipe plist, char **ev)
 {
-	free(path);
-	ft_free(cmd);
-	exit(0);
+	char *path;
+	struct stat statbuf;
+
+	path = ft_path(plist.argv, ev, &statbuf);
+	if (!path)
+	{
+		if (errno == EACCES)
+		{
+			ft_printf_fd(2,"-minishell: %s: Permission denied\n", plist.argv[0]);
+			ft_all_free(plist);
+			free_str(ev, -1);
+			free(path);
+			exit(126);
+		}
+		else if (errno == ENOENT)
+		{
+			if (ft_strchr(plist.argv[0], '/'))
+				ft_printf_fd(2,"-minishell: %s: No such file or directory\n", plist.argv[0]);
+			else
+				ft_printf_fd(2,"-minishell: %s: command not found\n", plist.argv[0]);
+			ft_all_free(plist);
+			free_str(ev, -1);
+			free(path);
+			exit(127);
+		}
+		else if(S_ISDIR(statbuf.st_mode))
+		{
+			ft_printf_fd(2, "minishell: %s: Is a directory\n", plist.argv[0]);
+			ft_all_free(plist);
+			free_str(ev, -1);
+			free(path);
+			exit (126);
+		}
+	}
+	return (path);
 }
 
 char	*ft_path(char **argv, char **envp, struct stat *statbuf)
