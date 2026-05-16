@@ -6,7 +6,7 @@
 /*   By: yuak <yuak@student.42istanbul.com.tr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/16 12:31:29 by yuak              #+#    #+#             */
-/*   Updated: 2026/05/16 15:00:53 by yuak             ###   ########.fr       */
+/*   Updated: 2026/05/16 20:00:16 by yuak             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,12 @@ static char	*expand_loop(char *str, size_t *start, size_t *i, t_shell *shell)
 	while (str[*i])
 	{
 		quote = get_state(str[*i], quote);
-		if (str[*i] == '$' && quote != 1)
+		if (!ft_isalpha(str[*i + 1]) && str[*i + 1] != '?')
+		{
+			(*i)++;
+			continue ;
+		}
+		else if (str[*i] == '$' && quote != 1)
 		{
 			res = replace_exp(str, res, *start, i, shell);
 			if (!res)
