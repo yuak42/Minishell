@@ -1,26 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   free_ev.c                                          :+:      :+:    :+:   */
+/*   varchar_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yuak <yuak@student.42istanbul.com.tr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/05/10 11:54:21 by yuak              #+#    #+#             */
-/*   Updated: 2026/05/15 12:54:25 by yuak             ###   ########.fr       */
+/*   Created: 2026/05/15 15:10:36 by yuak              #+#    #+#             */
+/*   Updated: 2026/05/16 14:30:56 by yuak             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "prompt.h"
 
-void	free_ev(t_env *ev)
+int	is_varchar(char c)
 {
-	t_env	*tmp;
-	while (ev)
-	{
-		tmp = ev;
-		free(ev->key);
-		free(ev->value);
-		ev = ev->next;
-		free(tmp);
-	}
+	if (ft_isdigit(c) || ft_isalpha(c) || c == '_')
+		return (1);
+	return (0);
+}
+
+int	is_start_varchar(char c)
+{
+	if (ft_isalpha(c) || c == '_')
+		return (1);
+	return (0);
 }

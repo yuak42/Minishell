@@ -15,7 +15,7 @@ SRC = prompt/basic_prompt.c main.c execution/execute.c  \
 	env_utils/get_env_list.c env_utils/set_env_value.c env_utils/get_env_value.c env_utils/free_env_node.c \
 	token_utils/generate_tokens.c token_utils/add_token_last.c \
 	token_utils/get_token.c token_utils/free_tokens.c \
-	expansion_utils/expansion.c expansion_utils/replace.c expansion_utils/change_func.c \
+	expansion_utils/expansion.c \
 	env_utils/free_ev.c 
 
 

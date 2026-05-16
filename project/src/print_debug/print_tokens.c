@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   print_tokens.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yuak <yuak@student.42istanbul.com>         +#+  +:+       +#+        */
+/*   By: yuak <yuak@student.42istanbul.com.tr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/10 11:53:00 by yuak              #+#    #+#             */
-/*   Updated: 2026/05/11 17:19:45 by yuak             ###   ########.fr       */
+/*   Updated: 2026/05/16 13:03:04 by yuak             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	print_tokens(t_token	*tokens)
 	while (tokens)
 	{
 		if (tokens->type == token_word)
-			printf("[WORD: %s] ", tokens->value);
+			printf("[WORD: <%s>] ", tokens->value);
 		else if (tokens->type == token_pipe)
 			printf("[PIPE] ");
 		else if (tokens->type == token_redir_in)

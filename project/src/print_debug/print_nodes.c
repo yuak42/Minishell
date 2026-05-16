@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   print_nodes.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yuak <yuak@student.42istanbul.com>         +#+  +:+       +#+        */
+/*   By: yuak <yuak@student.42istanbul.com.tr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/10 11:53:33 by yuak              #+#    #+#             */
-/*   Updated: 2026/05/10 11:53:34 by yuak             ###   ########.fr       */
+/*   Updated: 2026/05/16 13:37:41 by yuak             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,9 +51,8 @@ void	print_nodes(t_node *nodes)
 		printf("pipe_in = %d\n", nodes->pipe_in);
 		printf("pipe_out = %d\n", nodes->pipe_out);
 
-		printf("node %d\n-------------------\n", i);
 		i++;
 		nodes = nodes->next;
 	}
-	// printf("print_nodes end\n");
+	printf("\n------- OUTPUT -------\n");
 }

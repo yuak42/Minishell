@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   generate_tokens.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yuak <yuak@student.42istanbul.com>         +#+  +:+       +#+        */
+/*   By: yuak <yuak@student.42istanbul.com.tr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/10 11:48:35 by yuak              #+#    #+#             */
-/*   Updated: 2026/05/11 17:13:42 by yuak             ###   ########.fr       */
+/*   Updated: 2026/05/15 12:53:48 by yuak             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,8 @@ t_token	*generate_tokens(char *line)
 	{
 		while (line[i] == ' ' || line[i] == '\t')
 			i++;
+		if (!line[i])
+			break ;
 		if (is_operator(line[i]))
 			token = get_operator(line, &i);
 		else
