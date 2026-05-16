@@ -6,7 +6,7 @@
 /*   By: yuak <yuak@student.42istanbul.com.tr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/10 12:32:31 by yuak              #+#    #+#             */
-/*   Updated: 2026/05/16 12:48:20 by yuak             ###   ########.fr       */
+/*   Updated: 2026/05/16 14:09:50 by yuak             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ int		expand(char **str, t_shell *shell);
 char	*replace_exp(char *str, char *res, size_t start, size_t *i, t_shell *shell);
 char	*connect_exp(char *res, char *key, t_env *ev);
 int		get_state(char c, int quote);
+int		remove_quotes(char **str);
 
 // To be deleted later
 void	print_tokens(t_token	*tokens);
