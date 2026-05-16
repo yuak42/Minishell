@@ -6,7 +6,7 @@
 /*   By: yuak <yuak@student.42istanbul.com.tr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/10 11:53:54 by yuak              #+#    #+#             */
-/*   Updated: 2026/05/16 15:03:56 by yuak             ###   ########.fr       */
+/*   Updated: 2026/05/16 19:05:27 by yuak             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int	expansion(t_shell *shell)
 		else
 			tokens = tokens->next;
 	}
-	print_tokens(head);
+	// print_tokens(head);
 	tokens = head;
 	while (head)
 	{
@@ -35,7 +35,7 @@ int	expansion(t_shell *shell)
 		else
 			head = head->next;
 	}
-	printf("----after quotes removed ----\n");
-	print_tokens(tokens);
+	// printf("----after quotes removed ----\n");
+	// print_tokens(tokens);
 	return (0);
 }
