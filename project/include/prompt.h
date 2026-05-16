@@ -6,7 +6,7 @@
 /*   By: yuak <yuak@student.42istanbul.com.tr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/10 12:32:31 by yuak              #+#    #+#             */
-/*   Updated: 2026/05/15 19:39:07 by yuak             ###   ########.fr       */
+/*   Updated: 2026/05/16 11:13:43 by yuak             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ t_token	*tokenizer(char *line, t_shell *shell);
 void	print_error(char *s);
 int		is_varchar(char c);
 int		is_start_varchar(char c);
-char	*get_key(char *str, size_t *i);
+char	*get_key_name(char *str, size_t *i);
 char	*connect_str(char *before, char *to_add);
 
 // To be deleted later

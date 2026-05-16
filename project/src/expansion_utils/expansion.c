@@ -6,7 +6,7 @@
 /*   By: yuak <yuak@student.42istanbul.com.tr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/10 11:53:54 by yuak              #+#    #+#             */
-/*   Updated: 2026/05/15 19:37:19 by yuak             ###   ########.fr       */
+/*   Updated: 2026/05/16 11:17:14 by yuak             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 
 static int	expand(char **value, t_shell *shell);
 static int	get_state(char c, int quote);
+static char	*connect_exp(char *res, char *key, t_env *ev);
+static char	*replace_exp(char *str, char *res, size_t start, size_t i, t_shell *shell);
 
 int	expansion(t_shell *shell)
 {
@@ -37,7 +39,6 @@ static int	expand(char **str, t_shell *shell)
 	size_t	i;
 	char	*res;
 	int		quote;
-	char	*key;
 
 	i = 0;
 	start = 0;
@@ -50,11 +51,9 @@ static int	expand(char **str, t_shell *shell)
 		quote = get_state((*str)[i], quote);
 		if ((*str)[i] == '$' && quote != 1)
 		{
-			// add first part to res
-			key = get_key(*str, &i, shell);
-			replace(&res, key, shell->ev);
-			// find expansion value
-			// add expansion value
+			res = replace_exp(*str, res, start, i, shell);
+			if (!res)
+				return (free(res), 1);
 			start = i;
 		}
 		i++;
@@ -63,11 +62,48 @@ static int	expand(char **str, t_shell *shell)
 		return (free(res), 0);
 	if (start != i)
 	{
-		// add remaining part to res
+		res = connect_str(res, ft_substr(*str, start, i - start));
+		if (!res)
+			return (1);
 	}
+	free(*str);
+	*str = res;
 	return (0);
 }
 
+static char	*replace_exp(char *str, char *res, size_t start, size_t i, t_shell *shell)
+{
+	char	*key;
+
+	res = connect_str(res, ft_substr(str, start, i - start));
+	if (!res)
+		return (NULL);
+	key = get_key_name(str, &i);
+	if (!key)
+		return (NULL);
+	res = connect_exp(res, key, shell->ev);
+	if (!res)
+		return (free(key), free(res), NULL);
+	free(key);
+	return (res);
+}
+
+static char	*connect_exp(char *res, char *key, t_env *ev)
+{
+	char	*value;
+
+	value = get_env_value(ev, key);
+	if (!value)
+		res = connect_str(res, ft_strdup(""));
+	else
+	{
+		value = ft_strdup(value);
+		if (!value)
+			return (NULL);
+		res = connect_str(res, value);
+	}
+	return (res);
+}
 
 
 static int	get_state(char c, int quote)
