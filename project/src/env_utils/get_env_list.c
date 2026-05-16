@@ -6,7 +6,7 @@
 /*   By: yuak <yuak@student.42istanbul.com.tr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/10 11:54:19 by yuak              #+#    #+#             */
-/*   Updated: 2026/05/16 19:00:29 by yuak             ###   ########.fr       */
+/*   Updated: 2026/05/16 19:21:47 by yuak             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 static char	*get_key(char *env);
 static char	*get_value(char *env);
+static char	*get_empty_value(void);
 
 t_env	*get_env_list(char **env)
 {
@@ -53,21 +54,19 @@ t_env	*get_env_list(char **env)
 
 static char	*get_key(char *env)
 {
-	char	*str;
 	char	*key;
 	size_t	i;
 
-	str = env;
 	i = 0;
-	while (str[i] != '=' && str[i] != '\0')
+	while (env[i] != '=' && env[i] != '\0')
 		i++;
 	key = (char *) malloc(sizeof(char) * (i + 1));
 	if (!key)
-		return (NULL);
+		return (perror("Error"), NULL);
 	i = 0;
-	while (str[i] != '=' && str[i] != '\0')
+	while (env[i] != '=' && env[i] != '\0')
 	{
-		key[i] = str[i];
+		key[i] = env[i];
 		i++;
 	}
 	key[i] = '\0';
@@ -76,33 +75,36 @@ static char	*get_key(char *env)
 
 static char	*get_value(char *env)
 {
-	char	*str;
 	char	*value;
 	size_t	i;
 
-	str = env;
 	i = 0;
-	while (*str != '=' && *str)
-		str++;
-	if (*str == '\0')
-	{
-		value = ft_strdup("");
-		if (!value)
-			return (NULL);
-		return (value);
-	}
-	str++;
-	while (str[i])
+	while (*env && *env != '=')
+		env++;
+	if (*env == '\0')
+		return (get_empty_value());
+	env++;
+	while (env[i])
 		i++;
 	value = (char *) malloc(sizeof(char) * (i + 1));
 	if (!value)
-		return (NULL);
+		return (perror("Error"), NULL);
 	i = 0;
-	while (str[i])
+	while (env[i])
 	{
-		value[i] = str[i];
+		value[i] = env[i];
 		i++;
 	}
 	value[i] = '\0';
+	return (value);
+}
+
+static char	*get_empty_value(void)
+{
+	char	*value;
+
+	value = ft_strdup("");
+	if (!value)
+		return (print_error("Error: ft_strdup\n"), NULL);
 	return (value);
 }
