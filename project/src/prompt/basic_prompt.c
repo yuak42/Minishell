@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   basic_prompt.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yuak <yuak@student.42istanbul.com>         +#+  +:+       +#+        */
+/*   By: yuak <yuak@student.42istanbul.com.tr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/10 11:53:22 by yuak              #+#    #+#             */
-/*   Updated: 2026/05/14 09:53:23 by yuak             ###   ########.fr       */
+/*   Updated: 2026/05/16 13:20:47 by yuak             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,11 +32,10 @@ void	basic_prompt(t_shell *shell)
 		shell->tokens = tokenizer(line, shell);
 		if (shell->tokens)
 		{
-			//print_tokens(tokens);
 			shell->nodes = create_nodes(shell->tokens);
 			if (shell->nodes)
 			{
-				//print_nodes(nodes);
+				print_nodes(shell->nodes);
 				execute(shell->nodes, shell);
 				free_nodes(shell->nodes);
 			}
