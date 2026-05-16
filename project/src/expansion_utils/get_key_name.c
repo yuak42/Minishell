@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_key.c                                          :+:      :+:    :+:   */
+/*   get_key_name.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yuak <yuak@student.42istanbul.com.tr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/15 15:32:48 by yuak              #+#    #+#             */
-/*   Updated: 2026/05/16 11:13:00 by yuak             ###   ########.fr       */
+/*   Updated: 2026/05/16 11:24:16 by yuak             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,6 @@ char	*get_key_name(char *str, size_t *i)
 	start = *i;
 	if (str[*i] == '?')
 		key = get_question_mark(i);
-	// else if (value[*i] == ' ' || value[*i] == '\t' || value[*i] == '\0')
-	// 	key = literal_dollar(); // simdilik sadece $ sembolunu es gectik // bunu hatta buraya göndermeden kontrol etmeliyiz
 	else if (!is_start_varchar(str[*i]))
 		key = empty_string(i);
 	else
