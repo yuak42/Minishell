@@ -6,7 +6,7 @@
 /*   By: yuak <yuak@student.42istanbul.com.tr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/16 14:08:40 by yuak              #+#    #+#             */
-/*   Updated: 2026/05/16 14:28:17 by yuak             ###   ########.fr       */
+/*   Updated: 2026/05/16 14:31:49 by yuak             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ static void	fill(char *final, char *str)
 {
 	size_t	i;
 	size_t	j;
-	
+
 	i = 0;
 	j = 0;
 	while (str[i])
@@ -83,26 +83,26 @@ static void	fill(char *final, char *str)
 
 static void	handle_quotes(char *str, char *final, size_t *i, size_t *j)
 {
-		if (str[*i] == '\'')
+	if (str[*i] == '\'')
+	{
+		(*i)++;
+		while (str[*i] != '\'')
 		{
+			final[*j] = str[*i];
 			(*i)++;
-			while (str[*i] != '\'')
-			{
-				final[*j] = str[*i];
-				(*i)++;
-				(*j)++;
-			}
-			(*i)++;
+			(*j)++;
 		}
-		else
+		(*i)++;
+	}
+	else
+	{
+		(*i)++;
+		while (str[*i] != '"')
 		{
+			final[*j] = str[*i];
 			(*i)++;
-			while (str[*i] != '"')
-			{
-				final[*j] = str[*i];
-				(*i)++;
-				(*j)++;
-			}
-			(*i)++;
+			(*j)++;
 		}
+		(*i)++;
+	}
 }

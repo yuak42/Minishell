@@ -6,7 +6,7 @@
 /*   By: yuak <yuak@student.42istanbul.com.tr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/10 12:49:03 by yuak              #+#    #+#             */
-/*   Updated: 2026/05/16 14:19:56 by yuak             ###   ########.fr       */
+/*   Updated: 2026/05/16 15:04:22 by yuak             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ t_token	*tokenizer(char *line, t_shell *shell)
 		shell->exit_status = 1;
 		return (NULL);
 	}
-	printf("---syntax check---\n");
+	printf("--- Quote syntax check ---\n");
 	print_tokens(shell->tokens);
 	if (!is_quote_syntax_correct(shell->tokens))
 	{
@@ -31,8 +31,8 @@ t_token	*tokenizer(char *line, t_shell *shell)
 		shell->exit_status = 1;
 		return (NULL);
 	}
-	printf("-----before expansion----\n");
-	print_tokens(shell->tokens);
+	printf("\n\n");
+	printf("----- expansion check ----\n");
 	if (expansion(shell))
 	{
 		print_error("expansion failed\n");
@@ -40,7 +40,8 @@ t_token	*tokenizer(char *line, t_shell *shell)
 		shell->exit_status = 1;
 		return (NULL);
 	}
-	printf("-----after expansion----\n");
+	printf("\n\n");
+	printf("----- Operator syntax check ----\n");
 	print_tokens(shell->tokens);
 	if (!is_syntax_correct(shell->tokens))
 	{
