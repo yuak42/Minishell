@@ -6,7 +6,7 @@
 /*   By: yuak <yuak@student.42istanbul.com.tr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/15 19:10:58 by yuak              #+#    #+#             */
-/*   Updated: 2026/05/16 14:32:11 by yuak             ###   ########.fr       */
+/*   Updated: 2026/05/16 19:44:29 by yuak             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,18 +34,26 @@ char	*replace_exp(char *str, char *res, size_t start, size_t *i, t_shell *shell)
 	key = get_key_name(str, i);
 	if (!key)
 		return (NULL);
-	res = connect_exp(res, key, shell->ev);
+	res = connect_exp(res, key, shell);
 	if (!res)
 		return (free(key), free(res), NULL);
 	free(key);
 	return (res);
 }
 
-char	*connect_exp(char *res, char *key, t_env *ev)
+char	*connect_exp(char *res, char *key, t_shell *shell)
 {
 	char	*value;
 
-	value = get_env_value(ev, key);
+	if (!ft_strncmp("?", key, 1))
+	{
+		value = ft_itoa(shell->exit_status);
+		if (!value)
+			return (NULL);
+		res = connect_str(res, value);
+		return (res);
+	}
+	value = get_env_value(shell->ev, key);
 	if (!value)
 		res = connect_str(res, ft_strdup(""));
 	else
