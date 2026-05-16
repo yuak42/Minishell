@@ -39,7 +39,7 @@ int arry_isdigit(char *s)
 int ft_exit_ft(char **av, t_shell *shell)
 {
 	int code;
-
+ // deneme
 	av++;
 	if (!*av)
 		exit(shell->exit_status);
