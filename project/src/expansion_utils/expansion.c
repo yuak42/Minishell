@@ -6,21 +6,22 @@
 /*   By: yuak <yuak@student.42istanbul.com.tr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/10 11:53:54 by yuak              #+#    #+#             */
-/*   Updated: 2026/05/16 11:17:14 by yuak             ###   ########.fr       */
+/*   Updated: 2026/05/16 12:45:59 by yuak             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "prompt.h"
 
-static int	expand(char **value, t_shell *shell);
-static int	get_state(char c, int quote);
-static char	*connect_exp(char *res, char *key, t_env *ev);
-static char	*replace_exp(char *str, char *res, size_t start, size_t i, t_shell *shell);
+static int	remove_quotes(char **str);
+static size_t	get_number_quotes(char *str);
+static void	fill(char *final, char *str);
 
 int	expansion(t_shell *shell)
 {
 	t_token	*tokens;
+	t_token	*head;
 
+	head = shell->tokens;
 	tokens = shell->tokens;
 	while (tokens)
 	{
@@ -29,93 +30,93 @@ int	expansion(t_shell *shell)
 		else
 			tokens = tokens->next;
 	}
-	// remove quotes
+	while (head)
+	{
+		if (remove_quotes(&head->value))
+			return (1);
+		else
+			head = head->next;
+	}
 	return (0);
 }
 
-static int	expand(char **str, t_shell *shell)
+static int	remove_quotes(char **str)
 {
-	size_t	start;
+	size_t	new_len;
+	char	*final;
+
+	new_len = ft_strlen(*str) - get_number_quotes(*str);
+	final = (char *) ft_calloc(new_len + 1, sizeof(char));
+	if (!final)
+		return (1);
+	fill(final, *str);
+	free(*str);
+	*str = final;
+	return (0);
+}
+
+static size_t	get_number_quotes(char *str)
+{
 	size_t	i;
-	char	*res;
-	int		quote;
+	size_t	quote_num;
 
 	i = 0;
-	start = 0;
-	quote = 0;
-	res = ft_strdup("");
-	if (!res)
-		return (1);
-	while ((*str)[i])
+	quote_num = 0;
+	while (str[i])
 	{
-		quote = get_state((*str)[i], quote);
-		if ((*str)[i] == '$' && quote != 1)
+		if (str[i] == '\'')
 		{
-			res = replace_exp(*str, res, start, i, shell);
-			if (!res)
-				return (free(res), 1);
-			start = i;
+			while (str[i] != '\'')
+				i++;
+			quote_num = quote_num + 2;
+		}
+		else if (str[i] == '"')
+		{
+			while (str[i] != '"')
+				i++;
+			quote_num = quote_num + 2;
 		}
 		i++;
 	}
-	if (res[0] == '\0')
-		return (free(res), 0);
-	if (start != i)
+	return (quote_num);
+}
+
+static void	fill(char *final, char *str)
+{
+	size_t	i;
+	size_t	j;
+	
+	i = 0;
+	j = 0;
+	while (str[i])
 	{
-		res = connect_str(res, ft_substr(*str, start, i - start));
-		if (!res)
-			return (1);
+		if (str[i] == '\'')
+		{
+			i++;
+			while (str[i] != '\'')
+			{
+				final[j] = str[i];
+				i++;
+				j++;
+			}
+			i++;
+		}
+		else if (str[i] == '"')
+		{
+			i++;
+			while (str[i] != '"')
+			{
+				final[j] = str[i];
+				i++;
+				j++;
+			}
+			i++;
+		}
+		else
+		{
+			final[j] = str[i];
+			j++;
+			i++;
+		}
 	}
-	free(*str);
-	*str = res;
-	return (0);
 }
-
-static char	*replace_exp(char *str, char *res, size_t start, size_t i, t_shell *shell)
-{
-	char	*key;
-
-	res = connect_str(res, ft_substr(str, start, i - start));
-	if (!res)
-		return (NULL);
-	key = get_key_name(str, &i);
-	if (!key)
-		return (NULL);
-	res = connect_exp(res, key, shell->ev);
-	if (!res)
-		return (free(key), free(res), NULL);
-	free(key);
-	return (res);
-}
-
-static char	*connect_exp(char *res, char *key, t_env *ev)
-{
-	char	*value;
-
-	value = get_env_value(ev, key);
-	if (!value)
-		res = connect_str(res, ft_strdup(""));
-	else
-	{
-		value = ft_strdup(value);
-		if (!value)
-			return (NULL);
-		res = connect_str(res, value);
-	}
-	return (res);
-}
-
-
-static int	get_state(char c, int quote)
-{
-	if (c == '\'' && quote == 0)
-		return (1);
-	if (c == '\'' && quote == 1)
-		return (0);
-	if (c == '"' && quote == 0)
-		return (2);
-	if (c == '"' && quote == 2)
-		return (0);
-	return (0);
-}
-
