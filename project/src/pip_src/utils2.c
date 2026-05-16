@@ -57,7 +57,7 @@ void	ft_pip(int ac, int (*fd)[2])
 	{
 		if (pipe(fd[i]) == -1)
 		{
-			perror("");
+			perror("minishell");
 			return ;
 		}
 		i++;

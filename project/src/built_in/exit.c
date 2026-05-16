@@ -56,5 +56,9 @@ int ft_exit_ft(char **av, t_shell *shell)
 	code = ft_atoi(av[0]);
 	if (code < 0 || code > 255)
 		code = ft_mod(code);
+	ft_free(av);
+	free_tokens(shell->tokens);
+	free(shell->line);
+	free_ev(shell->ev);
 	exit(code);
 }

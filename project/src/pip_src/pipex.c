@@ -14,23 +14,12 @@
 
 void	ft_child(t_pipe plist)
 {
-	//char	*path;
-	char	**ev;
 	int		status;
 
-	ev = env_to_arry(*plist.envp);
-	// path = ft_path(plist.argv, ev);
-	// if (!path)
-	// {
-	// 	perror("-minishell:");
-	// 	free_str(ev, -1);
-	// 	ft_free(plist.argv);
-	// 	exit(127);
-	// }
-	free_str(ev, -1);
 	if (!ft_fdswap(plist.inp, 0) || !ft_fdswap(plist.out, 1))
 	{
-		ft_free(plist.argv);
+		//ft_free(plist.argv);
+		ft_all_free(plist);
 		exit(0);
 	}
 	if (plist.inp != 0)
@@ -39,12 +28,8 @@ void	ft_child(t_pipe plist)
 		close(plist.out);
 	if (is_builtin(plist.argv))
 	{
-		//printf("-------------BUİLTİN------------------------------\n");
 		status = run_builtin(plist.argv, plist.shell, 1);
-		//free(path);
-		free(plist.argv);
-		free_ev(*plist.envp);
-		free_str(ev, - 1);
+		ft_all_free(plist);
 		exit(status);
 	}
 	ft_run_process(plist);
@@ -58,7 +43,10 @@ int	ft_process(t_pipe plist, int (*pipefd)[2], int pc, int *pd)
 	i = 0;
 	pid = fork();
 	if (pid == -1)
-		perror("");
+	{
+		perror("-minishell");
+		ft_all_free(plist);
+	}
 	if (pid == 0)
 	{
 		while (i < pc)

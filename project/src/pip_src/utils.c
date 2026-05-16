@@ -48,38 +48,13 @@ void	ft_run_process(t_pipe plist)
 {
 	char	**ev;
 	char	*path;
-	struct stat statbuf;
 
 	ev = env_to_arry(*plist.envp);// hata kontrolü ekle
-	path = ft_path(plist.argv, ev, &statbuf);
-	if (!path)
-	{
-		//free_str(ev, -1);
-		//ft_free(plist.argv);
-		if (errno == EACCES)
-		{
-			ft_printf_fd(2,"-minishell: %s: Permission denied\n", plist.argv[0]);
-			exit(126);
-		}
-		else if (errno == ENOENT)
-		{
-			if (ft_strchr(plist.argv[0], '/'))
-				ft_printf_fd(2,"-minishell: %s: No such file or directory\n", plist.argv[0]);
-			else
-				ft_printf_fd(2,"-minishell: %s: command not found\n", plist.argv[0]);
-			exit(127);
-		}
-		else if(S_ISDIR(statbuf.st_mode))
-		{
-			ft_printf_fd(2, "minishell: %s: Is a directory\n", plist.argv[0]);
-			exit (126);
-		}
-	}
+	path = path_check(plist, ev);
 	if (execve(path, plist.argv, ev) == -1)
 	{
+		ft_all_free(plist);
 		free(path);
-		ft_free(plist.argv);
-		free_ev(*plist.envp);
 		free_str(ev, -1);
 		exit(EXIT_FAILURE);
 	}
