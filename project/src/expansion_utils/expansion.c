@@ -6,7 +6,7 @@
 /*   By: yuak <yuak@student.42istanbul.com.tr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/10 11:53:54 by yuak              #+#    #+#             */
-/*   Updated: 2026/05/16 12:45:59 by yuak             ###   ########.fr       */
+/*   Updated: 2026/05/16 13:29:55 by yuak             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,8 @@ static int	remove_quotes(char **str)
 	size_t	new_len;
 	char	*final;
 
+	if (*str == NULL)
+		return (0);
 	new_len = ft_strlen(*str) - get_number_quotes(*str);
 	final = (char *) ft_calloc(new_len + 1, sizeof(char));
 	if (!final)

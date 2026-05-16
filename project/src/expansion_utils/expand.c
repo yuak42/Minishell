@@ -6,7 +6,7 @@
 /*   By: yuak <yuak@student.42istanbul.com.tr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/16 12:31:29 by yuak              #+#    #+#             */
-/*   Updated: 2026/05/16 13:08:03 by yuak             ###   ########.fr       */
+/*   Updated: 2026/05/16 13:28:47 by yuak             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@ int	expand(char **str, t_shell *shell)
 	i = 0;
 	start = 0;
 	quote = 0;
+	if (*str == NULL)
+		return (0);
 	res = ft_strdup("");
 	if (!res)
 		return (1);

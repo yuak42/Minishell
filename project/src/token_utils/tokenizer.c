@@ -6,7 +6,7 @@
 /*   By: yuak <yuak@student.42istanbul.com.tr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/10 12:49:03 by yuak              #+#    #+#             */
-/*   Updated: 2026/05/16 13:18:43 by yuak             ###   ########.fr       */
+/*   Updated: 2026/05/16 13:27:45 by yuak             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ t_token	*tokenizer(char *line, t_shell *shell)
 		shell->exit_status = 1;
 		return (NULL);
 	}
+	print_tokens(shell->tokens);
 	if (!is_quote_syntax_correct(shell->tokens))
 	{
 		print_error("syntax error!\n");
@@ -81,7 +82,7 @@ static int	is_quote_syntax_correct(t_token *tokens)
 	{
 		i = 0;
 		quote = 0;
-		while (tokens->value[i])
+		while (tokens->value && tokens->value[i])
 		{
 			quote = get_state(tokens->value[i], quote);
 			if (quote)
