@@ -6,7 +6,7 @@
 /*   By: yuak <yuak@student.42istanbul.com.tr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/15 19:10:58 by yuak              #+#    #+#             */
-/*   Updated: 2026/05/16 12:48:12 by yuak             ###   ########.fr       */
+/*   Updated: 2026/05/16 13:07:27 by yuak             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,6 @@ int	get_state(char c, int quote)
 		return (2);
 	if (c == '"' && quote == 2)
 		return (0);
-	return (0);
+	return (quote);
 }
 
