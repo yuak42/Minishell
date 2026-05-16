@@ -6,7 +6,7 @@
 /*   By: yuak <yuak@student.42istanbul.com.tr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/10 11:54:19 by yuak              #+#    #+#             */
-/*   Updated: 2026/05/15 12:54:24 by yuak             ###   ########.fr       */
+/*   Updated: 2026/05/16 19:21:47 by yuak             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 static char	*get_key(char *env);
 static char	*get_value(char *env);
+static char	*get_empty_value(void);
 
 t_env	*get_env_list(char **env)
 {
@@ -24,9 +25,15 @@ t_env	*get_env_list(char **env)
 	head = NULL;
 	while (*env)
 	{
-		ev_node = (t_env *) malloc(sizeof(t_env)); // add error check later
+		ev_node = (t_env *) malloc(sizeof(t_env));
+		if (!ev_node)
+			return (free_ev(head), NULL);
 		ev_node->key = get_key(*env);
+		if (!ev_node->key)
+			return (free(ev_node), free_ev(head), NULL);
 		ev_node->value = get_value(*env);
+		if (!ev_node->value)
+			return (free(ev_node->key), free(ev_node), free_ev(head), NULL);
 		ev_node->next = NULL;
 		if (head == NULL)
 		{
@@ -47,47 +54,57 @@ t_env	*get_env_list(char **env)
 
 static char	*get_key(char *env)
 {
-	// '=' e kadar olan kısmı kopyalayacak
-	char	*str;
 	char	*key;
 	size_t	i;
 
-	str = env;
 	i = 0;
-	while (str[i] != '=')
+	while (env[i] != '=' && env[i] != '\0')
 		i++;
-	key = (char *) malloc(sizeof(char) * (i + 1)); // add error check later
+	key = (char *) malloc(sizeof(char) * (i + 1));
+	if (!key)
+		return (perror("Error"), NULL);
 	i = 0;
-	while (str[i] != '=') //buralara belki string sonu kosulu eklenebilir sonra
+	while (env[i] != '=' && env[i] != '\0')
 	{
-		key[i] = str[i];
+		key[i] = env[i];
 		i++;
 	}
 	key[i] = '\0';
-	return key;
+	return (key);
 }
 
 static char	*get_value(char *env)
 {
-	// '=' den sona kadar olan kısmı kopyalayacak
-	char	*str;
 	char	*value;
 	size_t	i;
 
-	str = env;
 	i = 0;
-	while (*str != '=')
-		str++;
-	str++;
-	while (str[i])
+	while (*env && *env != '=')
+		env++;
+	if (*env == '\0')
+		return (get_empty_value());
+	env++;
+	while (env[i])
 		i++;
-	value = (char *) malloc(sizeof(char) * (i + 1)); // add error check later
+	value = (char *) malloc(sizeof(char) * (i + 1));
+	if (!value)
+		return (perror("Error"), NULL);
 	i = 0;
-	while (str[i])
+	while (env[i])
 	{
-		value[i] = str[i];
+		value[i] = env[i];
 		i++;
 	}
 	value[i] = '\0';
-	return value;
+	return (value);
+}
+
+static char	*get_empty_value(void)
+{
+	char	*value;
+
+	value = ft_strdup("");
+	if (!value)
+		return (print_error("Error: ft_strdup\n"), NULL);
+	return (value);
 }

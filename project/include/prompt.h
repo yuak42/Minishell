@@ -6,7 +6,7 @@
 /*   By: yuak <yuak@student.42istanbul.com.tr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/10 12:32:31 by yuak              #+#    #+#             */
-/*   Updated: 2026/05/16 14:09:50 by yuak             ###   ########.fr       */
+/*   Updated: 2026/05/16 19:44:38 by yuak             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ char	*get_key_name(char *str, size_t *i);
 char	*connect_str(char *before, char *to_add);
 int		expand(char **str, t_shell *shell);
 char	*replace_exp(char *str, char *res, size_t start, size_t *i, t_shell *shell);
-char	*connect_exp(char *res, char *key, t_env *ev);
+char	*connect_exp(char *res, char *key, t_shell *shell);
 int		get_state(char c, int quote);
 int		remove_quotes(char **str);
 
