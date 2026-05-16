@@ -6,7 +6,7 @@
 /*   By: yuak <yuak@student.42istanbul.com.tr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/15 15:32:48 by yuak              #+#    #+#             */
-/*   Updated: 2026/05/16 11:24:16 by yuak             ###   ########.fr       */
+/*   Updated: 2026/05/16 14:31:22 by yuak             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static char	*get_question_mark(size_t *i);
 static char	*empty_string(size_t *i);
-static char	*get_var_name(char *value, size_t start,  size_t *i);
+static char	*get_var_name(char *value, size_t start, size_t *i);
 
 char	*get_key_name(char *str, size_t *i)
 {
@@ -54,7 +54,7 @@ static char	*empty_string(size_t *i)
 	return (key);
 }
 
-static char	*get_var_name(char *str, size_t start,  size_t *i)
+static char	*get_var_name(char *str, size_t start, size_t *i)
 {
 	char	*key;
 

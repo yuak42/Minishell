@@ -6,7 +6,7 @@
 /*   By: yuak <yuak@student.42istanbul.com.tr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/15 19:10:58 by yuak              #+#    #+#             */
-/*   Updated: 2026/05/16 13:07:27 by yuak             ###   ########.fr       */
+/*   Updated: 2026/05/16 14:32:11 by yuak             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,6 @@ char	*connect_exp(char *res, char *key, t_env *ev)
 	return (res);
 }
 
-
 int	get_state(char c, int quote)
 {
 	if (c == '\'' && quote == 0)
@@ -71,4 +70,3 @@ int	get_state(char c, int quote)
 		return (0);
 	return (quote);
 }
-
