@@ -6,7 +6,7 @@
 /*   By: yuak <yuak@student.42istanbul.com.tr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/16 12:31:29 by yuak              #+#    #+#             */
-/*   Updated: 2026/05/16 20:00:16 by yuak             ###   ########.fr       */
+/*   Updated: 2026/05/17 15:46:35 by yuak             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ static char	*get_expanded(char *str, t_shell *shell)
 	size_t	i;
 	size_t	start;
 	char	*res;
-	
+
 	start = 0;
 	i = 0;
 	res = expand_loop(str, &start, &i, shell);

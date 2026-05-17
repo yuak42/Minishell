@@ -6,7 +6,7 @@
 /*   By: yuak <yuak@student.42istanbul.com.tr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/10 11:54:19 by yuak              #+#    #+#             */
-/*   Updated: 2026/05/16 19:21:47 by yuak             ###   ########.fr       */
+/*   Updated: 2026/05/17 15:44:33 by yuak             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@ t_env	*get_env_list(char **env)
 {
 	t_env	*head;
 	t_env	*ev_node;
-	t_env	*last;
 
 	head = NULL;
 	while (*env)
@@ -35,18 +34,7 @@ t_env	*get_env_list(char **env)
 		if (!ev_node->value)
 			return (free(ev_node->key), free(ev_node), free_ev(head), NULL);
 		ev_node->next = NULL;
-		if (head == NULL)
-		{
-			head = ev_node;
-			head->prev = NULL;
-			last = ev_node;
-		}
-		else
-		{
-			last->next = ev_node;
-			ev_node->prev = last;
-			last = last->next;
-		}
+		add_env_to_last(&head, ev_node);
 		env++;
 	}
 	return (head);
