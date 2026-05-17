@@ -6,7 +6,7 @@
 /*   By: yuak <yuak@student.42istanbul.com.tr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/10 12:32:27 by yuak              #+#    #+#             */
-/*   Updated: 2026/05/15 14:57:35 by yuak             ###   ########.fr       */
+/*   Updated: 2026/05/17 09:46:29 by yuak             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,10 +38,10 @@ typedef struct s_node
 {
     char            **argv;     // komut + argümanlar (execve için)
     
-    char            *infile;    // <
-    char            *outfile;   // > veya >>
-    int             append;     // 1 ise >>, 0 ise >
-    int             heredoc;    // << varsa 1
+    char            **infile;    // <
+    char            **outfile;   // > veya >>
+    int             *append;     // 1 ise >>, 0 ise >
+    int             *heredoc;    // << varsa 1
 
     int             pipe_in;    // önceki pipeden input alıyor mu
     int             pipe_out;   // sonraki pipe'a output veriyor mu
