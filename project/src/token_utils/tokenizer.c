@@ -6,7 +6,7 @@
 /*   By: yuak <yuak@student.42istanbul.com.tr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/10 12:49:03 by yuak              #+#    #+#             */
-/*   Updated: 2026/05/17 18:30:09 by yuak             ###   ########.fr       */
+/*   Updated: 2026/05/17 19:47:42 by yuak             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 static int	is_operator_syntax_correct(t_token *tokens);
 static int	is_quote_syntax_correct(t_token *tokens);
 static int	is_syntax_correct(t_token *tokens);
+static int	is_token_quote_correct(char *value);
 
 t_token	*tokenizer(char *line, t_shell *shell)
 {
@@ -39,7 +40,6 @@ t_token	*tokenizer(char *line, t_shell *shell)
 		shell->exit_status = 1;
 		return (NULL);
 	}
-
 	return (shell->tokens);
 }
 
@@ -54,7 +54,8 @@ static int	is_syntax_correct(t_token *tokens)
 	{
 		print_error("Error: unclosed quotes!\n");
 		return (0);
-	}	return (1);
+	}
+	return (1);
 }
 
 static int	is_operator_syntax_correct(t_token *tokens)
@@ -81,43 +82,32 @@ static int	is_operator_syntax_correct(t_token *tokens)
 
 static int	is_quote_syntax_correct(t_token *tokens)
 {
-	size_t	i;
-	char	quote;
-
 	while (tokens)
 	{
-		i = 0;
-		quote = ' ';
-		while (tokens->value && tokens->value[i])
-		{
-			if (tokens->value[i] == '\'' || tokens->value[i] == '"')
-				quote = tokens->value[i];
-			if (quote == '"')
-			{
-				while (quote == '"' && tokens->value[i])
-				{
-					i++;
-					if (tokens->value[i] == '"')
-						quote = ' ';
-				}
-				if (quote == '"')
-					return (0);
-			}
-			if (quote == '\'')
-			{
-				while (quote == '\'' && tokens->value[i])
-				{
-					i++;
-					if (tokens->value[i] == '\'')
-						quote = ' ';
-				}
-				if (quote == '\'')
-					return (0);
-			}
-			i++;
-		}
+		if (!is_token_quote_correct(tokens->value))
+			return (0);
 		tokens = tokens->next;
 	}
 	return (1);
 }
 
+static int	is_token_quote_correct(char *value)
+{
+	size_t	i;
+	char	quote;
+
+	i = 0;
+	while (value && value[i])
+	{
+		if (value[i] == '\'' || value[i] == '"')
+		{
+			quote = value[i++];
+			while (value[i] && value[i] != quote)
+				i++;
+			if (value[i] != quote)
+				return (0);
+		}
+		i++;
+	}
+	return (1);
+}
