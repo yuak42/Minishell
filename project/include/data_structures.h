@@ -6,7 +6,7 @@
 /*   By: yuak <yuak@student.42istanbul.com.tr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/10 12:32:27 by yuak              #+#    #+#             */
-/*   Updated: 2026/05/15 14:57:35 by yuak             ###   ########.fr       */
+/*   Updated: 2026/05/17 13:31:56 by yuak             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,26 +22,26 @@ typedef enum e_token_type {
 	token_heredoc
 } t_token_type;
 
-typedef enum e_state {
-	state_normal,
-	state_quote_single,
-	state_quote_double
-} t_state;
-
 typedef struct s_token {
 	t_token_type	type;
 	char			*value;
 	struct s_token	*next;
 } t_token;
 
+typedef struct s_redir {
+	t_token_type	type;
+	char			*file;		
+	struct s_redir	*next;
+} t_redir;
+
 typedef struct s_node
 {
     char            **argv;     // komut + argümanlar (execve için)
-    
-    char            *infile;    // <
-    char            *outfile;   // > veya >>
-    int             append;     // 1 ise >>, 0 ise >
-    int             heredoc;    // << varsa 1
+	t_redir			*redir;
+    // char            **infile;    // <
+    // char            **outfile;   // > veya >>
+    // int             *append;     // 1 ise >>, 0 ise >
+    // int             *heredoc;    // << varsa 1
 
     int             pipe_in;    // önceki pipeden input alıyor mu
     int             pipe_out;   // sonraki pipe'a output veriyor mu
@@ -63,6 +63,7 @@ typedef struct s_shell {
 	t_node	*nodes;
 	char	*line;
 } t_shell;
+
 
 
 #endif

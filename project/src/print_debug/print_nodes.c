@@ -6,11 +6,13 @@
 /*   By: yuak <yuak@student.42istanbul.com.tr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/10 11:53:33 by yuak              #+#    #+#             */
-/*   Updated: 2026/05/16 13:37:41 by yuak             ###   ########.fr       */
+/*   Updated: 2026/05/17 13:36:19 by yuak             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "prompt.h"
+
+void	print_redir_list(t_redir *redir);
 
 void	print_nodes(t_node *nodes)
 {
@@ -36,18 +38,7 @@ void	print_nodes(t_node *nodes)
 		}
 		printf("]\n");
 
-		if (!nodes->infile)
-			printf("infile = NULL\n");
-		else
-			printf("infile = %s\n", nodes->infile);
-
-		if (!nodes->outfile)
-			printf("outfile = NULL\n");
-		else
-			printf("outfile = %s\n", nodes->outfile);
-
-		printf("append = %d\n", nodes->append);
-		printf("heredoc = %d\n", nodes->heredoc);
+		print_redir_list(nodes->redir);
 		printf("pipe_in = %d\n", nodes->pipe_in);
 		printf("pipe_out = %d\n", nodes->pipe_out);
 
@@ -55,4 +46,23 @@ void	print_nodes(t_node *nodes)
 		nodes = nodes->next;
 	}
 	printf("\n------- OUTPUT -------\n");
+}
+
+void	print_redir_list(t_redir *redir)
+{
+	while (redir)
+	{
+		printf("[file: \"%s\", ", redir->file);
+		if (redir->type == token_redir_in)
+			printf("redir: < ]\n");
+		else if (redir->type == token_redir_out)
+			printf("redir: > ]\n");
+		else if (redir->type == token_redir_app)
+			printf("redir: >> ]\n");
+		else if (redir->type == token_heredoc)
+			printf("redir: << ]\n");
+		else
+			printf("redir: undefined]\n");
+		redir = redir->next;
+	}
 }
