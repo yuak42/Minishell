@@ -6,11 +6,13 @@
 /*   By: yuak <yuak@student.42istanbul.com.tr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/10 11:53:37 by yuak              #+#    #+#             */
-/*   Updated: 2026/05/17 13:56:29 by yuak             ###   ########.fr       */
+/*   Updated: 2026/05/17 17:54:25 by yuak             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "prompt.h"
+
+static void	free_redir(t_redir *redir);
 
 void	free_nodes(t_node *nodes)
 {
@@ -20,7 +22,21 @@ void	free_nodes(t_node *nodes)
 	{
 		temp = nodes;
 		free(nodes->argv);
+		free_redir(nodes->redir);
 		nodes = nodes->next;
 		free(temp);
+	}
+}
+
+static void	free_redir(t_redir *redir)
+{
+	t_redir	*temp;
+
+	temp = redir;
+	while (temp)
+	{
+		redir = redir->next;
+		free(temp);
+		temp = redir;
 	}
 }
