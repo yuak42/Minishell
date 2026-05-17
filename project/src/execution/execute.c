@@ -22,6 +22,13 @@ void	execute(t_node *nodes, t_shell *shell)
 		status = 0;
 	else if (!nodes->next && is_builtin(nodes->argv))
 	{
+		ft_redir(nodes);
+		if (nodes->infile == -1)
+		{
+			perror("-minishell");
+			shell->exit_status = 1;
+			return ;
+		}
 		if (nodes->outfile)
 			fd = nodes->outfile;
 		status = run_builtin(nodes->argv, shell, fd);
