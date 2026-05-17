@@ -6,7 +6,7 @@
 /*   By: yuak <yuak@student.42istanbul.com.tr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/10 11:53:05 by yuak              #+#    #+#             */
-/*   Updated: 2026/05/15 13:06:18 by yuak             ###   ########.fr       */
+/*   Updated: 2026/05/17 15:50:51 by yuak             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ t_token	*get_word(char *line, size_t *i)
 	return (token);
 }
 
-t_token *get_operator(char *line, size_t *i)
+t_token	*get_operator(char *line, size_t *i)
 {
 	t_token	*token;
 	size_t	j;
@@ -81,7 +81,7 @@ t_token *get_operator(char *line, size_t *i)
 	if (!ft_strncmp(&line[j], ">>", 2))
 	{
 		token->type = token_redir_app;
-		j = j + 2;	
+		j = j + 2;
 	}
 	else if (!ft_strncmp(&line[j], "<<", 2))
 	{
