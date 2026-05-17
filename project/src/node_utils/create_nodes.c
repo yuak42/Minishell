@@ -6,7 +6,7 @@
 /*   By: yuak <yuak@student.42istanbul.com.tr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/10 11:53:40 by yuak              #+#    #+#             */
-/*   Updated: 2026/05/15 12:54:07 by yuak             ###   ########.fr       */
+/*   Updated: 2026/05/17 13:31:48 by yuak             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,27 +65,35 @@ t_node	*get_node(t_token **tokens)
 
 void	handle_op(t_token **tokens, t_node *node)
 {
-	if (!(*tokens)->next || (*tokens)->next->type != token_word) // check syntax error later
+	t_redir	*redir;
+	t_redir	*node_redir;
+
+	if (!(*tokens)->next || (*tokens)->next->type != token_word)
 	{
 		free_nodes(node);
-		*tokens = (*tokens)->next;
 		node = NULL;
-		printf("syntax error!\n"); // later add a print_error function
+		print_error("syntax error!\n");
 		return ;
 	}
-	if ((*tokens)->type == token_redir_out)
-		node->outfile = (*tokens)->next->value;
-	else if ((*tokens)->type == token_redir_in)
-		node->infile = (*tokens)->next->value;
-	else if ((*tokens)->type == token_redir_app)
+	redir = (t_redir *) ft_calloc(1, sizeof(t_redir *));
+	if (!redir)
 	{
-		node->outfile = (*tokens)->next->value;
-		node->append = 1;
+		free_nodes(node);
+		node = NULL;
+		print_error("Error! ft_calloc\n");
+		return ;
 	}
-	else if ((*tokens)->type == token_heredoc)
+	redir->type = (*tokens)->type;
+	redir->file = (*tokens)->next->value;
+	redir->next = NULL;
+	if (!node->redir)
+		node->redir = redir;
+	else
 	{
-		node->infile = (*tokens)->next->value; // bundan emin degilim
-		node->heredoc = 1;
+		node_redir = node->redir;
+		while (node_redir->next)
+			node_redir = node_redir->next;
+		node_redir->next = redir;
 	}
 	*tokens = (*tokens)->next->next;
 }
@@ -123,12 +131,3 @@ void	add_arg(char ***argv, char *arg)
 	free(*argv);
 	*argv = new_argv;
 }
-
-
-
-
-
-
-
-
-
