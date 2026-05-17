@@ -6,7 +6,7 @@
 /*   By: yuak <yuak@student.42istanbul.com.tr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/10 11:53:40 by yuak              #+#    #+#             */
-/*   Updated: 2026/05/17 13:31:48 by yuak             ###   ########.fr       */
+/*   Updated: 2026/05/17 14:09:38 by yuak             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ t_node	*get_node(t_token **tokens)
 		}
 		else
 		{
-			handle_op(tokens, node); // inside of it, tokens also can be shifted
+			handle_op(tokens, node);
 			if (!node)
 				return (NULL);
 		}
@@ -75,7 +75,7 @@ void	handle_op(t_token **tokens, t_node *node)
 		print_error("syntax error!\n");
 		return ;
 	}
-	redir = (t_redir *) ft_calloc(1, sizeof(t_redir *));
+	redir = (t_redir *) ft_calloc(1, sizeof(t_redir));
 	if (!redir)
 	{
 		free_nodes(node);
@@ -111,18 +111,18 @@ void	add_arg(char ***argv, char *arg)
 		len++;
 		temp++;
 	}
-	new_argv = (char **) malloc(sizeof(char *)*(len + 2));
+	new_argv = (char **) malloc(sizeof(char *) * (len + 2));
 	if (!new_argv)
 	{
 		free(*argv);
-		*argv = NULL; //perror later maybe
+		*argv = NULL;
 		return ;
 	}
 	temp = *argv;
 	len = 0;
 	while (temp != NULL && *temp)
 	{
-		new_argv[len] = *temp; 
+		new_argv[len] = *temp;
 		len++;
 		temp++;
 	}
