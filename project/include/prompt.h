@@ -6,7 +6,7 @@
 /*   By: yuak <yuak@student.42istanbul.com.tr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/10 12:32:31 by yuak              #+#    #+#             */
-/*   Updated: 2026/05/17 23:13:34 by yuak             ###   ########.fr       */
+/*   Updated: 2026/05/17 23:14:52 by yuak             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,6 @@
 #include "../libft/libft.h"
 #include "builtin.h"
 #include "../src/pip_src/pipex.h"
-
-extern volatile sig_atomic_t g_exit_status;
 
 void	basic_prompt(t_shell *shell);
 t_env	*get_env_list(char **env);
