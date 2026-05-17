@@ -6,14 +6,15 @@
 /*   By: yuak <yuak@student.42istanbul.com.tr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/10 11:53:05 by yuak              #+#    #+#             */
-/*   Updated: 2026/05/17 19:31:53 by yuak             ###   ########.fr       */
+/*   Updated: 2026/05/17 19:35:51 by yuak             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "prompt.h"
 
-static size_t	get_end_of_word(char *line);
+static size_t		get_end_of_word(char *line);
 static int			is_metachar(char c);
+static t_token_type	get_operator_type(char *line, size_t *j);
 
 t_token	*get_word(char *line, size_t *i)
 {
@@ -53,7 +54,7 @@ static size_t	get_end_of_word(char *line)
 				j++;
 		}
 		if (is_metachar(line[j]) || line[j] == '\0')
-			return (j);		
+			return (j);
 		j++;
 	}
 	return (j);
@@ -67,8 +68,6 @@ static int	is_metachar(char c)
 		return (1);
 	return (0);
 }
-
-static t_token_type	get_operator_type(char *line, size_t *j);
 
 t_token	*get_operator(char *line, size_t *i)
 {
@@ -104,4 +103,3 @@ static t_token_type	get_operator_type(char *line, size_t *j)
 	(*j)++;
 	return (token_pipe);
 }
-
