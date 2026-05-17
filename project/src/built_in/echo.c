@@ -12,23 +12,23 @@
 
 #include "builtin.h"
 
-static int	print_env(t_env *ev, char *av, int fd)
-{
-	int	check;
-	av++;
-	while (ev)
-	{
-		if (!ft_strncmp(av, ev->key, ft_strlen(av) + 1))
-		{
-			check = write(fd, ev->value, ft_strlen(ev->value)); // maybe error check here too
-			if (check == -1)
-				return (0);
-			break ;
-		}
-		ev = ev->next;
-	}
-	return (1);
-}
+// static int	print_env(t_env *ev, char *av, int fd)
+// {
+// 	int	check;
+// 	av++;
+// 	while (ev)
+// 	{
+// 		if (!ft_strncmp(av, ev->key, ft_strlen(av) + 1))
+// 		{
+// 			check = write(fd, ev->value, ft_strlen(ev->value)); // maybe error check here too
+// 			if (check == -1)
+// 				return (0);
+// 			break ;
+// 		}
+// 		ev = ev->next;
+// 	}
+// 	return (1);
+// }
 
 static int	echo_print(char *av, t_env *ev, int fd)
 {
@@ -37,13 +37,13 @@ static int	echo_print(char *av, t_env *ev, int fd)
 	//n_check = av[1];
 	while (*av)
 	{
-		if (*av == '$')
-		{
-			av++;
-			if (!print_env(ev, av, fd))
-				return (0);
-			return (1);
-		}
+		// if (*av == '$')
+		// {
+		// 	av++;
+		// 	if (!print_env(ev, av, fd))
+		// 		return (0);
+		// 	return (1);
+		// }
 		if (!ft_putchar_fd(*av, fd))
 			return (0);
 		av++;

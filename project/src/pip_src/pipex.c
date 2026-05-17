@@ -20,7 +20,7 @@ void	ft_child(t_pipe plist)
 	{
 		//ft_free(plist.argv);
 		ft_all_free(plist);
-		exit(0);
+		exit(1);
 	}
 	if (plist.inp != 0)
 		close(plist.inp);
