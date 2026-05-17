@@ -14,7 +14,6 @@
 
 int	ft_of(char *s)
 {
-	//dfgdfg
 	int	fd;
 
 	fd = open(s, O_RDONLY);
@@ -70,14 +69,13 @@ t_pipe	ft_struct(t_node *node, t_shell *shell, int (*fd)[2], int i)
 	p_list.envp = &shell->ev;
     p_list.inp = STDIN_FILENO;
     p_list.out = STDOUT_FILENO;
+	ft_redir(node);//, shell);
 	if (node->infile)
-		p_list.inp = ft_of(node->infile);
+		p_list.inp = node->infile;
 	else if (node->pipe_in)
 		p_list.inp = fd[i - 1][0];
-	if (node->outfile && !node->append)
-		p_list.out = ft_cf(node->outfile);
-	else if (node->outfile && node->append)
-		p_list.out = ft_af(node->outfile);
+	if (node->outfile)
+		p_list.out = node->outfile;
 	else if (node->pipe_out)
 		p_list.out = fd[i][1];
 	return (p_list);

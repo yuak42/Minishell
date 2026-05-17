@@ -22,10 +22,8 @@ void	execute(t_node *nodes, t_shell *shell)
 		status = 0;
 	else if (!nodes->next && is_builtin(nodes->argv))
 	{
-		if (nodes->outfile && !nodes->append)
-			fd = ft_cf(nodes->outfile);
-		if (nodes->outfile && nodes->append)
-			fd = ft_af(nodes->outfile);
+		if (nodes->outfile)
+			fd = nodes->outfile;
 		status = run_builtin(nodes->argv, shell, fd);
 	}
 	else

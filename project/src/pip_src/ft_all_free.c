@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "prompt.h"
+#include "pipex.h"
 
 void	ft_all_free(t_pipe plist)
 {
