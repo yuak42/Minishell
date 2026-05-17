@@ -6,7 +6,7 @@
 /*   By: yuak <yuak@student.42istanbul.com.tr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/10 11:53:43 by yuak              #+#    #+#             */
-/*   Updated: 2026/05/15 12:54:08 by yuak             ###   ########.fr       */
+/*   Updated: 2026/05/17 13:55:40 by yuak             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,14 @@
 
 void	add_last_node(t_node **head, t_node *node)
 {
-	t_node *tmp;
+	t_node	*tmp;
 
 	if (!*head)
 	{
 		*head = node;
 		return ;
 	}
-	tmp = *head;	
+	tmp = *head;
 	while (tmp->next)
 		tmp = tmp->next;
 	tmp->next = node;
