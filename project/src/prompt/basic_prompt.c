@@ -6,7 +6,7 @@
 /*   By: yuak <yuak@student.42istanbul.com.tr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/10 11:53:22 by yuak              #+#    #+#             */
-/*   Updated: 2026/05/17 15:10:55 by yuak             ###   ########.fr       */
+/*   Updated: 2026/05/17 15:49:15 by yuak             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,8 @@ void	basic_prompt(t_shell *shell)
 			add_history(line);
 		if (!*line)
 		{
-    		free(line);
-    		continue;
+			free(line);
+			continue ;
 		}
 		shell->line = line;
 		shell->tokens = tokenizer(line, shell);
