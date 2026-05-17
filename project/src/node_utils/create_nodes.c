@@ -6,7 +6,7 @@
 /*   By: yuak <yuak@student.42istanbul.com.tr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/10 11:53:40 by yuak              #+#    #+#             */
-/*   Updated: 2026/05/17 09:59:26 by yuak             ###   ########.fr       */
+/*   Updated: 2026/05/17 13:31:48 by yuak             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 void	add_arg(char ***argv, char *arg);
 void	handle_op(t_token **tokens, t_node *node);
 t_node	*get_node(t_token **tokens);
-int	*add_int(int *arr, int num);
 
 t_node	*create_nodes(t_token *tokens)
 {
@@ -66,69 +65,37 @@ t_node	*get_node(t_token **tokens)
 
 void	handle_op(t_token **tokens, t_node *node)
 {
+	t_redir	*redir;
+	t_redir	*node_redir;
+
 	if (!(*tokens)->next || (*tokens)->next->type != token_word)
 	{
 		free_nodes(node);
-		*tokens = (*tokens)->next;
 		node = NULL;
 		print_error("syntax error!\n");
 		return ;
 	}
-	if ((*tokens)->type == token_redir_out)
+	redir = (t_redir *) ft_calloc(1, sizeof(t_redir *));
+	if (!redir)
 	{
-		add_arg(&node->outfile, (*tokens)->next->value); // add error checks
-		node->append = add_int(node->append, 0);
+		free_nodes(node);
+		node = NULL;
+		print_error("Error! ft_calloc\n");
+		return ;
 	}
-	else if ((*tokens)->type == token_redir_in)
-	{
-		add_arg(&node->infile, (*tokens)->next->value);
-		node->heredoc = add_int(node->heredoc, 0);
-	}
-	else if ((*tokens)->type == token_redir_app)
-	{
-		add_arg(&node->outfile, (*tokens)->next->value);
-		node->append = add_int(node->append, 1);
-	}
-	else if ((*tokens)->type == token_heredoc)
-	{
-		add_arg(&node->infile, (*tokens)->next->value);
-		node->heredoc = add_int(node->heredoc, 1);
-	}
-	*tokens = (*tokens)->next->next;
-}
-
-int	*add_int(int *arr, int num)
-{
-	int	*ret;
-	int	i;
-
-	if (!arr)
-	{
-		ret = (int *) ft_calloc(2, sizeof(int));
-		if (!ret)
-			return (free(arr), NULL);
-		ret[0] = num;
-		ret[1] = -1;
-	}
+	redir->type = (*tokens)->type;
+	redir->file = (*tokens)->next->value;
+	redir->next = NULL;
+	if (!node->redir)
+		node->redir = redir;
 	else
 	{
-		i = 0;
-		while (arr[i] != -1)
-			i++;
-		ret = (int *) ft_calloc(i + 1, sizeof(int));
-		if (!ret)
-			return (free(arr), NULL);
-		i = 0;
-		while (arr[i] != -1)
-		{
-			ret[i] = arr[i];
-			i++;
-		}
-		ret[i] = num;
-		ret[i + 1] = -1;
+		node_redir = node->redir;
+		while (node_redir->next)
+			node_redir = node_redir->next;
+		node_redir->next = redir;
 	}
-	free(arr);
-	return (ret);
+	*tokens = (*tokens)->next->next;
 }
 
 void	add_arg(char ***argv, char *arg)

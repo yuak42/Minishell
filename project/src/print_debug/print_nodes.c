@@ -6,14 +6,13 @@
 /*   By: yuak <yuak@student.42istanbul.com.tr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/10 11:53:33 by yuak              #+#    #+#             */
-/*   Updated: 2026/05/17 10:12:50 by yuak             ###   ########.fr       */
+/*   Updated: 2026/05/17 13:36:19 by yuak             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "prompt.h"
 
-void	print_int_arr(int *arr);
-void	print_char_arr(char **arr);
+void	print_redir_list(t_redir *redir);
 
 void	print_nodes(t_node *nodes)
 {
@@ -39,36 +38,7 @@ void	print_nodes(t_node *nodes)
 		}
 		printf("]\n");
 
-		if (!nodes->infile)
-			printf("infile = NULL\n");
-		else
-		{
-			printf("infile = ");
-			print_char_arr(nodes->infile);
-		}
-
-		if (!nodes->outfile)
-			printf("outfile = NULL\n");
-		else
-		{
-			printf("outfile = ");
-			print_char_arr(nodes->outfile);
-		}
-
-		if (!nodes->append)
-			printf("append = NULL\n");
-		else
-		{
-			printf("append = ");
-			print_int_arr(nodes->append);
-		}
-		if (!nodes->heredoc)
-			printf("heredoc = NULL\n");
-		else
-		{
-			printf("heredoc = ");
-			print_int_arr(nodes->heredoc);
-		}
+		print_redir_list(nodes->redir);
 		printf("pipe_in = %d\n", nodes->pipe_in);
 		printf("pipe_out = %d\n", nodes->pipe_out);
 
@@ -78,25 +48,21 @@ void	print_nodes(t_node *nodes)
 	printf("\n------- OUTPUT -------\n");
 }
 
-void	print_char_arr(char **arr)
+void	print_redir_list(t_redir *redir)
 {
-	while (*arr)
+	while (redir)
 	{
-		printf("\"%s\" ", *arr);
-		arr++;
+		printf("[file: \"%s\", ", redir->file);
+		if (redir->type == token_redir_in)
+			printf("redir: < ]\n");
+		else if (redir->type == token_redir_out)
+			printf("redir: > ]\n");
+		else if (redir->type == token_redir_app)
+			printf("redir: >> ]\n");
+		else if (redir->type == token_heredoc)
+			printf("redir: << ]\n");
+		else
+			printf("redir: undefined]\n");
+		redir = redir->next;
 	}
-	printf("\n");
-}
-
-void	print_int_arr(int *arr)
-{
-	int	i;
-
-	i = 0;
-	while (arr[i] != -1)
-	{
-		printf("%d ", arr[i]);
-		i++;
-	}
-	printf("\n");
 }
