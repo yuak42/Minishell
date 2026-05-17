@@ -6,7 +6,7 @@
 /*   By: yuak <yuak@student.42istanbul.com.tr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/10 12:32:31 by yuak              #+#    #+#             */
-/*   Updated: 2026/05/17 10:05:25 by yuak             ###   ########.fr       */
+/*   Updated: 2026/05/17 14:42:06 by yuak             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,10 @@
 #include "data_structures.h"
 #include "../libft/libft.h"
 #include "builtin.h"
+#include <signal.h>
 // #include "../src/pip_src/pipex.h"
+
+extern volatile sig_atomic_t g_exit_status;
 
 void	basic_prompt(t_shell *shell);
 t_env	*get_env_list(char **env);
@@ -53,6 +56,11 @@ char	*replace_exp(char *str, char *res, size_t start, size_t *i, t_shell *shell)
 char	*connect_exp(char *res, char *key, t_shell *shell);
 int		get_state(char c, int quote);
 int		remove_quotes(char **str);
+
+void	heredoc_sigint(int sig);
+void	set_child_signals(void);
+void	set_interactive_signals(void);
+void	sigint_handler(int sig);
 
 // To be deleted later
 void	print_tokens(t_token	*tokens);

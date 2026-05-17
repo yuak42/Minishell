@@ -6,7 +6,7 @@
 /*   By: yuak <yuak@student.42istanbul.com.tr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/10 11:52:51 by yuak              #+#    #+#             */
-/*   Updated: 2026/05/15 12:53:36 by yuak             ###   ########.fr       */
+/*   Updated: 2026/05/17 14:42:02 by yuak             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ int	main(int ac, char **av, char **env)
 	shell->ev = get_env_list(env);
 	if (!shell->ev)
 		return (1);
+	set_interactive_signals();
 	basic_prompt(shell);
 	free_ev(shell->ev);
 	free(shell);
