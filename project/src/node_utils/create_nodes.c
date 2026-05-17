@@ -6,7 +6,7 @@
 /*   By: yuak <yuak@student.42istanbul.com.tr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/10 11:53:40 by yuak              #+#    #+#             */
-/*   Updated: 2026/05/17 13:58:21 by yuak             ###   ########.fr       */
+/*   Updated: 2026/05/17 14:05:21 by yuak             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ void	handle_op(t_token **tokens, t_node *node)
 		print_error("syntax error!\n");
 		return ;
 	}
-	redir = (t_redir *) ft_calloc(1, sizeof(t_redir *));
+	redir = (t_redir *) ft_calloc(1, sizeof(t_redir));
 	if (!redir)
 	{
 		free_nodes(node);
