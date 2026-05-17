@@ -6,7 +6,7 @@
 /*   By: yuak <yuak@student.42istanbul.com.tr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/10 12:32:31 by yuak              #+#    #+#             */
-/*   Updated: 2026/05/16 19:44:38 by yuak             ###   ########.fr       */
+/*   Updated: 2026/05/17 10:05:25 by yuak             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
 #include "data_structures.h"
 #include "../libft/libft.h"
 #include "builtin.h"
-#include "../src/pip_src/pipex.h"
+// #include "../src/pip_src/pipex.h"
 
 void	basic_prompt(t_shell *shell);
 t_env	*get_env_list(char **env);

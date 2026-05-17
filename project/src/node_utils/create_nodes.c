@@ -6,7 +6,7 @@
 /*   By: yuak <yuak@student.42istanbul.com.tr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/10 11:53:40 by yuak              #+#    #+#             */
-/*   Updated: 2026/05/15 12:54:07 by yuak             ###   ########.fr       */
+/*   Updated: 2026/05/17 09:59:26 by yuak             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 void	add_arg(char ***argv, char *arg);
 void	handle_op(t_token **tokens, t_node *node);
 t_node	*get_node(t_token **tokens);
+int	*add_int(int *arr, int num);
 
 t_node	*create_nodes(t_token *tokens)
 {
@@ -65,29 +66,69 @@ t_node	*get_node(t_token **tokens)
 
 void	handle_op(t_token **tokens, t_node *node)
 {
-	if (!(*tokens)->next || (*tokens)->next->type != token_word) // check syntax error later
+	if (!(*tokens)->next || (*tokens)->next->type != token_word)
 	{
 		free_nodes(node);
 		*tokens = (*tokens)->next;
 		node = NULL;
-		printf("syntax error!\n"); // later add a print_error function
+		print_error("syntax error!\n");
 		return ;
 	}
 	if ((*tokens)->type == token_redir_out)
-		node->outfile = (*tokens)->next->value;
+	{
+		add_arg(&node->outfile, (*tokens)->next->value); // add error checks
+		node->append = add_int(node->append, 0);
+	}
 	else if ((*tokens)->type == token_redir_in)
-		node->infile = (*tokens)->next->value;
+	{
+		add_arg(&node->infile, (*tokens)->next->value);
+		node->heredoc = add_int(node->heredoc, 0);
+	}
 	else if ((*tokens)->type == token_redir_app)
 	{
-		node->outfile = (*tokens)->next->value;
-		node->append = 1;
+		add_arg(&node->outfile, (*tokens)->next->value);
+		node->append = add_int(node->append, 1);
 	}
 	else if ((*tokens)->type == token_heredoc)
 	{
-		node->infile = (*tokens)->next->value; // bundan emin degilim
-		node->heredoc = 1;
+		add_arg(&node->infile, (*tokens)->next->value);
+		node->heredoc = add_int(node->heredoc, 1);
 	}
 	*tokens = (*tokens)->next->next;
+}
+
+int	*add_int(int *arr, int num)
+{
+	int	*ret;
+	int	i;
+
+	if (!arr)
+	{
+		ret = (int *) ft_calloc(2, sizeof(int));
+		if (!ret)
+			return (free(arr), NULL);
+		ret[0] = num;
+		ret[1] = -1;
+	}
+	else
+	{
+		i = 0;
+		while (arr[i] != -1)
+			i++;
+		ret = (int *) ft_calloc(i + 1, sizeof(int));
+		if (!ret)
+			return (free(arr), NULL);
+		i = 0;
+		while (arr[i] != -1)
+		{
+			ret[i] = arr[i];
+			i++;
+		}
+		ret[i] = num;
+		ret[i + 1] = -1;
+	}
+	free(arr);
+	return (ret);
 }
 
 void	add_arg(char ***argv, char *arg)
@@ -123,12 +164,3 @@ void	add_arg(char ***argv, char *arg)
 	free(*argv);
 	*argv = new_argv;
 }
-
-
-
-
-
-
-
-
-

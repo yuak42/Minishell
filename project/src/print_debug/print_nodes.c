@@ -6,11 +6,14 @@
 /*   By: yuak <yuak@student.42istanbul.com.tr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/10 11:53:33 by yuak              #+#    #+#             */
-/*   Updated: 2026/05/16 13:37:41 by yuak             ###   ########.fr       */
+/*   Updated: 2026/05/17 10:12:50 by yuak             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "prompt.h"
+
+void	print_int_arr(int *arr);
+void	print_char_arr(char **arr);
 
 void	print_nodes(t_node *nodes)
 {
@@ -39,15 +42,33 @@ void	print_nodes(t_node *nodes)
 		if (!nodes->infile)
 			printf("infile = NULL\n");
 		else
-			printf("infile = %s\n", nodes->infile);
+		{
+			printf("infile = ");
+			print_char_arr(nodes->infile);
+		}
 
 		if (!nodes->outfile)
 			printf("outfile = NULL\n");
 		else
-			printf("outfile = %s\n", nodes->outfile);
+		{
+			printf("outfile = ");
+			print_char_arr(nodes->outfile);
+		}
 
-		printf("append = %d\n", nodes->append);
-		printf("heredoc = %d\n", nodes->heredoc);
+		if (!nodes->append)
+			printf("append = NULL\n");
+		else
+		{
+			printf("append = ");
+			print_int_arr(nodes->append);
+		}
+		if (!nodes->heredoc)
+			printf("heredoc = NULL\n");
+		else
+		{
+			printf("heredoc = ");
+			print_int_arr(nodes->heredoc);
+		}
 		printf("pipe_in = %d\n", nodes->pipe_in);
 		printf("pipe_out = %d\n", nodes->pipe_out);
 
@@ -55,4 +76,27 @@ void	print_nodes(t_node *nodes)
 		nodes = nodes->next;
 	}
 	printf("\n------- OUTPUT -------\n");
+}
+
+void	print_char_arr(char **arr)
+{
+	while (*arr)
+	{
+		printf("\"%s\" ", *arr);
+		arr++;
+	}
+	printf("\n");
+}
+
+void	print_int_arr(int *arr)
+{
+	int	i;
+
+	i = 0;
+	while (arr[i] != -1)
+	{
+		printf("%d ", arr[i]);
+		i++;
+	}
+	printf("\n");
 }
