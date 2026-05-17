@@ -6,14 +6,15 @@
 /*   By: yuak <yuak@student.42istanbul.com.tr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/10 12:49:03 by yuak              #+#    #+#             */
-/*   Updated: 2026/05/17 15:50:22 by yuak             ###   ########.fr       */
+/*   Updated: 2026/05/17 18:30:09 by yuak             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "prompt.h"
 
-static int	is_syntax_correct(t_token *tokens);
+static int	is_operator_syntax_correct(t_token *tokens);
 static int	is_quote_syntax_correct(t_token *tokens);
+static int	is_syntax_correct(t_token *tokens);
 
 t_token	*tokenizer(char *line, t_shell *shell)
 {
@@ -23,26 +24,7 @@ t_token	*tokenizer(char *line, t_shell *shell)
 		shell->exit_status = 1;
 		return (NULL);
 	}
-	// printf("--- Quote syntax check ---\n");
-	// print_tokens(shell->tokens);
-	if (!is_quote_syntax_correct(shell->tokens))
-	{
-		print_error("syntax error!\n");
-		shell->exit_status = 1;
-		return (NULL);
-	}
-	// printf("\n\n");
-	// printf("----- expansion check ----\n");
-	if (expansion(shell))
-	{
-		print_error("expansion failed\n");
-		free_tokens(shell->tokens);
-		shell->exit_status = 1;
-		return (NULL);
-	}
-	// printf("\n\n");
-	// printf("----- Operator syntax check ----\n");
-	// print_tokens(shell->tokens);
+	print_tokens(shell->tokens);
 	if (!is_syntax_correct(shell->tokens))
 	{
 		print_error("syntax error!\n");
@@ -50,10 +32,32 @@ t_token	*tokenizer(char *line, t_shell *shell)
 		shell->exit_status = 1;
 		return (NULL);
 	}
+	if (expansion(shell))
+	{
+		print_error("expansion failed\n");
+		free_tokens(shell->tokens);
+		shell->exit_status = 1;
+		return (NULL);
+	}
+
 	return (shell->tokens);
 }
 
 static int	is_syntax_correct(t_token *tokens)
+{
+	if (!is_operator_syntax_correct(tokens))
+	{
+		print_error("Error: operator logic wrong!\n");
+		return (0);
+	}
+	if (!is_quote_syntax_correct(tokens))
+	{
+		print_error("Error: unclosed quotes!\n");
+		return (0);
+	}	return (1);
+}
+
+static int	is_operator_syntax_correct(t_token *tokens)
 {
 	if (tokens->type == token_pipe)
 		return (0);
@@ -78,23 +82,36 @@ static int	is_syntax_correct(t_token *tokens)
 static int	is_quote_syntax_correct(t_token *tokens)
 {
 	size_t	i;
-	int		quote;
+	char	quote;
 
 	while (tokens)
 	{
 		i = 0;
-		quote = 0;
+		quote = ' ';
 		while (tokens->value && tokens->value[i])
 		{
-			quote = get_state(tokens->value[i], quote);
-			if (quote)
+			if (tokens->value[i] == '\'' || tokens->value[i] == '"')
+				quote = tokens->value[i];
+			if (quote == '"')
 			{
-				while (quote && tokens->value[i])
+				while (quote == '"' && tokens->value[i])
 				{
 					i++;
-					quote = get_state(tokens->value[i], quote);
+					if (tokens->value[i] == '"')
+						quote = ' ';
 				}
-				if (quote)
+				if (quote == '"')
+					return (0);
+			}
+			if (quote == '\'')
+			{
+				while (quote == '\'' && tokens->value[i])
+				{
+					i++;
+					if (tokens->value[i] == '\'')
+						quote = ' ';
+				}
+				if (quote == '\'')
 					return (0);
 			}
 			i++;
@@ -103,3 +120,4 @@ static int	is_quote_syntax_correct(t_token *tokens)
 	}
 	return (1);
 }
+
