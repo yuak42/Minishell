@@ -1,24 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_env_value.c                                    :+:      :+:    :+:   */
+/*   add_env_to_last.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yuak <yuak@student.42istanbul.com.tr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/05/10 11:54:16 by yuak              #+#    #+#             */
-/*   Updated: 2026/05/17 15:44:16 by yuak             ###   ########.fr       */
+/*   Created: 2026/05/17 15:40:05 by yuak              #+#    #+#             */
+/*   Updated: 2026/05/17 15:43:58 by yuak             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "builtin.h"
+#include "prompt.h"
 
-char	*get_env_value(t_env *ev, char *key)
+void	add_env_to_last(t_env **head, t_env *node)
 {
-	while (ev)
+	t_env	*tmp;
+
+	if (!*head)
 	{
-		if (!ft_strncmp(ev->key, key, ft_strlen(key) + 1))
-			return (ev->value);
-		ev = ev->next;
+		*head = node;
+		node->prev = NULL;
+		return ;
 	}
-	return (NULL);
+	tmp = *head;
+	while (tmp->next)
+		tmp = tmp->next;
+	tmp->next = node;
+	node->prev = tmp;
 }
