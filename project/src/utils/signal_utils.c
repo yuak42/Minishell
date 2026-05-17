@@ -6,7 +6,7 @@
 /*   By: yuak <yuak@student.42istanbul.com.tr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/17 14:32:43 by yuak              #+#    #+#             */
-/*   Updated: 2026/05/17 14:42:18 by yuak             ###   ########.fr       */
+/*   Updated: 2026/05/17 15:07:09 by yuak             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,13 +26,7 @@ void	sigint_handler(int sig)
 
 void	set_interactive_signals(void)
 {
-	struct sigaction	sa;
-
-	sa.sa_handler = sigint_handler;
-	sigemptyset(&sa.sa_mask);
-	sa.sa_flags = SA_RESTART;
-
-	sigaction(SIGINT, &sa, NULL);
+	signal(SIGINT, sigint_handler);
 	signal(SIGQUIT, SIG_IGN);
 }
 

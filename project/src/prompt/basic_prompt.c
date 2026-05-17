@@ -6,7 +6,7 @@
 /*   By: yuak <yuak@student.42istanbul.com.tr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/10 11:53:22 by yuak              #+#    #+#             */
-/*   Updated: 2026/05/17 09:48:14 by yuak             ###   ########.fr       */
+/*   Updated: 2026/05/17 15:10:55 by yuak             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	basic_prompt(t_shell *shell)
 		if (!*line)
 		{
     		free(line);
-    		continue;  // tokenizer, execute gibi kodları atla, sonraki while iterasyonuna git
+    		continue;
 		}
 		shell->line = line;
 		shell->tokens = tokenizer(line, shell);
@@ -41,7 +41,7 @@ void	basic_prompt(t_shell *shell)
 			}
 		}
 		free_tokens(shell->tokens);
-		free(line); // always free at the end of loop
+		free(line);
 	}
 	rl_clear_history();
 }
