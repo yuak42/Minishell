@@ -15,7 +15,7 @@ SRC = prompt/basic_prompt.c main.c  \
 	token_utils/get_token.c token_utils/free_tokens.c \
 	expansion_utils/expansion.c \
 	env_utils/free_ev.c \
-# 		built_in/export.c built_in/unset.c built_in/exit.c \
+ 		built_in/export.c built_in/unset.c built_in/exit.c \
 	built_in/env.c built_in/pwd.c built_in/echo.c  built_in/cd.c \
 	execution/execute.c 
 
@@ -24,8 +24,8 @@ SRC = prompt/basic_prompt.c main.c  \
 OBJ = $(SRC:.c=.o)
 
 # daha sonra silinecek
-# include byaprak.mk
-# SRC += $(BYAPRAK_SRC)
+include byaprak.mk
+SRC += $(BYAPRAK_SRC)
 
 include yuak.mk
 SRC += $(YUAK_SRC)

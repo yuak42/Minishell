@@ -50,5 +50,6 @@ char	*ft_path(char **argv, char **envp, struct stat *statbuf);
 int		ft_af(char *s);
 void	ft_all_free(t_pipe plist);
 char	*path_check(t_pipe plist, char **ev);
+void	ft_redir(t_node *nodes);//, t_shell *shell);
 
 #endif

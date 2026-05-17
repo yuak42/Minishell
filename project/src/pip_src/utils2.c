@@ -42,7 +42,7 @@ int	ft_wait(int *array, int count)
 	while (i < count)
 	{
 		if (waitpid(array[i], &status, 0) == -1)
-			perror("");
+			perror("minishell");
 		i++;
 	}
 	return (status);

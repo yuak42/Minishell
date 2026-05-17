@@ -30,7 +30,7 @@ typedef struct s_token {
 
 typedef struct s_redir {
 	t_token_type	type;
-	char			*file;		
+	char			*file;	
 	struct s_redir	*next;
 } t_redir;
 
@@ -38,8 +38,8 @@ typedef struct s_node
 {
     char            **argv;     // komut + argümanlar (execve için)
 	t_redir			*redir;
-    // char            **infile;    // <
-    // char            **outfile;   // > veya >>
+    int				infile;    // <
+    int				outfile;   // > veya >>
     // int             *append;     // 1 ise >>, 0 ise >
     // int             *heredoc;    // << varsa 1
 
