@@ -6,7 +6,7 @@
 /*   By: yuak <yuak@student.42istanbul.com.tr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/18 18:53:41 by yuak              #+#    #+#             */
-/*   Updated: 2026/05/18 18:54:09 by yuak             ###   ########.fr       */
+/*   Updated: 2026/05/18 20:35:39 by yuak             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@ void	remove_token(t_token **head, t_token *token)
 	{
 		if (tmp == token)
 		{
-			printf("<%s> will be removed\n", tmp->value);
 			if (back)
 				back->next = tmp->next;
 			else
