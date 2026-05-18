@@ -6,7 +6,7 @@
 /*   By: yuak <yuak@student.42istanbul.com.tr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/16 14:08:40 by yuak              #+#    #+#             */
-/*   Updated: 2026/05/16 14:31:49 by yuak             ###   ########.fr       */
+/*   Updated: 2026/05/18 18:54:23 by yuak             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,14 +15,20 @@
 static void		fill(char *final, char *str);
 static void		handle_quotes(char *str, char *final, size_t *i, size_t *j);
 static size_t	get_number_quotes(char *str);
+void			remove_token(t_token **head, t_token *token);
 
-int	remove_quotes(char **str)
+int	remove_quotes(char **str, t_token *token, t_token **head)
 {
 	size_t	new_len;
 	char	*final;
 
 	if (*str == NULL)
 		return (0);
+	if (get_number_quotes(*str) == 0 && (*str)[0] == '\0')
+	{
+		remove_token(head, token);
+		return (0);
+	}
 	new_len = ft_strlen(*str) - get_number_quotes(*str);
 	final = (char *) ft_calloc(new_len + 1, sizeof(char));
 	if (!final)

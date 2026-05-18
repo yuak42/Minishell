@@ -6,7 +6,7 @@
 /*   By: yuak <yuak@student.42istanbul.com.tr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/10 12:32:31 by yuak              #+#    #+#             */
-/*   Updated: 2026/05/17 23:14:52 by yuak             ###   ########.fr       */
+/*   Updated: 2026/05/18 18:54:04 by yuak             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,8 @@ void	free_env_node(t_env *node);
 t_token	*generate_tokens(char *line);
 void	add_token_last(t_token **tokens, t_token *token);
 void	free_tokens(t_token *tokens);
+void	free_token(t_token *token);
+void	remove_token(t_token **head, t_token *token);
 t_token	*get_word(char *line, size_t *i);
 t_token *get_operator(char *line, size_t *i);
 int		expansion(t_shell *shell);
@@ -53,7 +55,7 @@ int		expand(char **str, t_shell *shell);
 char	*replace_exp(char *str, char *res, size_t start, size_t *i, t_shell *shell);
 char	*connect_exp(char *res, char *key, t_shell *shell);
 int		get_state(char c, int quote);
-int		remove_quotes(char **str);
+int		remove_quotes(char **str, t_token *token, t_token **head);
 
 void	heredoc_sigint(int sig);
 void	set_child_signals(void);
