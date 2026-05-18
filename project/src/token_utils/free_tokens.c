@@ -6,7 +6,7 @@
 /*   By: yuak <yuak@student.42istanbul.com.tr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/10 11:53:10 by yuak              #+#    #+#             */
-/*   Updated: 2026/05/15 12:53:49 by yuak             ###   ########.fr       */
+/*   Updated: 2026/05/18 18:20:03 by yuak             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,14 @@ void	free_tokens(t_token *tokens)
 
 	while (tokens)
 	{
-		tmp = tokens;
-		free(tokens->value);
-		tokens = tokens->next;
-		free(tmp);
+		tmp = tokens->next;
+		free_token(tokens);
+		tokens = tmp;
 	}
+}
+
+void	free_token(t_token *token)
+{
+	free(token->value);
+	free(token);
 }

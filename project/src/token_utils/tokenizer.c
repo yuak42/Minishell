@@ -6,7 +6,7 @@
 /*   By: yuak <yuak@student.42istanbul.com.tr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/10 12:49:03 by yuak              #+#    #+#             */
-/*   Updated: 2026/05/17 23:18:02 by yuak             ###   ########.fr       */
+/*   Updated: 2026/05/18 18:56:57 by yuak             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,8 @@ t_token	*tokenizer(char *line, t_shell *shell)
 		shell->exit_status = 1;
 		return (NULL);
 	}
+	printf("\n----------\nAfter expansion:\n");
+	print_tokens(shell->tokens);
 	return (shell->tokens);
 }
 
