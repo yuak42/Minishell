@@ -6,7 +6,7 @@
 /*   By: yuak <yuak@student.42istanbul.com.tr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/10 12:32:31 by yuak              #+#    #+#             */
-/*   Updated: 2026/05/18 18:54:04 by yuak             ###   ########.fr       */
+/*   Updated: 2026/05/19 11:21:22 by yuak             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@ char	*replace_exp(char *str, char *res, size_t start, size_t *i, t_shell *shell)
 char	*connect_exp(char *res, char *key, t_shell *shell);
 int		get_state(char c, int quote);
 int		remove_quotes(char **str, t_token *token, t_token **head);
+int		heredoc(t_shell *shell);
 
 void	heredoc_sigint(int sig);
 void	set_child_signals(void);
