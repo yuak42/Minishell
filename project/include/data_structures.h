@@ -6,7 +6,7 @@
 /*   By: yuak <yuak@student.42istanbul.com.tr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/10 12:32:27 by yuak              #+#    #+#             */
-/*   Updated: 2026/05/17 13:31:56 by yuak             ###   ########.fr       */
+/*   Updated: 2026/05/19 11:45:02 by yuak             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,8 @@ typedef struct s_token {
 
 typedef struct s_redir {
 	t_token_type	type;
-	char			*file;	
+	char			*file;
+	int				read;
 	struct s_redir	*next;
 } t_redir;
 
@@ -40,6 +41,7 @@ typedef struct s_node
 	t_redir			*redir;
     int				infile;    // <
     int				outfile;   // > veya >>
+	int				heredoc;
     // int             *append;     // 1 ise >>, 0 ise >
     // int             *heredoc;    // << varsa 1
 

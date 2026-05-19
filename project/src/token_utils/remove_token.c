@@ -6,7 +6,7 @@
 /*   By: yuak <yuak@student.42istanbul.com.tr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/18 18:53:41 by yuak              #+#    #+#             */
-/*   Updated: 2026/05/18 20:35:39 by yuak             ###   ########.fr       */
+/*   Updated: 2026/05/18 22:15:10 by yuak             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	remove_token(t_token **head, t_token *token)
 				back->next = tmp->next;
 			else
 				*head = tmp->next;
-			// free_token(tmp);
+			free_token(tmp);
 			return ;
 		}
 		back = tmp;
