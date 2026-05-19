@@ -19,7 +19,15 @@ void	execute(t_node *nodes, t_shell *shell)
 
 	fd = 1;
 	if (!nodes->next && ((!nodes->argv) || !nodes->argv[0] || nodes->argv[0][0] == '\0'))
-		status = 0;
+	{
+		if(!ft_redir(nodes))
+		{
+			perror("-minishell");
+			status = 1;
+		}
+		else
+			status = 0;
+	}
 	else if (!nodes->next && is_builtin(nodes->argv))
 	{
 		ft_redir(nodes);

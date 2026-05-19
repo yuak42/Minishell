@@ -31,6 +31,7 @@ int	set_env_value(t_env *ev, char *key, char *value)
 	// add_env_to_last(ev, new_node); // burada exportta da kullanıldiği icin onun da değişmesi gerektiğinden es gectim bunu
 	while (ev->next)
 		ev = ev->next;
+	new_node->prev = ev;
 	ev->next = new_node;
 	return (0);
 }
