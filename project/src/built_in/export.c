@@ -73,7 +73,11 @@ static int	run_export(char *av, t_env *env)
 			perror("-minishell");
 			return (0);
 		}
-		set_env_value(env, key, value);
+		if (set_env_value(env, key, value))
+		{
+			perror("-minishell");
+			return(0);
+		}
 	}
 	free(key);
 	return (1);
