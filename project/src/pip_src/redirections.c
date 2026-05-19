@@ -24,23 +24,32 @@ int	ft_redir (t_node *nodes)//, t_shell *shell)
 	head = nodes->redir;
 	while (head)
 	{
-		if(head->type == 3)
+		if(head->type == token_redir_out)
 		{
-			if (outfile > 1)
+			if (outfile > 2)
 				close(outfile);
 			outfile = ft_cf(head->file);
 		}
-		else if(head->type == 2)
+		else if(head->type == token_redir_in)
 		{
-			if (infile > 1)
+			if (infile > 2)
 				close(infile);
 			infile = ft_of(head->file);
 		}
-		else if(head->type == 4)
+		else if(head->type == token_redir_app)
 		{
 			if (outfile)
 				close(outfile);
 			outfile = ft_af(head->file);
+		}
+		else if (head->type == token_heredoc)
+		{
+			if (head->read)
+			{
+				if (infile > 2)
+					close (infile);
+				infile = head->read;
+			}
 		}
 		if(infile == -1 || outfile == -1)
 		{
