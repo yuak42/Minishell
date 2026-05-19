@@ -14,6 +14,8 @@
 
 int	is_builtin(char **argv)
 {
+	// if (!argv[0])
+	// 	return (0);
 	//printf("-------------BUİLTİN:%s------------------------------\n", argv[0]);
 	if (ft_strnstr(argv[0], "cd", 2) && ft_strlen(argv[0]) == 2)
 		return (1);
