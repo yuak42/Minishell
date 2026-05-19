@@ -6,7 +6,7 @@
 /*   By: yuak <yuak@student.42istanbul.com.tr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/10 11:53:16 by yuak              #+#    #+#             */
-/*   Updated: 2026/05/15 12:53:52 by yuak             ###   ########.fr       */
+/*   Updated: 2026/05/19 18:30:29 by yuak             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,5 +24,6 @@ void	add_token_last(t_token **tokens, t_token *token)
 		while (tmp->next)
 			tmp = tmp->next;
 		tmp->next = token;
+		token->prev = tmp;
 	}
 }

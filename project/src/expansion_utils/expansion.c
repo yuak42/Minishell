@@ -6,7 +6,7 @@
 /*   By: yuak <yuak@student.42istanbul.com.tr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/10 11:53:54 by yuak              #+#    #+#             */
-/*   Updated: 2026/05/19 16:22:03 by yuak             ###   ########.fr       */
+/*   Updated: 2026/05/19 18:22:36 by yuak             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int	expansion(t_shell *shell)
 	// print_tokens(head);
 	while (tokens)
 	{
-		if (expand(&tokens->value, shell))
+		if (expand(tokens, shell))
 			return (1);
 		else
 			tokens = tokens->next;
