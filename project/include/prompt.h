@@ -6,7 +6,7 @@
 /*   By: yuak <yuak@student.42istanbul.com.tr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/10 12:32:31 by yuak              #+#    #+#             */
-/*   Updated: 2026/05/19 18:34:21 by yuak             ###   ########.fr       */
+/*   Updated: 2026/05/19 21:43:52 by yuak             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ char	*get_env_value(t_env *ev, char *key);
 void	add_env_to_last(t_env **head, t_env *node);
 int		set_env_value(t_env *ev, char *key, char *value);
 void	free_env_node(t_env *node);
+char	*get_value(char *env);
 t_token	*generate_tokens(char *line);
 void	add_token_last(t_token **tokens, t_token *token);
 void	free_tokens(t_token *tokens);

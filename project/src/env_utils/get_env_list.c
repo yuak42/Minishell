@@ -6,14 +6,13 @@
 /*   By: yuak <yuak@student.42istanbul.com.tr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/10 11:54:19 by yuak              #+#    #+#             */
-/*   Updated: 2026/05/17 15:44:33 by yuak             ###   ########.fr       */
+/*   Updated: 2026/05/19 21:44:25 by yuak             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "prompt.h"
 
 static char	*get_key(char *env);
-static char	*get_value(char *env);
 static char	*get_empty_value(void);
 
 t_env	*get_env_list(char **env)
@@ -61,7 +60,7 @@ static char	*get_key(char *env)
 	return (key);
 }
 
-static char	*get_value(char *env)
+char	*get_value(char *env)
 {
 	char	*value;
 	size_t	i;
