@@ -6,7 +6,7 @@
 /*   By: yuak <yuak@student.42istanbul.com.tr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/10 11:53:40 by yuak              #+#    #+#             */
-/*   Updated: 2026/05/17 14:09:38 by yuak             ###   ########.fr       */
+/*   Updated: 2026/05/19 18:06:22 by yuak             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,7 @@ void	handle_op(t_token **tokens, t_node *node)
 	}
 	redir->type = (*tokens)->type;
 	redir->file = (*tokens)->next->value;
+	redir->heredoc_exp = (*tokens)->next->heredoc_exp;
 	redir->next = NULL;
 	if (!node->redir)
 		node->redir = redir;
