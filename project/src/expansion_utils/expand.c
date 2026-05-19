@@ -6,7 +6,7 @@
 /*   By: yuak <yuak@student.42istanbul.com.tr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/16 12:31:29 by yuak              #+#    #+#             */
-/*   Updated: 2026/05/17 15:46:35 by yuak             ###   ########.fr       */
+/*   Updated: 2026/05/19 14:48:40 by yuak             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,7 @@ static char	*expand_loop(char *str, size_t *start, size_t *i, t_shell *shell)
 			if (!res)
 				return (NULL);
 			*start = *i;
+			continue ;
 		}
 		(*i)++;
 	}
