@@ -6,14 +6,14 @@
 /*   By: yuak <yuak@student.42istanbul.com.tr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/10 11:53:22 by yuak              #+#    #+#             */
-/*   Updated: 2026/05/19 15:17:01 by yuak             ###   ########.fr       */
+/*   Updated: 2026/05/19 16:19:25 by yuak             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "prompt.h"
 
 static char		*prompt(void);
-static t_shell	*parser(t_shell *shell);
+static int		parser(t_shell *shell);
 static void		free_parser(t_shell *shell);
 
 void	basic_prompt(t_shell *shell)
@@ -31,7 +31,8 @@ void	basic_prompt(t_shell *shell)
 			continue ;
 		}
 		shell->line = line;
-		shell = parser(shell);
+		if (parser(shell))
+			continue ;
 		if (!shell)
 			continue ;
 		if (heredoc(shell))
@@ -46,7 +47,7 @@ void	basic_prompt(t_shell *shell)
 	rl_clear_history();
 }
 
-static t_shell	*parser(t_shell *shell)
+static int	parser(t_shell *shell)
 {
 	shell->tokens = tokenizer(shell->line, shell);
 	if (shell->tokens)
@@ -56,12 +57,12 @@ static t_shell	*parser(t_shell *shell)
 		if (!shell->nodes)
 		{
 			free_tokens(shell->tokens);
-			return (free(shell->line), NULL);
+			return (free(shell->line), 1);
 		}
 	}
 	else
-		return (free(shell->line), NULL);
-	return (shell);
+		return (free(shell->line), 1);
+	return (0);
 }
 
 static char	*prompt(void)
