@@ -19,13 +19,13 @@ int	set_env_value(t_env *ev, char *key, char *value)
 	t_env	*new_node;
 
 	if (is_there_var(ev, key, value))
-		return (1);
+		return (0);
 	new_node = (t_env *) malloc(sizeof(t_env));
 	if (!new_node)
 		return (perror("Error"), 1);
 	new_node->key = ft_strdup(key);
 	if (!new_node->key)
-		return (perror("Error"), 1);
+		return (free(new_node), perror("Error"), 1);
 	new_node->value = value;
 	new_node->next = NULL;
 	// add_env_to_last(ev, new_node); // burada exportta da kullanıldiği icin onun da değişmesi gerektiğinden es gectim bunu
