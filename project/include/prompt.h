@@ -6,7 +6,7 @@
 /*   By: yuak <yuak@student.42istanbul.com.tr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/10 12:32:31 by yuak              #+#    #+#             */
-/*   Updated: 2026/05/19 09:58:39 by yuak             ###   ########.fr       */
+/*   Updated: 2026/05/19 11:21:22 by yuak             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@
 #include "data_structures.h"
 #include "../libft/libft.h"
 #include "builtin.h"
-#include "get_next_line.h"
 #include "../src/pip_src/pipex.h"
 
 void	basic_prompt(t_shell *shell);
