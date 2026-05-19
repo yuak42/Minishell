@@ -41,11 +41,12 @@ int ft_exit_ft(char **av, t_shell *shell)
 	int code;
  // deneme
 	av++;
+	printf("logout\n");
 	if (!*av)
 		exit(shell->exit_status);
 	if (av[1])
 	{
-		ft_printf_fd(2, "exit: too many arguments");
+		ft_printf_fd(2, "-minishell: exit: too many arguments\n");
 		return (1);
 	}
 	if (!arry_isdigit(*av))
