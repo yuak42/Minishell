@@ -12,7 +12,7 @@
 
 #include "prompt.h"
 
-void ft_redir(t_node *nodes)//, t_shell *shell)
+int	ft_redir (t_node *nodes)//, t_shell *shell)
 {
 	t_redir *head;
 	int		infile;
@@ -56,4 +56,7 @@ void ft_redir(t_node *nodes)//, t_shell *shell)
 	}
 	nodes->infile = infile;
 	nodes->outfile = outfile;
+	if(infile == -1 || outfile == -1)
+		return (0);
+	return (1);
 }
