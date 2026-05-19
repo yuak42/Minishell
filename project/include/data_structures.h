@@ -6,7 +6,7 @@
 /*   By: yuak <yuak@student.42istanbul.com.tr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/10 12:32:27 by yuak              #+#    #+#             */
-/*   Updated: 2026/05/19 18:01:36 by yuak             ###   ########.fr       */
+/*   Updated: 2026/05/19 18:31:02 by yuak             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ typedef struct s_token {
 	size_t			heredoc_exp;
 	char			*value;
 	struct s_token	*next;
+	struct s_token	*prev;
 } t_token;
 
 typedef struct s_redir {

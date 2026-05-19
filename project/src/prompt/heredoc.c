@@ -6,7 +6,7 @@
 /*   By: yuak <yuak@student.42istanbul.com.tr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/19 09:53:55 by yuak              #+#    #+#             */
-/*   Updated: 2026/05/19 17:59:50 by yuak             ###   ########.fr       */
+/*   Updated: 2026/05/19 18:35:47 by yuak             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ static int	get_input(t_redir *redir, t_shell *shell)
 {
 	int		p[2];
 	char	*line;
+	char	*str;
 
 	if (pipe(p) == -1)
 		return (1);
@@ -61,10 +62,14 @@ static int	get_input(t_redir *redir, t_shell *shell)
 			free(line);
 			break ;
 		}
-		printf("line before = %s\n", line);
 		if (!redir->heredoc_exp)
-			expand(&line, shell);
-		printf("line after = %s\n", line);
+		{
+			str = get_expanded(line, shell);
+			if (!str)
+				return (free(line), 1);
+			free(line);
+			line = str;
+		}
 		write(p[1], line, ft_strlen(line));
 		write(p[1], "\n", 1);
 		free(line);
