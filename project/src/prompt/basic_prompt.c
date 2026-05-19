@@ -6,15 +6,15 @@
 /*   By: yuak <yuak@student.42istanbul.com.tr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/10 11:53:22 by yuak              #+#    #+#             */
-/*   Updated: 2026/05/19 09:50:44 by yuak             ###   ########.fr       */
+/*   Updated: 2026/05/19 09:52:44 by yuak             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "prompt.h"
 
-static char	*prompt(void);
+static char		*prompt(void);
 static t_shell	*parser(t_shell *shell);
-static void	free_parser(t_shell *shell);
+static void		free_parser(t_shell *shell);
 
 void	basic_prompt(t_shell *shell)
 {
@@ -34,7 +34,11 @@ void	basic_prompt(t_shell *shell)
 		shell = parser(shell);
 		if (!shell)
 			continue ;
-		// heredoc()
+		if (heredoc(shell))
+		{
+			free_parser(shell);
+			continue ;
+		}
 		execute(shell->nodes, shell);
 		free_parser(shell);
 	}
