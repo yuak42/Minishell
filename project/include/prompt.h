@@ -6,7 +6,7 @@
 /*   By: yuak <yuak@student.42istanbul.com.tr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/10 12:32:31 by yuak              #+#    #+#             */
-/*   Updated: 2026/05/19 11:21:22 by yuak             ###   ########.fr       */
+/*   Updated: 2026/05/19 18:34:21 by yuak             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ void	remove_token(t_token **head, t_token *token);
 t_token	*get_word(char *line, size_t *i);
 t_token *get_operator(char *line, size_t *i);
 int		expansion(t_shell *shell);
+char	*get_expanded(char *str, t_shell *shell);
 void	change_invalid_identifier(char **str);
 void	change_to_none(char **str, char *var_name);
 void	change_to_exit_status(char **str, int exit_status);
@@ -51,7 +52,7 @@ int		is_varchar(char c);
 int		is_start_varchar(char c);
 char	*get_key_name(char *str, size_t *i);
 char	*connect_str(char *before, char *to_add);
-int		expand(char **str, t_shell *shell);
+int		expand(t_token *token, t_shell *shell);
 char	*replace_exp(char *str, char *res, size_t start, size_t *i, t_shell *shell);
 char	*connect_exp(char *res, char *key, t_shell *shell);
 int		get_state(char c, int quote);

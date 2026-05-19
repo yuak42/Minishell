@@ -6,13 +6,13 @@
 /*   By: yuak <yuak@student.42istanbul.com.tr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/19 09:53:55 by yuak              #+#    #+#             */
-/*   Updated: 2026/05/19 11:48:15 by yuak             ###   ########.fr       */
+/*   Updated: 2026/05/19 18:35:47 by yuak             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "prompt.h"
 
-static int	get_input(t_redir *redir);
+static int	get_input(t_redir *redir, t_shell *shell);
 
 int	heredoc(t_shell *shell)
 {
@@ -27,7 +27,7 @@ int	heredoc(t_shell *shell)
 		{
 			if (redir->type == token_heredoc)
 			{
-				if (get_input(redir))
+				if (get_input(redir, shell))
 					return (1);
 				
 			}
@@ -38,10 +38,11 @@ int	heredoc(t_shell *shell)
 	return (0);
 }
 
-static int	get_input(t_redir *redir)
+static int	get_input(t_redir *redir, t_shell *shell)
 {
 	int		p[2];
 	char	*line;
+	char	*str;
 
 	if (pipe(p) == -1)
 		return (1);
@@ -61,7 +62,14 @@ static int	get_input(t_redir *redir)
 			free(line);
 			break ;
 		}
-		// expansion later using heredoc_exp is true or not
+		if (!redir->heredoc_exp)
+		{
+			str = get_expanded(line, shell);
+			if (!str)
+				return (free(line), 1);
+			free(line);
+			line = str;
+		}
 		write(p[1], line, ft_strlen(line));
 		write(p[1], "\n", 1);
 		free(line);

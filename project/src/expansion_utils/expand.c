@@ -6,30 +6,34 @@
 /*   By: yuak <yuak@student.42istanbul.com.tr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/16 12:31:29 by yuak              #+#    #+#             */
-/*   Updated: 2026/05/19 14:48:40 by yuak             ###   ########.fr       */
+/*   Updated: 2026/05/19 18:46:05 by yuak             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "prompt.h"
 
 static char	*expand_loop(char *str, size_t *start, size_t *i, t_shell *shell);
-static char	*get_expanded(char *str, t_shell *shell);
 
-int	expand(char **str, t_shell *shell)
+int	expand(t_token *token, t_shell *shell)
 {
 	char	*expanded;
 
-	if (*str == NULL)
+	if (token->value == NULL)
 		return (0);
-	expanded = get_expanded(*str, shell);
+	// printf("before\n");
+	// print_tokens(shell->tokens);
+	if (token->prev && token->prev->type == token_heredoc)
+		return (0);
+	// printf("after\n");
+	expanded = get_expanded((token->value), shell);
 	if (!expanded)
 		return (1);
-	free(*str);
-	*str = expanded;
+	free(token->value);
+	token->value = expanded;
 	return (0);
 }
 
-static char	*get_expanded(char *str, t_shell *shell)
+char	*get_expanded(char *str, t_shell *shell)
 {
 	size_t	i;
 	size_t	start;
