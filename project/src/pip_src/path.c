@@ -94,6 +94,7 @@ char	*ft_path(char **argv, char **envp, struct stat *statbuf)
 			return (NULL);
 	}
 	path = ft_path_access(argv[0], path_dir);
+	//printf("########%s########\n", argv[1]);
 	return (path);
 }
 
@@ -104,7 +105,13 @@ char	*ft_path_access(char *command, char *path_dir)
 	char	**split;
 	char	*cmd;
 
+	cmd = NULL;
 	i = 0;
+	if(*command == '\0')
+	{
+		access(command, F_OK | X_OK);
+		return (NULL);
+	}
 	cmd = ft_strjoin("/", command);
 	split = ft_split(path_dir + 5, ':');
 	while (split[i])

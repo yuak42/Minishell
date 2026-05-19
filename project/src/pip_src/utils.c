@@ -55,6 +55,7 @@ void	ft_run_process(t_pipe plist)
 		ft_all_free(plist);
 		free(path);
 		free_str(ev, -1);
+		perror("-minishell");
 		exit(EXIT_FAILURE);
 	}
 }
