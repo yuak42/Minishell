@@ -25,16 +25,14 @@ static t_env	*is_target(t_env *env, char *av)
 	return (NULL);
 }
 
-static void	delete_node(t_env *node)
+static void	delete_node(t_env *node, t_env **env)
 {
 	if (node->prev)
 		node->prev->next = node->next;
 	else
-		node->next->prev = NULL;
+		*env = node->next;
 	if (node->next)
 		node->next->prev = node->prev;
-	else
-		node->prev->next = NULL;
 	free_env_node(node);
 }
 
@@ -49,7 +47,7 @@ int	ft_unset(char **av, t_env **env)
 	{
 		node = is_target(*env, *av);
 		if (node)
-			delete_node(node);
+			delete_node(node, env);
 		av++;
 	}
 	return (0);
