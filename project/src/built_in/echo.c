@@ -115,5 +115,3 @@ int	ft_echo(char **av, t_env *ev, int fd)
 		return (1);
 	return (0);
 }
-
-// echo $0 incele

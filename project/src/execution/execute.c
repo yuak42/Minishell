@@ -18,7 +18,7 @@ void	execute(t_node *nodes, t_shell *shell)
 	int	fd;
 
 	fd = 1;
-	if (!nodes->next && ((!nodes->argv) || !nodes->argv[0] || nodes->argv[0][0] == '\0'))
+	if (!nodes->next && ((!nodes->argv) || !nodes->argv[0])) // || nodes->argv[0][0] == '\0'))
 	{
 		if(!ft_redir(nodes))
 		{
