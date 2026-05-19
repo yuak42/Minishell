@@ -39,7 +39,7 @@ static t_env	*is_variable(char *variable, t_env *node)
 	while(node)
 	{
 		str = get_key(node->key); // change done
-		if (ft_strncmp(str ,variable, ft_strlen(variable) + 1))
+		if (!ft_strncmp(str ,variable, ft_strlen(variable) + 1))
 		{
 			free(str);
 			return (node);
@@ -74,10 +74,7 @@ static int	run_export(char *av, t_env *env)
 			return (0);
 		}
 		if (set_env_value(env, key, value))
-		{
-			perror("-minishell");
 			return(0);
-		}
 	}
 	free(key);
 	return (1);
@@ -121,10 +118,14 @@ int	ft_export(char **av, t_env *env, int fd)
 	av++;
 	if (!is_valid(*av))
 		return (1);
-	if(!run_export(*av, env))
-		return(1);
+	while(*av)
+	{
+		if(!run_export(*av, env))
+			return(1);
+		av++;
+	}
 	return (0);
-}
+	}
 
 // export yazıldığında alfabetik sırada yazdıracak. değişken değeri "" içinde olacak.
 // readonly değişken durmunu fixle.
