@@ -6,7 +6,7 @@
 /*   By: yuak <yuak@student.42istanbul.com.tr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/16 12:31:29 by yuak              #+#    #+#             */
-/*   Updated: 2026/05/19 18:34:31 by yuak             ###   ########.fr       */
+/*   Updated: 2026/05/19 18:41:48 by yuak             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,11 @@ int	expand(t_token *token, t_shell *shell)
 
 	if (token->value == NULL)
 		return (0);
+	printf("before\n");
+	print_tokens(shell->tokens);
 	if (token->prev && token->prev->type == token_heredoc)
 		return (0);
+	printf("after\n");
 	expanded = get_expanded((token->value), shell);
 	if (!expanded)
 		return (1);
