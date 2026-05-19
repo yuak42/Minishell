@@ -35,6 +35,9 @@ static int	echo_print(char *av, t_env *ev, int fd)
 	//char	*n_check;
 
 	//n_check = av[1];
+	int i = 0;
+	while (i < 100000)
+		i++;
 	while (*av)
 	{
 		// if (*av == '$')
