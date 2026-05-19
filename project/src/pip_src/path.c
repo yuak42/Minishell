@@ -44,7 +44,7 @@ char	*path_check(t_pipe plist, char **ev)
 	struct stat statbuf;
 	int			status;
 
-	path = ft_path(plist.argv, ev, &statbuf);
+	path = ft_path(plist.argv, ev, &statbuf, &status);
 	if (!path)
 	{
 		if (errno == EACCES)
@@ -72,7 +72,7 @@ char	*path_check(t_pipe plist, char **ev)
 	return (path);
 }
 
-char	*ft_path(char **argv, char **envp, struct stat *statbuf)
+char	*ft_path(char **argv, char **envp, struct stat *statbuf, int *status)
 {
 	char	*path;
 	char	*path_dir;
@@ -80,7 +80,8 @@ char	*ft_path(char **argv, char **envp, struct stat *statbuf)
 	path_dir = ft_path_search(envp);
 	if (!path_dir)
 	{
-		perror("-minishell");
+		ft_printf_fd(2, "-minishell: %s: No such file or directory\n", argv[0]);
+		*status = 127;
 		return (NULL);
 	}
 	if (ft_strrchr(argv[0], '/'))
