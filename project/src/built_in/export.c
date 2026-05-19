@@ -57,6 +57,7 @@ static int	run_export(char *av, t_env *env)
 	t_env	*node;
 
 	key = get_key(av);
+	value = get_value(av);
 	if (!key)
 	{
 		perror("-minishell");
@@ -73,6 +74,11 @@ static int	run_export(char *av, t_env *env)
 			perror("-minishell");
 			return (0);
 		}
+		if (set_env_value(env, key, value))
+			return(0);
+	}
+	else if (*av)
+	{
 		if (set_env_value(env, key, value))
 			return(0);
 	}
@@ -106,7 +112,15 @@ int	ft_export(char **av, t_env *env, int fd)
 	{
 		while (env)
 		{
-			if (ft_printf_fd(fd, "declare -x %s=\"%s\"\n", env->key, env->value) < 0)
+			if (!env->value[0])
+			{
+				if (ft_printf_fd(fd, "declare -x %s\n", env->key) < 0)
+				{
+					perror("");
+					return(1);
+				}
+			}
+			else if (ft_printf_fd(fd, "declare -x %s=\"%s\"\n", env->key, env->value) < 0)
 			{
 				perror("");
 				return(1);
