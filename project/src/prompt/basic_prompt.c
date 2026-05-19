@@ -6,7 +6,7 @@
 /*   By: yuak <yuak@student.42istanbul.com.tr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/10 11:53:22 by yuak              #+#    #+#             */
-/*   Updated: 2026/05/19 09:52:44 by yuak             ###   ########.fr       */
+/*   Updated: 2026/05/19 09:56:31 by yuak             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ void	basic_prompt(t_shell *shell)
 			free_parser(shell);
 			continue ;
 		}
+		add_history(shell->line); 
 		execute(shell->nodes, shell);
 		free_parser(shell);
 	}
@@ -79,7 +80,6 @@ static char	*prompt(void)
 			return (free(line), NULL);
 		return (free(line), ret_empty);
 	}
-	add_history(line); // belki daha sonra (heredoc'tan) sonraya koyulabilir.
 	return (line);
 }
 

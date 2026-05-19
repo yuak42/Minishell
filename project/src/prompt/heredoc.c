@@ -6,7 +6,7 @@
 /*   By: yuak <yuak@student.42istanbul.com.tr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/19 09:53:55 by yuak              #+#    #+#             */
-/*   Updated: 2026/05/19 09:54:21 by yuak             ###   ########.fr       */
+/*   Updated: 2026/05/19 10:00:29 by yuak             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,20 @@
 
 int	heredoc(t_shell *shell)
 {
-	(void) shell;
+	t_node	*head;
+	char	*str;
+
+	(void) str;
+	(void) head;
+	// int		p[2];
+	// 
+	// pipe(p);
+	// while (head)
+	// {
+
+
+
+	// 	head = head->next;
+	// }
 	return (0);
 }
