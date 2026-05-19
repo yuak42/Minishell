@@ -18,7 +18,7 @@ int	ft_env(t_env *ev, int fd)
 
 	while (ev != NULL)
 	{
-		if (ev->value)
+		if (ev->value && ev->value[0])
 		{
 			status = ft_printf_fd(fd, "%s=%s\n", ev->key, ev->value);
 			if (status < 0)
@@ -27,6 +27,7 @@ int	ft_env(t_env *ev, int fd)
 				return (status);
 			}
 		}
+	
 		ev = ev->next;
 	}
 	return(status);
