@@ -6,7 +6,7 @@
 /*   By: yuak <yuak@student.42istanbul.com.tr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/10 12:32:31 by yuak              #+#    #+#             */
-/*   Updated: 2026/05/20 14:53:58 by yuak             ###   ########.fr       */
+/*   Updated: 2026/05/20 16:39:00 by yuak             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ int		is_start_varchar(char c);
 char	*get_key_name(char *str, size_t *i);
 char	*connect_str(char *before, char *to_add);
 int		expand(t_token *token, t_shell *shell);
-char	*replace_exp(char *str, char *res, size_t start, size_t *i, t_shell *shell);
+char	*replace_exp(char *res, t_expansion exp, t_shell *shell);
 char	*connect_exp(char *res, char *key, t_shell *shell);
 int		get_state(char c, int quote);
 int		remove_quotes(char **str, t_token *token, t_token **head);

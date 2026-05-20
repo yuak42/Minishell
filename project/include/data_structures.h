@@ -6,7 +6,7 @@
 /*   By: yuak <yuak@student.42istanbul.com.tr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/10 12:32:27 by yuak              #+#    #+#             */
-/*   Updated: 2026/05/20 10:57:29 by yuak             ###   ########.fr       */
+/*   Updated: 2026/05/20 16:36:26 by yuak             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,5 +68,12 @@ typedef struct s_shell
 	t_node	*nodes;
 	char	*line;
 }	t_shell;
+
+typedef struct s_expansion
+{
+	char	*str;
+	size_t	start;
+	size_t	*i;
+}	t_expansion;
 
 #endif
