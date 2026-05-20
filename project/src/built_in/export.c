@@ -53,11 +53,9 @@ static t_env	*is_variable(char *variable, t_env *node)
 static int	run_export(char *av, t_env *env)
 {
 	char	*key;
-	char	*value;
 	t_env	*node;
 
 	key = get_key(av);
-	value = get_value(av);
 	if (!key)
 	{
 		perror("-minishell");
@@ -66,22 +64,8 @@ static int	run_export(char *av, t_env *env)
 	node = is_variable(key, env);
 	if (node && !env->value)
 		return (0);
-	if (ft_strchr(av, '='))
-	{
-		value = ft_strdup(ft_strchr(av, '=') + 1);
-		if (!value)
-		{
-			perror("-minishell");
-			return (0);
-		}
-		if (set_env_value(env, key, value))
-			return (0);
-	}
-	else if (*av)
-	{
-		if (set_env_value(env, key, value))
-			return (0);
-	}
+	if (run_export_2(av, env, key))
+		return(0);
 	free(key);
 	return (1);
 }
@@ -110,24 +94,7 @@ int	ft_export(char **av, t_env *env, int fd)
 {
 	if (!av[1])
 	{
-		while (env)
-		{
-			if (!env->value[0])
-			{
-				if (ft_printf_fd(fd, "declare -x %s\n", env->key) < 0)
-				{
-					perror("");
-					return (1);
-				}
-			}
-			else if (ft_printf_fd(fd, "declare -x %s=\"%s\"\n",
-					env->key, env->value) < 0)
-			{
-				perror("");
-				return (1);
-			}
-			env = env->next;
-		}
+		print_export(env, fd);
 		return (0);
 	}
 	av++;

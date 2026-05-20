@@ -1,3 +1,16 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   builtin.h                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: byaprak <byaprak@student.42istanbul.com.tr>  #+#  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026-05-20 17:53:48 by byaprak           #+#    #+#             */
+/*   Updated: 2026-05-20 17:53:48 by byaprak          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+
 #ifndef BUILTIN_H
 #define BUILTIN_H
 #include <unistd.h>
@@ -6,9 +19,6 @@
 #include "../libft/libft.h"
 #include "data_structures.h"
 #include "prompt.h"
-
-/* HEADER EKLE REIS bir de libft de mailin yanlis onu düzelt sonu .tr ile bitcek */
-
 
 int		ft_echo(char **av, t_env *ev, int fd);
 int		ft_export(char **av, t_env *env, int fd);
@@ -25,5 +35,7 @@ int		nodes_len(t_node *nodes);
 int		run_builtin(char **argv, t_shell *shell, int fd);
 int		ft_printf_fd(int fd, const char *input, ...);
 int		ft_exit_ft(char **av, t_shell *shell);
+void	print_export(t_env *env, int fd);
+int		run_export_2(char *av, t_env *env, char *key);
 
 #endif

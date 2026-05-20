@@ -16,7 +16,7 @@ SRC = prompt/basic_prompt.c main.c  \
 	expansion_utils/expansion.c \
 	env_utils/free_ev.c \
  		built_in/export.c built_in/unset.c built_in/exit.c \
-	built_in/env.c built_in/pwd.c built_in/echo.c  built_in/cd.c \
+	built_in/env.c built_in/pwd.c built_in/echo.c  built_in/cd.c built_in/export_utils.c\
 	execution/execute.c 
 
 
