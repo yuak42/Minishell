@@ -6,15 +6,15 @@
 /*   By: yuak <yuak@student.42istanbul.com.tr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/10 11:53:22 by yuak              #+#    #+#             */
-/*   Updated: 2026/05/20 12:11:59 by yuak             ###   ########.fr       */
+/*   Updated: 2026/05/20 23:33:13 by yuak             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "prompt.h"
 
-static char		*prompt(void);
-static int		parser(t_shell *shell);
-static void		free_parser(t_shell *shell);
+static char	*prompt(t_shell *shell);
+static int	parser(t_shell *shell);
+static void	free_parser(t_shell *shell);
 
 void	basic_prompt(t_shell *shell)
 {
@@ -22,7 +22,7 @@ void	basic_prompt(t_shell *shell)
 
 	while (1)
 	{
-		line = prompt();
+		line = prompt(shell);
 		if (!line)
 			break ;
 		else if (line[0] == '\0')
@@ -35,7 +35,10 @@ void	basic_prompt(t_shell *shell)
 		if (parser(shell))
 			continue ;
 		execute(shell->nodes, shell);
+		if (shell->exit_status == 131)
+			print_error("Quit (core dumped)\n");
 		free_parser(shell);
+		g_signal = 0;
 	}
 	rl_clear_history();
 }
@@ -63,12 +66,13 @@ static int	parser(t_shell *shell)
 	return (0);
 }
 
-static char	*prompt(void)
+static char	*prompt(t_shell *shell)
 {
 	char	*line;
 	char	*ret_empty;
 
-	line = readline("$ ");
+	line = readline("msh$ ");
+	shell->exit_status = 128 + g_signal;
 	if (!line)
 		return (NULL);
 	if (line[0] == '\0' || is_only_spaces(line))
