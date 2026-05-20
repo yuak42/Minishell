@@ -6,7 +6,7 @@
 /*   By: yuak <yuak@student.42istanbul.com.tr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/10 12:49:03 by yuak              #+#    #+#             */
-/*   Updated: 2026/05/20 14:01:15 by yuak             ###   ########.fr       */
+/*   Updated: 2026/05/20 20:56:06 by yuak             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@ t_token	*tokenizer(char *line, t_shell *shell)
 	}
 	if (!is_syntax_correct(shell->tokens))
 	{
-		print_error("syntax error!\n");
 		free_tokens(shell->tokens);
 		shell->exit_status = 2;
 		return (NULL);
@@ -46,12 +45,12 @@ static int	is_syntax_correct(t_token *tokens)
 {
 	if (!is_operator_syntax_correct(tokens))
 	{
-		print_error("Error: operator logic wrong!\n");
+		print_error("minishell: syntax error near unexpected token!\n");
 		return (0);
 	}
 	if (!is_quote_syntax_correct(tokens))
 	{
-		print_error("Error: unclosed quotes!\n");
+		print_error("minishell: unclosed quotes!\n");
 		return (0);
 	}
 	return (1);
