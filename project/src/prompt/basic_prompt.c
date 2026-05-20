@@ -6,7 +6,7 @@
 /*   By: yuak <yuak@student.42istanbul.com.tr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/10 11:53:22 by yuak              #+#    #+#             */
-/*   Updated: 2026/05/20 10:15:37 by yuak             ###   ########.fr       */
+/*   Updated: 2026/05/20 12:05:30 by yuak             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,17 +30,10 @@ void	basic_prompt(t_shell *shell)
 			free(line);
 			continue ;
 		}
+		add_history(line);
 		shell->line = line;
 		if (parser(shell))
 			continue ;
-		if (!shell)
-			continue ;
-		if (heredoc(shell))
-		{
-			free_parser(shell);
-			continue ;
-		}
-		add_history(shell->line);
 		execute(shell->nodes, shell);
 		free_parser(shell);
 	}
@@ -58,6 +51,11 @@ static int	parser(t_shell *shell)
 		{
 			free_tokens(shell->tokens);
 			return (free(shell->line), 1);
+		}
+		if (heredoc(shell))
+		{
+			free_parser(shell);
+			return (1);
 		}
 	}
 	else
