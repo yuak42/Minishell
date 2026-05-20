@@ -51,5 +51,5 @@ void	execute(t_node *nodes, t_shell *shell)
 		status = run_prompt(nodes, shell, fd);
 	else
 		status = ft_pipex(nodes, shell, nodes_len(nodes));
-	shell->exit_status = status;
+	shell->exit_status = status + g_signal;
 }

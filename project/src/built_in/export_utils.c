@@ -37,9 +37,10 @@ int	run_export_2(char *av, t_env *env, char *key)
 {
 	char	*value;
 
-	value = ft_strdup(ft_strchr(av, '=') + 1);
+	value = NULL;
 	if (ft_strchr(av, '='))
 	{
+		value = ft_strdup(ft_strchr(av, '=') + 1);
 		if (!value)
 		{
 			perror("-minishell");
