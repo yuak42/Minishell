@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: byaprak <byaprak@student.42istanbul.com.tr>  #+#  +:+       +#+      */
+/*   By: yuak <yuak@student.42istanbul.com.tr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026-05-05 15:25:07 by byaprak           #+#    #+#             */
-/*   Updated: 2026-05-05 15:25:07 by byaprak          ###   ########.fr       */
+/*   Created: 2026/05/05 15:25:07 by byaprak           #+#    #+#             */
+/*   Updated: 2026/05/20 22:26:38 by yuak             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,5 +51,5 @@ void	execute(t_node *nodes, t_shell *shell)
 		status = run_prompt(nodes, shell, fd);
 	else
 		status = ft_pipex(nodes, shell, nodes_len(nodes));
-	shell->exit_status = status + g_signal;
+	shell->exit_status = status;
 }
