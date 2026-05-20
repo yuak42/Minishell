@@ -6,7 +6,7 @@
 /*   By: yuak <yuak@student.42istanbul.com.tr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/10 11:53:22 by yuak              #+#    #+#             */
-/*   Updated: 2026/05/20 23:33:13 by yuak             ###   ########.fr       */
+/*   Updated: 2026/05/21 00:13:59 by yuak             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,12 @@ static char	*prompt(t_shell *shell)
 	char	*ret_empty;
 
 	line = readline("msh$ ");
-	shell->exit_status = 128 + g_signal;
+	// printf("g_signal = %d\n", g_signal);
+	if (g_signal != 0)
+	{
+		shell->exit_status = 128 + g_signal;
+		// printf("exit_status = %d\n", shell->exit_status);
+	}
 	if (!line)
 		return (NULL);
 	if (line[0] == '\0' || is_only_spaces(line))
