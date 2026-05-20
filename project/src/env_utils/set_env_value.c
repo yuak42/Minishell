@@ -6,7 +6,7 @@
 /*   By: yuak <yuak@student.42istanbul.com.tr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/10 11:54:13 by yuak              #+#    #+#             */
-/*   Updated: 2026/05/17 15:45:12 by yuak             ###   ########.fr       */
+/*   Updated: 2026/05/20 10:11:12 by yuak             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@ int	set_env_value(t_env *ev, char *key, char *value)
 		return (free(new_node), perror("Error"), 1);
 	new_node->value = value;
 	new_node->next = NULL;
-	// add_env_to_last(ev, new_node); // burada exportta da kullanıldiği icin onun da değişmesi gerektiğinden es gectim bunu
 	while (ev->next)
 		ev = ev->next;
 	new_node->prev = ev;

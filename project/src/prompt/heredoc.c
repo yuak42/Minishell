@@ -6,7 +6,7 @@
 /*   By: yuak <yuak@student.42istanbul.com.tr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/19 09:53:55 by yuak              #+#    #+#             */
-/*   Updated: 2026/05/19 18:35:47 by yuak             ###   ########.fr       */
+/*   Updated: 2026/05/20 10:15:13 by yuak             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int	heredoc(t_shell *shell)
 {
 	t_node	*head;
 	t_redir	*redir;
-	
+
 	head = shell->nodes;
 	while (head)
 	{
@@ -29,7 +29,6 @@ int	heredoc(t_shell *shell)
 			{
 				if (get_input(redir, shell))
 					return (1);
-				
 			}
 			redir = redir->next;
 		}
@@ -73,7 +72,6 @@ static int	get_input(t_redir *redir, t_shell *shell)
 		write(p[1], line, ft_strlen(line));
 		write(p[1], "\n", 1);
 		free(line);
-		
 	}
 	close(p[1]);
 	redir->read = p[0];

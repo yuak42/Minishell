@@ -6,13 +6,13 @@
 /*   By: yuak <yuak@student.42istanbul.com.tr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/15 19:10:58 by yuak              #+#    #+#             */
-/*   Updated: 2026/05/16 19:44:29 by yuak             ###   ########.fr       */
+/*   Updated: 2026/05/20 10:13:09 by yuak             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "prompt.h"
 
-char	*connect_str(char *before, char *to_add) // think NULL cases later
+char	*connect_str(char *before, char *to_add)
 {
 	char	*final;
 
