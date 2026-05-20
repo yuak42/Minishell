@@ -15,26 +15,26 @@
 static int	error_check(t_pipe plist, struct stat statbuf)
 {
 	int	status;
+	char *av;
 
+	av = plist.argv[0];
 	if (errno == EACCES)
 	{
 		ft_printf_fd(2, "-minishell: %s: \
-			Permission denied\n", plist.argv[0]);
+			Permission denied\n", av);
 		status = 126;
 	}
 	else if (errno == ENOENT)
 	{
-		if (ft_strchr(plist.argv[0], '/'))
-			ft_printf_fd(2, "-minishell: %s: \
-				No such file or directory\n", plist.argv[0]);
+		if (ft_strchr(av, '/'))
+			ft_printf_fd(2, "-minishell: %s: No such file or directory\n", av);
 		else
-			ft_printf_fd(2, "-minishell: %s: \
-				command not found\n", plist.argv[0]);
+			ft_printf_fd(2, "-minishell: %s: command not found\n", av);
 		status = 127;
 	}
 	else if (S_ISDIR(statbuf.st_mode))
 	{
-		ft_printf_fd(2, "minishell: %s: Is a directory\n", plist.argv[0]);
+		ft_printf_fd(2, "minishell: %s: Is a directory\n", av);
 		status = 126;
 	}
 	return (status);
