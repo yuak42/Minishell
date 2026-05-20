@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   env_size.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: byaprak <byaprak@student.42istanbul.com.tr>  #+#  +:+       +#+        */
+/*   By: byaprak <byaprak@student.42istanbul.com.tr>  #+#  +:+       +#+      */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026-05-02 23:00:27 by byaprak           #+#    #+#             */
 /*   Updated: 2026-05-02 23:00:27 by byaprak          ###   ########.fr       */

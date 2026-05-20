@@ -12,17 +12,6 @@
 
 #include "builtin.h"
 
-// static t_list	*is_home(t_list *env)
-// {
-// 	while (env)
-// 	{
-// 		if (ft_strnstr(env->content, "HOME=", 5))
-// 			return (env);
-// 		env = env->next;
-// 	}
-// 	return (NULL);
-// }
-
 static int	get_home(t_env *env)
 {
 	int		ex;
@@ -34,22 +23,22 @@ static int	get_home(t_env *env)
 	else
 	{
 		ex = -2;
-		ft_perror("bash: cd: %s not set\n", "HOME"); // Niye boyle ??? normal perror boyle degil???
+		ft_perror("bash: cd: %s not set\n", "HOME");
 	}
 	return (ex);
 }
 
-static void pwd_update(t_env *env)
+static void	pwd_update(t_env *env)
 {
 	char	*new_pwd;
 
-	new_pwd = getcwd(NULL, 0); // dinamik zaten
+	new_pwd = getcwd(NULL, 0);
 	if (!env || !new_pwd)
 		return ;
 	set_env_value(env, "PWD", new_pwd);
 }
 
-static void old_pwd_update(t_env *env, char *here)
+static void	old_pwd_update(t_env *env, char *here)
 {
 	if (!env)
 		return ;
@@ -80,11 +69,7 @@ int	ft_cd(char **av, t_env *env)
 	{
 		if (ex == -1)
 			ft_perror("-minishell: cd: %s: No such file or directory\n", *av);
-		free(here);
-		return (1);
+		return (free(here), 1);
 	}
-	pwd_update(env);
-	old_pwd_update(env, here);
-	//free(here);
-	return (0);
+	return (pwd_update(env), old_pwd_update(env, here), 0);
 }

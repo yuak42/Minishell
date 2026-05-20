@@ -12,49 +12,21 @@
 
 #include "builtin.h"
 
-// static int	print_env(t_env *ev, char *av, int fd)
-// {
-// 	int	check;
-// 	av++;
-// 	while (ev)
-// 	{
-// 		if (!ft_strncmp(av, ev->key, ft_strlen(av) + 1))
-// 		{
-// 			check = write(fd, ev->value, ft_strlen(ev->value)); // maybe error check here too
-// 			if (check == -1)
-// 				return (0);
-// 			break ;
-// 		}
-// 		ev = ev->next;
-// 	}
-// 	return (1);
-// }
-
 static int	echo_print(char *av, t_env *ev, int fd)
 {
-	//char	*n_check;
+	int	i;
 
-	//n_check = av[1];
-	int i = 0;
+	i = 0;
 	while (i < 100000)
 		i++;
 	while (*av)
 	{
-		// if (*av == '$')
-		// {
-		// 	av++;
-		// 	if (!print_env(ev, av, fd))
-		// 		return (0);
-		// 	return (1);
-		// }
 		if (!ft_putchar_fd(*av, fd))
 			return (0);
 		av++;
 	}
 	return (1);
 	(void) ev;
-	// if (ft_strnstr(n_check, "-n", 2))
-	// 	return ;
 }
 
 static int	is_print(char *str)
@@ -77,7 +49,7 @@ static int	is_print(char *str)
 
 static int	run_echo(char **av, t_env *ev, int fd)
 {
-	int	new_line; 
+	int	new_line;
 
 	new_line = is_print(*av);
 	while (!is_print(*av))
@@ -86,12 +58,8 @@ static int	run_echo(char **av, t_env *ev, int fd)
 	{
 		if (!echo_print(*av, ev, fd))
 			return (0);
-		//echo_print(*av, ev);
-		// if (!ft_putchar_fd(' ', 1))
-		// 	return (0);
 		if (*(av + 1))
 		{
-
 			if (!ft_putchar_fd(' ', fd))
 				return (0);
 		}

@@ -48,7 +48,9 @@ void	ft_run_process(t_pipe plist)
 	char	**ev;
 	char	*path;
 
-	ev = env_to_arry(*plist.envp);// hata kontrolü ekle
+	ev = env_to_arry(*plist.envp);
+	if (!ev)
+		return ;
 	path = path_check(plist, ev);
 	if (execve(path, plist.argv, ev) == -1)
 	{
@@ -68,9 +70,9 @@ t_pipe	ft_struct(t_node *node, t_shell *shell, int (*fd)[2], int i)
 	p_list.shell = shell;
 	p_list.argv = node->argv;
 	p_list.envp = &shell->ev;
-    p_list.inp = STDIN_FILENO;
-    p_list.out = STDOUT_FILENO;
-	ft_redir(node);//, shell);
+	p_list.inp = STDIN_FILENO;
+	p_list.out = STDOUT_FILENO;
+	ft_redir(node);
 	if (node->infile)
 		p_list.inp = node->infile;
 	else if (node->pipe_in)
