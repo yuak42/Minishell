@@ -34,7 +34,7 @@ static int	in_redir(t_redir *redir, int infile)
 	return (i_file);
 }
 
-static int out_redir(t_redir *redir, int outfile)
+static int	out_redir(t_redir *redir, int outfile)
 {
 	int	o_file;
 
