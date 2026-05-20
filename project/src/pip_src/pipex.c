@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: byaprak <byaprak@student.42istanbul.com    +#+  +:+       +#+        */
+/*   By: yuak <yuak@student.42istanbul.com.tr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/13 22:23:32 by byaprak           #+#    #+#             */
-/*   Updated: 2025/09/28 20:09:05 by byaprak          ###   ########.fr       */
+/*   Updated: 2026/05/20 22:20:52 by yuak             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,5 +85,9 @@ int	ft_pipex(t_node *node, t_shell *shell, int ac)
 	status = ft_wait(pd, ac);
 	free(fd);
 	free(pd);
-	return (WEXITSTATUS(status));
+	if (WIFSIGNALED(status))
+		return (128 + WTERMSIG(status));
+	else if (WIFEXITED(status))
+		return (WEXITSTATUS(status));
+	return (1);
 }
