@@ -3,4 +3,4 @@ YUAK_SRC = node_utils/create_nodes.c node_utils/free_nodes.c node_utils/add_last
 			utils/print_error.c token_utils/tokenizer.c expansion_utils/varchar_utils.c expansion_utils/get_key_name.c \
 			expansion_utils/expansion_helpers.c expansion_utils/expand.c expansion_utils/remove_quotes.c \
 			utils/signal_utils.c env_utils/add_env_to_last.c token_utils/remove_token.c prompt/heredoc.c \
-			prompt/heredoc_utils.c
+			prompt/heredoc_utils.c node_utils/add_arg.c node_utils/handle_op.c

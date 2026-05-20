@@ -6,14 +6,12 @@
 /*   By: yuak <yuak@student.42istanbul.com.tr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/10 11:53:40 by yuak              #+#    #+#             */
-/*   Updated: 2026/05/19 18:06:22 by yuak             ###   ########.fr       */
+/*   Updated: 2026/05/20 18:17:33 by yuak             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "prompt.h"
 
-void	add_arg(char ***argv, char *arg);
-void	handle_op(t_token **tokens, t_node *node);
 t_node	*get_node(t_token **tokens);
 
 t_node	*create_nodes(t_token *tokens)
@@ -34,23 +32,22 @@ t_node	*create_nodes(t_token *tokens)
 	return (head);
 }
 
+t_node	*init_node(t_token **tokens);
+
 t_node	*get_node(t_token **tokens)
 {
 	t_node	*node;
 
-	node = (t_node *) ft_calloc(1, sizeof(t_node));
+	node = init_node(tokens);
 	if (!node)
 		return (NULL);
-	if ((*tokens)->type == token_pipe)
-	{
-		node->pipe_in = 1;
-		*tokens = (*tokens)->next;
-	}
 	while (*tokens && (*tokens)->type != token_pipe)
 	{
 		if ((*tokens)->type == token_word)
 		{
 			add_arg(&node->argv, (*tokens)->value);
+			if (!node->argv)
+				return (free_nodes(node), NULL);
 			*tokens = (*tokens)->next;
 		}
 		else
@@ -63,72 +60,17 @@ t_node	*get_node(t_token **tokens)
 	return (node);
 }
 
-void	handle_op(t_token **tokens, t_node *node)
+t_node	*init_node(t_token **tokens)
 {
-	t_redir	*redir;
-	t_redir	*node_redir;
+	t_node	*node;
 
-	if (!(*tokens)->next || (*tokens)->next->type != token_word)
+	node = (t_node *) ft_calloc(1, sizeof(t_node));
+	if (!node)
+		return (NULL);
+	if ((*tokens)->type == token_pipe)
 	{
-		free_nodes(node);
-		node = NULL;
-		print_error("syntax error!\n");
-		return ;
+		node->pipe_in = 1;
+		*tokens = (*tokens)->next;
 	}
-	redir = (t_redir *) ft_calloc(1, sizeof(t_redir));
-	if (!redir)
-	{
-		free_nodes(node);
-		node = NULL;
-		print_error("Error! ft_calloc\n");
-		return ;
-	}
-	redir->type = (*tokens)->type;
-	redir->file = (*tokens)->next->value;
-	redir->heredoc_exp = (*tokens)->next->heredoc_exp;
-	redir->next = NULL;
-	if (!node->redir)
-		node->redir = redir;
-	else
-	{
-		node_redir = node->redir;
-		while (node_redir->next)
-			node_redir = node_redir->next;
-		node_redir->next = redir;
-	}
-	*tokens = (*tokens)->next->next;
-}
-
-void	add_arg(char ***argv, char *arg)
-{
-	char	**temp;
-	size_t	len;
-	char	**new_argv;
-
-	temp = *argv;
-	len = 0;
-	while (temp != NULL && *temp)
-	{
-		len++;
-		temp++;
-	}
-	new_argv = (char **) malloc(sizeof(char *) * (len + 2));
-	if (!new_argv)
-	{
-		free(*argv);
-		*argv = NULL;
-		return ;
-	}
-	temp = *argv;
-	len = 0;
-	while (temp != NULL && *temp)
-	{
-		new_argv[len] = *temp;
-		len++;
-		temp++;
-	}
-	new_argv[len] = arg;
-	new_argv[len + 1] = NULL;
-	free(*argv);
-	*argv = new_argv;
+	return (node);
 }
