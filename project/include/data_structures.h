@@ -6,14 +6,12 @@
 /*   By: yuak <yuak@student.42istanbul.com.tr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/10 12:32:27 by yuak              #+#    #+#             */
-/*   Updated: 2026/05/20 10:44:51 by yuak             ###   ########.fr       */
+/*   Updated: 2026/05/20 10:57:29 by yuak             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef DATA_STRUCTURES_H
 # define DATA_STRUCTURES_H
-
-extern int	g_exit_status;
 
 typedef enum e_token_type
 {

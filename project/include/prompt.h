@@ -6,22 +6,25 @@
 /*   By: yuak <yuak@student.42istanbul.com.tr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/10 12:32:31 by yuak              #+#    #+#             */
-/*   Updated: 2026/05/19 21:43:52 by yuak             ###   ########.fr       */
+/*   Updated: 2026/05/20 11:00:33 by yuak             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PROMPT_H
-#define PROMPT_H
+# define PROMPT_H
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <unistd.h>
-#include <readline/readline.h>
-#include <readline/history.h>
-#include "data_structures.h"
-#include "../libft/libft.h"
-#include "builtin.h"
-#include "../src/pip_src/pipex.h"
+# include <stdio.h>
+# include <stdlib.h>
+# include <unistd.h>
+# include <readline/readline.h>
+# include <readline/history.h>
+# include "data_structures.h"
+# include "../libft/libft.h"
+# include "builtin.h"
+# include "../src/pip_src/pipex.h"
+# include <signal.h>
+
+extern volatile sig_atomic_t	g_signal;
 
 void	basic_prompt(t_shell *shell);
 t_env	*get_env_list(char **env);
@@ -37,7 +40,7 @@ void	free_tokens(t_token *tokens);
 void	free_token(t_token *token);
 void	remove_token(t_token **head, t_token *token);
 t_token	*get_word(char *line, size_t *i);
-t_token *get_operator(char *line, size_t *i);
+t_token	*get_operator(char *line, size_t *i);
 int		expansion(t_shell *shell);
 char	*get_expanded(char *str, t_shell *shell);
 void	change_invalid_identifier(char **str);
