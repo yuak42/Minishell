@@ -46,7 +46,7 @@ static int	parser(t_shell *shell)
 	if (shell->tokens)
 	{
 		shell->nodes = create_nodes(shell->tokens);
-		// print_nodes(shell->nodes);
+		//print_nodes(shell->nodes);
 		if (!shell->nodes)
 		{
 			free_tokens(shell->tokens);
