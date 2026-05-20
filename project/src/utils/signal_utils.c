@@ -6,13 +6,13 @@
 /*   By: yuak <yuak@student.42istanbul.com.tr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/17 14:32:43 by yuak              #+#    #+#             */
-/*   Updated: 2026/05/20 10:59:08 by yuak             ###   ########.fr       */
+/*   Updated: 2026/05/20 12:23:28 by yuak             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "prompt.h"
 
-volatile sig_atomic_t	g_signal;
+volatile sig_atomic_t	g_signal = 0;
 
 void	sigint_handler(int sig)
 {
