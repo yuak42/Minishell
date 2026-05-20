@@ -6,7 +6,7 @@
 /*   By: yuak <yuak@student.42istanbul.com.tr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/16 12:31:29 by yuak              #+#    #+#             */
-/*   Updated: 2026/05/20 10:12:21 by yuak             ###   ########.fr       */
+/*   Updated: 2026/05/20 15:01:48 by yuak             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ static char	*expand_loop(char *str, size_t *start, size_t *i, t_shell *shell)
 	quote = 0;
 	res = ft_strdup("");
 	if (!res)
-		return (NULL);
+		return (print_error("Error: ft_strdup\n"), NULL);
 	while (str[*i])
 	{
 		quote = get_state(str[*i], quote);
