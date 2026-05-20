@@ -6,13 +6,14 @@
 /*   By: yuak <yuak@student.42istanbul.com.tr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/16 12:31:29 by yuak              #+#    #+#             */
-/*   Updated: 2026/05/19 18:46:05 by yuak             ###   ########.fr       */
+/*   Updated: 2026/05/20 16:42:03 by yuak             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "prompt.h"
 
 static char	*expand_loop(char *str, size_t *start, size_t *i, t_shell *shell);
+static int	is_expandable(char *str, size_t i);
 
 int	expand(t_token *token, t_shell *shell)
 {
@@ -20,11 +21,8 @@ int	expand(t_token *token, t_shell *shell)
 
 	if (token->value == NULL)
 		return (0);
-	// printf("before\n");
-	// print_tokens(shell->tokens);
 	if (token->prev && token->prev->type == token_heredoc)
 		return (0);
-	// printf("after\n");
 	expanded = get_expanded((token->value), shell);
 	if (!expanded)
 		return (1);
@@ -55,24 +53,23 @@ char	*get_expanded(char *str, t_shell *shell)
 
 static char	*expand_loop(char *str, size_t *start, size_t *i, t_shell *shell)
 {
-	char	*res;
-	int		quote;
+	char		*res;
+	int			quote;
+	t_expansion	exp;
 
 	quote = 0;
 	res = ft_strdup("");
 	if (!res)
-		return (NULL);
+		return (print_error("Error: ft_strdup\n"), NULL);
 	while (str[*i])
 	{
 		quote = get_state(str[*i], quote);
-		if (!ft_isalpha(str[*i + 1]) && str[*i + 1] != '?')
+		if (is_expandable(str, *i) && quote != 1)
 		{
-			(*i)++;
-			continue ;
-		}
-		else if (str[*i] == '$' && quote != 1)
-		{
-			res = replace_exp(str, res, *start, i, shell);
+			exp.start = *start;
+			exp.i = i;
+			exp.str = str;
+			res = replace_exp(res, exp, shell);
 			if (!res)
 				return (NULL);
 			*start = *i;
@@ -81,4 +78,15 @@ static char	*expand_loop(char *str, size_t *start, size_t *i, t_shell *shell)
 		(*i)++;
 	}
 	return (res);
+}
+
+static int	is_expandable(char *str, size_t i)
+{
+	if (str[i] != '$')
+		return (0);
+	if (!str[i + 1])
+		return (0);
+	if (ft_isalpha(str[i + 1]) || str[i + 1] == '?')
+		return (1);
+	return (0);
 }

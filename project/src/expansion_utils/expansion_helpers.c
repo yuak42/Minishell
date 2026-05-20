@@ -6,16 +6,18 @@
 /*   By: yuak <yuak@student.42istanbul.com.tr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/15 19:10:58 by yuak              #+#    #+#             */
-/*   Updated: 2026/05/16 19:44:29 by yuak             ###   ########.fr       */
+/*   Updated: 2026/05/20 16:40:08 by yuak             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "prompt.h"
 
-char	*connect_str(char *before, char *to_add) // think NULL cases later
+char	*connect_str(char *before, char *to_add)
 {
 	char	*final;
 
+	if (!to_add || !before)
+		return (free(before), free(to_add), NULL);
 	final = ft_strjoin(before, to_add);
 	free(before);
 	free(to_add);
@@ -24,14 +26,16 @@ char	*connect_str(char *before, char *to_add) // think NULL cases later
 	return (final);
 }
 
-char	*replace_exp(char *str, char *res, size_t start, size_t *i, t_shell *shell)
+char	*replace_exp(char *res, t_expansion exp, t_shell *shell)
 {
 	char	*key;
+	char	*str;
 
-	res = connect_str(res, ft_substr(str, start, *i - start));
+	str = exp.str;
+	res = connect_str(res, ft_substr(str, exp.start, *exp.i - exp.start));
 	if (!res)
 		return (NULL);
-	key = get_key_name(str, i);
+	key = get_key_name(str, exp.i);
 	if (!key)
 		return (NULL);
 	res = connect_exp(res, key, shell);

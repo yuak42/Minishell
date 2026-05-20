@@ -6,19 +6,20 @@
 /*   By: yuak <yuak@student.42istanbul.com.tr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/19 09:53:55 by yuak              #+#    #+#             */
-/*   Updated: 2026/05/19 18:35:47 by yuak             ###   ########.fr       */
+/*   Updated: 2026/05/20 14:56:40 by yuak             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "prompt.h"
 
 static int	get_input(t_redir *redir, t_shell *shell);
+static char	*deal_line(char *line, t_shell *shell, t_redir *redir);
 
 int	heredoc(t_shell *shell)
 {
 	t_node	*head;
 	t_redir	*redir;
-	
+
 	head = shell->nodes;
 	while (head)
 	{
@@ -29,7 +30,6 @@ int	heredoc(t_shell *shell)
 			{
 				if (get_input(redir, shell))
 					return (1);
-				
 			}
 			redir = redir->next;
 		}
@@ -50,32 +50,31 @@ static int	get_input(t_redir *redir, t_shell *shell)
 	{
 		line = readline("> ");
 		if (!line)
-		{
-			ft_perror("minishell: warning: here-document delimited by end-of-file (wanted `%s`)\n", redir->file);
-			close(p[1]);
-			redir->read = p[0];
-			return (1);
-		}
-		if (ft_strlen(line) == ft_strlen(redir->file)
-			&& ft_strncmp(line, redir->file, ft_strlen(line)) == 0)
-		{
-			free(line);
+			return (no_eof_delimeter(p, redir), 0);
+		if (is_delimeter(line, redir->file))
 			break ;
-		}
-		if (!redir->heredoc_exp)
-		{
-			str = get_expanded(line, shell);
-			if (!str)
-				return (free(line), 1);
-			free(line);
-			line = str;
-		}
-		write(p[1], line, ft_strlen(line));
-		write(p[1], "\n", 1);
-		free(line);
-		
+		str = deal_line(line, shell, redir);
+		if (!str)
+			return (free(line), 1);
+		write_for_heredoc(p, str);
+		free(str);
 	}
+	free(line);
 	close(p[1]);
 	redir->read = p[0];
 	return (0);
+}
+
+static char	*deal_line(char *line, t_shell *shell, t_redir *redir)
+{
+	char	*str;
+
+	if (!redir->heredoc_exp)
+	{
+		str = get_expanded(line, shell);
+		if (!str)
+			return (NULL);
+		return (free(line), str);
+	}
+	return (line);
 }
