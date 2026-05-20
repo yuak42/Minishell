@@ -20,7 +20,7 @@ void	ft_free(char **str)
 		return ;
 	swap = str;
 	while (*str)
-	{	
+	{
 		free(*str);
 		str++;
 	}
@@ -40,8 +40,8 @@ static char	*ft_path_search(char **envp)
 
 char	*path_check(t_pipe plist, char **ev)
 {
-	char 		*path;
-	struct stat statbuf;
+	char		*path;
+	struct stat	statbuf;
 	int			status;
 
 	path = ft_path(plist.argv, ev, &statbuf, &status);
@@ -49,18 +49,21 @@ char	*path_check(t_pipe plist, char **ev)
 	{
 		if (errno == EACCES)
 		{
-			ft_printf_fd(2,"-minishell: %s: Permission denied\n", plist.argv[0]);
+			ft_printf_fd(2, "-minishell: %s: \
+				Permission denied\n", plist.argv[0]);
 			status = 126;
 		}
 		else if (errno == ENOENT)
 		{
 			if (ft_strchr(plist.argv[0], '/'))
-				ft_printf_fd(2,"-minishell: %s: No such file or directory\n", plist.argv[0]);
+				ft_printf_fd(2, "-minishell: %s: \
+					No such file or directory\n", plist.argv[0]);
 			else
-				ft_printf_fd(2,"-minishell: %s: command not found\n", plist.argv[0]);
+				ft_printf_fd(2, "-minishell: %s: \
+					command not found\n", plist.argv[0]);
 			status = 127;
 		}
-		else if(S_ISDIR(statbuf.st_mode))
+		else if (S_ISDIR(statbuf.st_mode))
 		{
 			ft_printf_fd(2, "minishell: %s: Is a directory\n", plist.argv[0]);
 			status = 126;
@@ -87,7 +90,7 @@ char	*ft_path(char **argv, char **envp, struct stat *statbuf, int *status)
 	if (ft_strrchr(argv[0], '/'))
 	{
 		stat(argv[0], statbuf);
-		if(S_ISDIR(statbuf->st_mode))
+		if (S_ISDIR(statbuf->st_mode))
 			return (NULL);
 		if (access(argv[0], F_OK | X_OK) == 0)
 			return (ft_strdup(argv[0]));
@@ -95,7 +98,6 @@ char	*ft_path(char **argv, char **envp, struct stat *statbuf, int *status)
 			return (NULL);
 	}
 	path = ft_path_access(argv[0], path_dir);
-	//printf("########%s########\n", argv[1]);
 	return (path);
 }
 
@@ -108,7 +110,7 @@ char	*ft_path_access(char *command, char *path_dir)
 
 	cmd = NULL;
 	i = 0;
-	if(*command == '\0')
+	if (*command == '\0')
 	{
 		access(command, F_OK | X_OK);
 		return (NULL);

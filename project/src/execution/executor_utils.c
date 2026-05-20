@@ -10,13 +10,10 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include"prompt.h"
+#include "prompt.h"
 
 int	is_builtin(char **argv)
 {
-	// if (!argv[0])
-	// 	return (0);
-	//printf("-------------BUİLTİN:%s------------------------------\n", argv[0]);
 	if (ft_strnstr(argv[0], "cd", 2) && ft_strlen(argv[0]) == 2)
 		return (1);
 	else if (ft_strnstr(argv[0], "echo", 4) && ft_strlen(argv[0]) == 4)
@@ -57,8 +54,9 @@ int	run_builtin(char **argv, t_shell *shell, int fd)
 
 int	nodes_len(t_node *nodes)
 {
-	int i = 0;
+	int	i;
 
+	i = 0;
 	while (nodes)
 	{
 		i++;

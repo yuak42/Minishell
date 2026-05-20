@@ -31,4 +31,3 @@ int	ft_pwd(void)
 	free(path);
 	return (0);
 }
-//get_pwd parametrelerini araştır

@@ -20,7 +20,7 @@
 # include <sys/wait.h>
 # include <unistd.h>
 # include "prompt.h"
-#include  <sys/stat.h>
+# include <sys/stat.h>
 
 typedef struct s_pipe_list
 {
@@ -29,7 +29,7 @@ typedef struct s_pipe_list
 	int		inp;
 	int		out;
 	int		(*pipefd)[2];
-	t_shell *shell;
+	t_shell	*shell;
 	t_node	*node;
 }	t_pipe;
 

@@ -27,10 +27,7 @@ int	ft_env(t_env *ev, int fd)
 				return (status);
 			}
 		}
-	
 		ev = ev->next;
 	}
-	return(status);
+	return (status);
 }
-// = içerenleri yazdırmayı ekle.
-// -'yi sona alma durumuna bak.

@@ -18,7 +18,6 @@ void	ft_child(t_pipe plist)
 
 	if (!ft_fdswap(plist.inp, 0) || !ft_fdswap(plist.out, 1))
 	{
-		//ft_free(plist.argv);
 		ft_all_free(plist);
 		exit(1);
 	}

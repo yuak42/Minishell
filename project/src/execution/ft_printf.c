@@ -20,16 +20,6 @@ static int	ft_print(int fd, char flag, va_list *args)
 		len = ft_putchar_fd((char)va_arg(*args, int), fd);
 	if (flag == 's')
 		len = ft_putstr_fd(va_arg(*args, char *), fd);
-	// if (flag == 'p')
-	// 	len += ft_putpointer(va_arg(args, void *));
-	// if (flag == 'd' || flag == 'i')
-	// 	len += ft_putnbr(va_arg(args, int));
-	// if (flag == 'u')
-	// 	len += ft_putnbr_base(va_arg(args, unsigned int), 10, 0);
-	// if (flag == 'x')
-	// 	len += ft_putnbr_base(va_arg(args, unsigned int), 16, 87);
-	// if (flag == 'X')
-	// 	len += ft_putnbr_base(va_arg(args, unsigned int), 16, 55);
 	return (len);
 }
 

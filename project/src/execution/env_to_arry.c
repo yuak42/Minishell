@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   env_to_arry.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: byaprak <byaprak@student.42istanbul.com.tr>  #+#  +:+       +#+        */
+/*   By: byaprak <byaprak@student.42istanbul.com.tr>  #+#  +:+       +#+      */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026-05-02 12:56:11 by byaprak           #+#    #+#             */
 /*   Updated: 2026-05-02 12:56:11 by byaprak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include"prompt.h"
+#include "prompt.h"
 
 static char	*str_append_str(t_env *ev)
 {
@@ -20,17 +20,17 @@ static char	*str_append_str(t_env *ev)
 	join = ft_strjoin(ev->key, "=");
 	if (!join)
 		return (NULL);
-	if (!ev->value) // burayı sor ev-> valueye null yazıyor mu.
+	if (!ev->value)
 		append = ft_strjoin(join, "");
 	else
 		append = ft_strjoin(join, ev->value);
-	if(!append)
+	if (!append)
 	{
 		free(join);
 		return (NULL);
 	}
 	free(join);
-	return(append);
+	return (append);
 }
 
 char	**env_to_arry(t_env *ev)

@@ -19,7 +19,7 @@ static char	*get_key(char *av)
 	char	check;
 
 	i = 0;
-	while(av[i] != '=' && av[i])
+	while (av[i] != '=' && av[i])
 		i++;
 	check = av[i];
 	if (av[i])
@@ -28,7 +28,7 @@ static char	*get_key(char *av)
 	if (!variable)
 		return (0);
 	if (check == '=')
-		av[i] = '='; 
+		av[i] = '=';
 	return (variable);
 }
 
@@ -36,10 +36,10 @@ static t_env	*is_variable(char *variable, t_env *node)
 {
 	char	*str;
 
-	while(node)
+	while (node)
 	{
-		str = get_key(node->key); // change done
-		if (!ft_strncmp(str ,variable, ft_strlen(variable) + 1))
+		str = get_key(node->key);
+		if (!ft_strncmp(str, variable, ft_strlen(variable) + 1))
 		{
 			free(str);
 			return (node);
@@ -66,21 +66,21 @@ static int	run_export(char *av, t_env *env)
 	node = is_variable(key, env);
 	if (node && !env->value)
 		return (0);
-	if(ft_strchr(av, '='))
+	if (ft_strchr(av, '='))
 	{
 		value = ft_strdup(ft_strchr(av, '=') + 1);
-		if(!value)
+		if (!value)
 		{
 			perror("-minishell");
 			return (0);
 		}
 		if (set_env_value(env, key, value))
-			return(0);
+			return (0);
 	}
 	else if (*av)
 	{
 		if (set_env_value(env, key, value))
-			return(0);
+			return (0);
 	}
 	free(key);
 	return (1);
@@ -103,12 +103,12 @@ static int	is_valid(char *av)
 		}
 		av++;
 	}
-		return (1);
-	}
+	return (1);
+}
 
 int	ft_export(char **av, t_env *env, int fd)
 {
-	if(!av[1])
+	if (!av[1])
 	{
 		while (env)
 		{
@@ -117,13 +117,14 @@ int	ft_export(char **av, t_env *env, int fd)
 				if (ft_printf_fd(fd, "declare -x %s\n", env->key) < 0)
 				{
 					perror("");
-					return(1);
+					return (1);
 				}
 			}
-			else if (ft_printf_fd(fd, "declare -x %s=\"%s\"\n", env->key, env->value) < 0)
+			else if (ft_printf_fd(fd, "declare -x %s=\"%s\"\n",
+					env->key, env->value) < 0)
 			{
 				perror("");
-				return(1);
+				return (1);
 			}
 			env = env->next;
 		}
@@ -132,14 +133,11 @@ int	ft_export(char **av, t_env *env, int fd)
 	av++;
 	if (!is_valid(*av))
 		return (1);
-	while(*av)
+	while (*av)
 	{
-		if(!run_export(*av, env))
-			return(1);
+		if (!run_export(*av, env))
+			return (1);
 		av++;
 	}
 	return (0);
-	}
-
-// export yazıldığında alfabetik sırada yazdıracak. değişken değeri "" içinde olacak.
-// readonly değişken durmunu fixle.
+}

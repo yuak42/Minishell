@@ -42,7 +42,7 @@ int	ft_unset(char **av, t_env **env)
 
 	av++;
 	if (!*av)
-		return(0);
+		return (0);
 	while (*av)
 	{
 		node = is_target(*env, *av);
@@ -51,8 +51,4 @@ int	ft_unset(char **av, t_env **env)
 		av++;
 	}
 	return (0);
-
 }
-
-// unset 1=gdtt gibi bir durumda hata yzdıracak mı?
-// unset new durumunu kontrol et
