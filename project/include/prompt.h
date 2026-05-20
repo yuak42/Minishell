@@ -6,7 +6,7 @@
 /*   By: yuak <yuak@student.42istanbul.com.tr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/10 12:32:31 by yuak              #+#    #+#             */
-/*   Updated: 2026/05/20 11:00:33 by yuak             ###   ########.fr       */
+/*   Updated: 2026/05/20 14:53:58 by yuak             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,9 @@ char	*connect_exp(char *res, char *key, t_shell *shell);
 int		get_state(char c, int quote);
 int		remove_quotes(char **str, t_token *token, t_token **head);
 int		heredoc(t_shell *shell);
+void	no_eof_delimeter(int *p, t_redir *redir);
+int		write_for_heredoc(int *p, char *str);
+int		is_delimeter(char *line, char *delim);
 
 void	heredoc_sigint(int sig);
 void	set_child_signals(void);
