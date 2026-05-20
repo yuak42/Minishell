@@ -6,7 +6,7 @@
 /*   By: yuak <yuak@student.42istanbul.com.tr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/16 12:31:29 by yuak              #+#    #+#             */
-/*   Updated: 2026/05/20 16:30:22 by yuak             ###   ########.fr       */
+/*   Updated: 2026/05/20 16:42:03 by yuak             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,8 +53,9 @@ char	*get_expanded(char *str, t_shell *shell)
 
 static char	*expand_loop(char *str, size_t *start, size_t *i, t_shell *shell)
 {
-	char	*res;
-	int		quote;
+	char		*res;
+	int			quote;
+	t_expansion	exp;
 
 	quote = 0;
 	res = ft_strdup("");
@@ -65,7 +66,10 @@ static char	*expand_loop(char *str, size_t *start, size_t *i, t_shell *shell)
 		quote = get_state(str[*i], quote);
 		if (is_expandable(str, *i) && quote != 1)
 		{
-			res = replace_exp(str, res, *start, i, shell);
+			exp.start = *start;
+			exp.i = i;
+			exp.str = str;
+			res = replace_exp(res, exp, shell);
 			if (!res)
 				return (NULL);
 			*start = *i;
