@@ -6,7 +6,7 @@
 /*   By: yuak <yuak@student.42istanbul.com.tr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/15 19:10:58 by yuak              #+#    #+#             */
-/*   Updated: 2026/05/20 16:21:46 by yuak             ###   ########.fr       */
+/*   Updated: 2026/05/20 16:28:45 by yuak             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ char	*connect_str(char *before, char *to_add)
 	char	*final;
 
 	if (!to_add || !before)
-		(free(before), free(to_add), return (NULL))
+		return (free(before), free(to_add), NULL);
 	final = ft_strjoin(before, to_add);
 	free(before);
 	free(to_add);

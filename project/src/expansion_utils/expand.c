@@ -6,13 +6,14 @@
 /*   By: yuak <yuak@student.42istanbul.com.tr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/16 12:31:29 by yuak              #+#    #+#             */
-/*   Updated: 2026/05/20 15:01:48 by yuak             ###   ########.fr       */
+/*   Updated: 2026/05/20 16:30:22 by yuak             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "prompt.h"
 
 static char	*expand_loop(char *str, size_t *start, size_t *i, t_shell *shell);
+static int	is_expandable(char *str, size_t i);
 
 int	expand(t_token *token, t_shell *shell)
 {
@@ -62,12 +63,7 @@ static char	*expand_loop(char *str, size_t *start, size_t *i, t_shell *shell)
 	while (str[*i])
 	{
 		quote = get_state(str[*i], quote);
-		if (!ft_isalpha(str[*i + 1]) && str[*i + 1] != '?')
-		{
-			(*i)++;
-			continue ;
-		}
-		else if (str[*i] == '$' && quote != 1)
+		if (is_expandable(str, *i) && quote != 1)
 		{
 			res = replace_exp(str, res, *start, i, shell);
 			if (!res)
@@ -78,4 +74,15 @@ static char	*expand_loop(char *str, size_t *start, size_t *i, t_shell *shell)
 		(*i)++;
 	}
 	return (res);
+}
+
+static int	is_expandable(char *str, size_t i)
+{
+	if (str[i] != '$')
+		return (0);
+	if (!str[i + 1])
+		return (0);
+	if (ft_isalpha(str[i + 1]) || str[i + 1] == '?')
+		return (1);
+	return (0);
 }
