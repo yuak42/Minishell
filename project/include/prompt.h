@@ -6,22 +6,25 @@
 /*   By: yuak <yuak@student.42istanbul.com.tr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/10 12:32:31 by yuak              #+#    #+#             */
-/*   Updated: 2026/05/19 21:43:52 by yuak             ###   ########.fr       */
+/*   Updated: 2026/05/20 18:14:56 by yuak             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PROMPT_H
-#define PROMPT_H
+# define PROMPT_H
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <unistd.h>
-#include <readline/readline.h>
-#include <readline/history.h>
-#include "data_structures.h"
-#include "../libft/libft.h"
-#include "builtin.h"
-#include "../src/pip_src/pipex.h"
+# include <stdio.h>
+# include <stdlib.h>
+# include <unistd.h>
+# include <readline/readline.h>
+# include <readline/history.h>
+# include "data_structures.h"
+# include "../libft/libft.h"
+# include "builtin.h"
+# include "../src/pip_src/pipex.h"
+# include <signal.h>
+
+extern volatile sig_atomic_t	g_signal;
 
 void	basic_prompt(t_shell *shell);
 t_env	*get_env_list(char **env);
@@ -37,7 +40,7 @@ void	free_tokens(t_token *tokens);
 void	free_token(t_token *token);
 void	remove_token(t_token **head, t_token *token);
 t_token	*get_word(char *line, size_t *i);
-t_token *get_operator(char *line, size_t *i);
+t_token	*get_operator(char *line, size_t *i);
 int		expansion(t_shell *shell);
 char	*get_expanded(char *str, t_shell *shell);
 void	change_invalid_identifier(char **str);
@@ -54,11 +57,16 @@ int		is_start_varchar(char c);
 char	*get_key_name(char *str, size_t *i);
 char	*connect_str(char *before, char *to_add);
 int		expand(t_token *token, t_shell *shell);
-char	*replace_exp(char *str, char *res, size_t start, size_t *i, t_shell *shell);
+char	*replace_exp(char *res, t_expansion exp, t_shell *shell);
 char	*connect_exp(char *res, char *key, t_shell *shell);
 int		get_state(char c, int quote);
 int		remove_quotes(char **str, t_token *token, t_token **head);
 int		heredoc(t_shell *shell);
+void	no_eof_delimeter(int *p, t_redir *redir);
+int		write_for_heredoc(int *p, char *str);
+int		is_delimeter(char *line, char *delim);
+void	add_arg(char ***argv, char *arg);
+void	handle_op(t_token **tokens, t_node *node);
 
 void	heredoc_sigint(int sig);
 void	set_child_signals(void);
