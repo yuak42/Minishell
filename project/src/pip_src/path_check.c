@@ -14,8 +14,8 @@
 
 static int	error_check(t_pipe plist, struct stat statbuf)
 {
-	int	status;
-	char *av;
+	int		status;
+	char	*av;
 
 	av = plist.argv[0];
 	if (errno == EACCES)
