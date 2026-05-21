@@ -1,5 +1,3 @@
-MAKEFLAGS += --silent
-
 NAME = minishell
 
 SRC_DIR = src
@@ -60,9 +58,4 @@ fclean: clean
 re: fclean all
 	echo make re
 
-debug:
-	$(MAKE) fclean
-	$(MAKE) all CFLAGS="$(CFLAGS) -g"
-	echo make debug
-
-.PHONY: all clean fclean re debug
+.PHONY: all clean fclean re
