@@ -13,22 +13,18 @@ SRC = prompt/basic_prompt.c main.c  \
 	env_utils/get_env_list.c env_utils/set_env_value.c env_utils/get_env_value.c env_utils/free_env_node.c \
 	token_utils/generate_tokens.c token_utils/add_token_last.c \
 	token_utils/get_token.c token_utils/free_tokens.c \
-	expansion_utils/expansion.c \
-	env_utils/free_ev.c \
- 		built_in/export.c built_in/unset.c built_in/exit.c \
+	expansion_utils/expansion.c env_utils/free_ev.c \
+ 	built_in/export.c built_in/unset.c built_in/exit.c \
 	built_in/env.c built_in/pwd.c built_in/echo.c  built_in/cd.c built_in/export_utils.c\
-	execution/execute.c 
-
-
+	execution/execute.c node_utils/create_nodes.c node_utils/free_nodes.c node_utils/add_last_node.c \
+	prompt/is_only_spaces.c utils/print_error.c token_utils/tokenizer.c expansion_utils/varchar_utils.c expansion_utils/get_key_name.c \
+	expansion_utils/expansion_helpers.c expansion_utils/expand.c expansion_utils/remove_quotes.c \
+	utils/signal_utils.c env_utils/add_env_to_last.c token_utils/remove_token.c prompt/heredoc.c \
+	prompt/heredoc_utils.c node_utils/add_arg.c node_utils/handle_op.c \
+	execution/executor_utils.c execution/env_to_arry.c execution/env_size.c execution/free_str.c execution/ft_printf.c \
+	pip_src/path.c pip_src/utils.c pip_src/utils2.c pip_src/pipex.c pip_src/ft_all_free.c pip_src/redirections.c pip_src/path_check.c
 
 OBJ = $(SRC:.c=.o)
-
-# daha sonra silinecek
-include byaprak.mk
-SRC += $(BYAPRAK_SRC)
-
-include yuak.mk
-SRC += $(YUAK_SRC)
 
 SRC_P = $(addprefix $(SRC_DIR)/, $(SRC))
 OBJ_P = $(addprefix $(OBJ_DIR)/, $(OBJ))
@@ -50,7 +46,6 @@ $(LIBFT):
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
 	@mkdir -p $(dir $@)
 	@$(CC) $(CFLAGS) -I$(INC_DIR) -c $< -o $@ 
-# -g flag'i daha sonra kaldır
 
 clean:
 	make -C $(LIBFT_DIR) clean
@@ -65,8 +60,7 @@ fclean: clean
 re: fclean all
 	echo make re
 
-
-debug: 
+debug:
 	$(MAKE) fclean
 	$(MAKE) all CFLAGS="$(CFLAGS) -g"
 	echo make debug
