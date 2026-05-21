@@ -19,10 +19,7 @@ void	print_export(t_env *env, int fd)
 		if (!env->value[0])
 		{
 			if (ft_printf_fd(fd, "declare -x %s\n", env->key) < 0)
-			{
 				perror("");
-		
-			}
 		}
 		else if (ft_printf_fd(fd, "declare -x %s=\"%s\"\n",
 				env->key, env->value) < 0)
