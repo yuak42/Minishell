@@ -6,7 +6,7 @@
 /*   By: yuak <yuak@student.42istanbul.com.tr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/19 09:53:55 by yuak              #+#    #+#             */
-/*   Updated: 2026/05/21 10:03:51 by yuak             ###   ########.fr       */
+/*   Updated: 2026/05/21 10:16:41 by yuak             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,8 +50,9 @@ static int	get_input(t_redir *redir, t_shell *shell)
 	while (1)
 	{
 		line = readline("> ");
-		if (!line)
+		if (g_signal == 2 || !line)
 			return (no_eof_delimeter(p, redir), 0);
+		printf("here\n");
 		if (is_delimeter(line, redir->file))
 			break ;
 		str = deal_line(line, shell, redir);

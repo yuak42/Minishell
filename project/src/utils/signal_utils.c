@@ -6,7 +6,7 @@
 /*   By: yuak <yuak@student.42istanbul.com.tr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/17 14:32:43 by yuak              #+#    #+#             */
-/*   Updated: 2026/05/21 10:11:48 by yuak             ###   ########.fr       */
+/*   Updated: 2026/05/21 10:17:18 by yuak             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,6 @@ void	sigint_handler_heredoc(int sig)
 	write(1, "\n", 1);
 	rl_replace_line("", 0);
 	rl_done = 1;
-	close(STDIN_FILENO);
 }
 
 void	set_heredoc_signals(void)
