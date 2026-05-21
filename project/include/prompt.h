@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   prompt.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yuak <yuak@student.42istanbul.com.tr>      +#+  +:+       +#+        */
+/*   By: byaprak <byaprak@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/10 12:32:31 by yuak              #+#    #+#             */
-/*   Updated: 2026/05/20 18:14:56 by yuak             ###   ########.fr       */
+/*   Updated: 2026/05/21 09:17:59 by byaprak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@
 # include "../src/pip_src/pipex.h"
 # include <signal.h>
 
-extern volatile sig_atomic_t	g_signal;
+extern volatile int	g_signal;
 
 void	basic_prompt(t_shell *shell);
 t_env	*get_env_list(char **env);
