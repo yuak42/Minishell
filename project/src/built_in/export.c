@@ -65,7 +65,7 @@ static int	run_export(char *av, t_env *env)
 	if (node && !env->value)
 		return (0);
 	if (run_export_2(av, env, key))
-		return(0);
+		return (0);
 	free(key);
 	return (1);
 }
