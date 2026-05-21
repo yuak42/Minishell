@@ -6,7 +6,7 @@
 /*   By: yuak <yuak@student.42istanbul.com.tr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/10 12:32:31 by yuak              #+#    #+#             */
-/*   Updated: 2026/05/21 09:51:53 by yuak             ###   ########.fr       */
+/*   Updated: 2026/05/21 10:07:42 by yuak             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,10 +72,7 @@ void	heredoc_sigint(int sig);
 void	set_child_signals(void);
 void	set_interactive_signals(void);
 void	sigint_handler(int sig);
-
-// To be deleted later
-void	print_tokens(t_token	*tokens);
-void	print_nodes(t_node *nodes);
-void	print_ev(t_env *ev);
+void	set_heredoc_signals(void);
+void	sigint_handler_heredoc(int sig);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: yuak <yuak@student.42istanbul.com.tr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/10 11:53:22 by yuak              #+#    #+#             */
-/*   Updated: 2026/05/21 09:03:48 by yuak             ###   ########.fr       */
+/*   Updated: 2026/05/21 10:04:30 by yuak             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,8 +57,9 @@ static int	parser(t_shell *shell)
 		if (heredoc(shell))
 		{
 			free_parser(shell);
-			return (1);
+			return (set_interactive_signals(), 1);
 		}
+		set_interactive_signals();
 	}
 	else
 		return (free(shell->line), 1);

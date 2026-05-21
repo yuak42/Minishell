@@ -6,7 +6,7 @@
 /*   By: yuak <yuak@student.42istanbul.com.tr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/19 09:53:55 by yuak              #+#    #+#             */
-/*   Updated: 2026/05/20 23:03:45 by yuak             ###   ########.fr       */
+/*   Updated: 2026/05/21 10:03:51 by yuak             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ int	heredoc(t_shell *shell)
 	t_node	*head;
 	t_redir	*redir;
 
+	set_heredoc_signals();
 	head = shell->nodes;
 	while (head)
 	{
