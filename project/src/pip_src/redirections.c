@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirections.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: byaprak <byaprak@student.42istanbul.com.tr>  #+#  +:+       +#+      */
+/*   By: byaprak <byaprak@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026-05-17 13:46:16 by byaprak           #+#    #+#             */
-/*   Updated: 2026-05-17 13:46:16 by byaprak          ###   ########.fr       */
+/*   Created: 2026/05/17 13:46:16 by byaprak           #+#    #+#             */
+/*   Updated: 2026/05/21 19:38:24 by byaprak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ static int	in_redir(t_redir *redir, int infile)
 {
 	int	i_file;
 
+	i_file = 0;
 	if (redir->type == token_redir_in)
 	{
 		if (infile > 2)
@@ -38,6 +39,7 @@ static int	out_redir(t_redir *redir, int outfile)
 {
 	int	o_file;
 
+	o_file = 0;
 	if (redir->type == token_redir_out)
 	{
 		if (outfile > 2)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   path_check.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: byaprak <byaprak@student.42istanbul.com.tr>  #+#  +:+       +#+      */
+/*   By: byaprak <byaprak@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026-05-20 16:22:36 by byaprak           #+#    #+#             */
-/*   Updated: 2026-05-20 16:22:36 by byaprak          ###   ########.fr       */
+/*   Created: 2026/05/20 16:22:36 by byaprak           #+#    #+#             */
+/*   Updated: 2026/05/21 19:39:54 by byaprak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ static int	error_check(t_pipe plist, struct stat statbuf)
 	int		status;
 	char	*av;
 
+	status = 0;
 	av = plist.argv[0];
 	if (errno == EACCES)
 	{
@@ -46,6 +47,7 @@ char	*path_check(t_pipe plist, char **ev)
 	struct stat	statbuf;
 	int			status;
 
+	status = 0;
 	path = ft_path(plist.argv, ev, &statbuf, &status);
 	if (!path)
 	{
