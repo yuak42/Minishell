@@ -3,22 +3,22 @@
 /*                                                        :::      ::::::::   */
 /*   builtin.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: byaprak <byaprak@student.42istanbul.com.tr>  #+#  +:+       +#+        */
+/*   By: byaprak <byaprak@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026-05-20 17:53:48 by byaprak           #+#    #+#             */
-/*   Updated: 2026-05-20 17:53:48 by byaprak          ###   ########.fr       */
+/*   Created: 2026/05/20 17:53:48 by byaprak           #+#    #+#             */
+/*   Updated: 2026/05/21 09:18:12 by byaprak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-
 #ifndef BUILTIN_H
-#define BUILTIN_H
-#include <unistd.h>
-#include <stdio.h>
-#include <stdarg.h>
-#include "../libft/libft.h"
-#include "data_structures.h"
-#include "prompt.h"
+# define BUILTIN_H
+
+# include <unistd.h>
+# include <stdio.h>
+# include <stdarg.h>
+# include "../libft/libft.h"
+# include "data_structures.h"
+# include "prompt.h"
 
 int		ft_echo(char **av, t_env *ev, int fd);
 int		ft_export(char **av, t_env *env, int fd);
