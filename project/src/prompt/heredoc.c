@@ -6,7 +6,7 @@
 /*   By: yuak <yuak@student.42istanbul.com.tr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/19 09:53:55 by yuak              #+#    #+#             */
-/*   Updated: 2026/05/21 10:16:41 by yuak             ###   ########.fr       */
+/*   Updated: 2026/05/21 10:22:07 by yuak             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,8 @@ int	heredoc(t_shell *shell)
 			if (redir->type == token_heredoc)
 			{
 				if (get_input(redir, shell))
-					return (1);
+					return (set_interactive_signals(), 1);
+				set_interactive_signals();
 			}
 			redir = redir->next;
 		}
@@ -52,7 +53,6 @@ static int	get_input(t_redir *redir, t_shell *shell)
 		line = readline("> ");
 		if (g_signal == 2 || !line)
 			return (no_eof_delimeter(p, redir), 0);
-		printf("here\n");
 		if (is_delimeter(line, redir->file))
 			break ;
 		str = deal_line(line, shell, redir);
