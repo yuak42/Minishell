@@ -1,2 +1,2 @@
 # Minishell
-byaprak, yuak
+byaprak, yuak 
