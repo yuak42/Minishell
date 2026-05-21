@@ -6,7 +6,7 @@
 /*   By: yuak <yuak@student.42istanbul.com.tr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/10 12:32:31 by yuak              #+#    #+#             */
-/*   Updated: 2026/05/21 09:51:53 by yuak             ###   ########.fr       */
+/*   Updated: 2026/05/21 20:46:25 by yuak             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,7 @@ int		is_delimeter(char *line, char *delim);
 void	add_arg(char ***argv, char *arg);
 void	handle_op(t_token **tokens, t_node *node);
 
+void	set_heredoc_signals(void);
 void	heredoc_sigint(int sig);
 void	set_child_signals(void);
 void	set_interactive_signals(void);

@@ -6,7 +6,7 @@
 /*   By: yuak <yuak@student.42istanbul.com.tr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/20 14:54:17 by yuak              #+#    #+#             */
-/*   Updated: 2026/05/20 14:56:10 by yuak             ###   ########.fr       */
+/*   Updated: 2026/05/21 20:40:14 by yuak             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ int	is_delimeter(char *line, char *delim)
 	size_t	line_len;
 	size_t	delim_len;
 
+	// printf("is_delimeter\n");
 	line_len = ft_strlen(line);
 	delim_len = ft_strlen(delim);
 	if (line_len == delim_len && !ft_strncmp(line, delim, line_len))
@@ -26,16 +27,19 @@ int	is_delimeter(char *line, char *delim)
 
 void	no_eof_delimeter(int *p, t_redir *redir)
 {
+	// printf("no_eof_delimeter\n");
 	print_error("minishell: warning: here-document ");
 	ft_perror("delimited by end-of-file (wanted `%s`)\n", redir->file);
 	close(p[1]);
 	redir->read = p[0];
+	exit(0);
 }
 
 int	write_for_heredoc(int *p, char *str)
 {
 	int	ret;
 
+	// printf("write_for_heredoc\n");
 	ret = write(p[1], str, ft_strlen(str));
 	if (ret == -1)
 		return (1);
