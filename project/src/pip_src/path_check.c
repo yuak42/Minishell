@@ -21,8 +21,7 @@ static int	error_check(t_pipe plist, struct stat statbuf)
 	av = plist.argv[0];
 	if (errno == EACCES)
 	{
-		ft_printf_fd(2, "-minishell: %s: \
-			Permission denied\n", av);
+		ft_printf_fd(2, "-minishell: %s: Permission denied\n", av);
 		status = 126;
 	}
 	else if (errno == ENOENT)

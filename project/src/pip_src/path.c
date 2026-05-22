@@ -43,6 +43,7 @@ char	*ft_path(char **argv, char **envp, struct stat *statbuf, int *status)
 	char	*path;
 	char	*path_dir;
 
+	path = NULL;
 	path_dir = ft_path_search(envp);
 	if (!path_dir)
 	{
@@ -52,7 +53,8 @@ char	*ft_path(char **argv, char **envp, struct stat *statbuf, int *status)
 	}
 	if (ft_strrchr(argv[0], '/'))
 	{
-		stat(argv[0], statbuf);
+		if (stat(argv[0], statbuf) == -1)
+			return (NULL);
 		if (S_ISDIR(statbuf->st_mode))
 			return (NULL);
 		if (access(argv[0], F_OK | X_OK) == 0)
