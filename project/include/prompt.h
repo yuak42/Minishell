@@ -6,7 +6,7 @@
 /*   By: yuak <yuak@student.42istanbul.com.tr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/10 12:32:31 by yuak              #+#    #+#             */
-/*   Updated: 2026/05/21 09:51:53 by yuak             ###   ########.fr       */
+/*   Updated: 2026/05/22 13:51:54 by yuak             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,8 @@
 # include <signal.h>
 
 extern volatile int	g_signal;
+
+void	print_nodes(t_node *nodes);
 
 void	basic_prompt(t_shell *shell);
 t_env	*get_env_list(char **env);
