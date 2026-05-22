@@ -6,7 +6,7 @@
 /*   By: yuak <yuak@student.42istanbul.com.tr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/10 12:49:03 by yuak              #+#    #+#             */
-/*   Updated: 2026/05/22 20:21:18 by yuak             ###   ########.fr       */
+/*   Updated: 2026/05/22 21:07:45 by yuak             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,27 +17,29 @@ static int	is_quote_syntax_correct(t_token *tokens);
 static int	is_syntax_correct(t_token *tokens);
 static int	is_token_quote_correct(char *value);
 
-t_token	*tokenizer(char *line, t_shell *shell)
+int	tokenizer(char *line, t_shell *shell)
 {
 	shell->tokens = generate_tokens(line);
 	if (!shell->tokens)
 	{
 		shell->exit_status = 1;
-		return (NULL);
+		return (2);
 	}
 	if (!is_syntax_correct(shell->tokens))
 	{
-		free_tokens(shell->tokens);
 		shell->exit_status = 2;
-		return (NULL);
+		free_tokens(shell->tokens);
+		shell->tokens = NULL;
+		return (1);
 	}
 	if (expansion(shell))
 	{
-		free_tokens(shell->tokens);
 		shell->exit_status = 1;
-		return (NULL);
+		free_tokens(shell->tokens);
+		shell->tokens = NULL;
+		return (2);
 	}
-	return (shell->tokens);
+	return (0);
 }
 
 static int	is_syntax_correct(t_token *tokens)
