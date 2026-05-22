@@ -16,7 +16,7 @@ void	print_export(t_env *env, int fd)
 {
 	while (env)
 	{
-		if (!env->value[0])
+		if (!env->value)
 		{
 			if (ft_printf_fd(fd, "declare -x %s\n", env->key) < 0)
 				perror("");
