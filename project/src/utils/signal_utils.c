@@ -6,7 +6,7 @@
 /*   By: yuak <yuak@student.42istanbul.com.tr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/17 14:32:43 by yuak              #+#    #+#             */
-/*   Updated: 2026/05/21 09:20:51 by yuak             ###   ########.fr       */
+/*   Updated: 2026/05/22 20:08:14 by yuak             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,24 @@ void	set_interactive_signals(void)
 	signal(SIGQUIT, SIG_IGN);
 }
 
+void	set_sigint_ignore(void)
+{
+	signal(SIGINT, SIG_IGN);
+}
+
 void	set_child_signals(void)
 {
 	signal(SIGINT, SIG_DFL);
 	signal(SIGQUIT, SIG_DFL);
+}
+
+void	heredoc_sigint_handler(int sig)
+{
+	write(1, "\n", 1);
+	exit(128 + sig);
+}
+
+void	set_heredoc_signals(void)
+{
+	signal(SIGINT, heredoc_sigint_handler);
 }

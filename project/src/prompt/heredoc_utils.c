@@ -6,7 +6,7 @@
 /*   By: yuak <yuak@student.42istanbul.com.tr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/20 14:54:17 by yuak              #+#    #+#             */
-/*   Updated: 2026/05/20 14:56:10 by yuak             ###   ########.fr       */
+/*   Updated: 2026/05/22 19:06:54 by yuak             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,4 +43,18 @@ int	write_for_heredoc(int *p, char *str)
 	if (ret == -1)
 		return (1);
 	return (0);
+}
+
+char	*deal_line(char *line, t_shell *shell, t_redir *redir)
+{
+	char	*str;
+
+	if (!redir->heredoc_exp)
+	{
+		str = get_expanded(line, shell);
+		if (!str)
+			return (NULL);
+		return (free(line), str);
+	}
+	return (line);
 }
