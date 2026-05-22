@@ -6,7 +6,7 @@
 /*   By: yuak <yuak@student.42istanbul.com.tr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/10 12:32:31 by yuak              #+#    #+#             */
-/*   Updated: 2026/05/22 20:03:37 by yuak             ###   ########.fr       */
+/*   Updated: 2026/05/22 20:45:05 by yuak             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,9 @@ void	add_arg(char ***argv, char *arg);
 void	handle_op(t_token **tokens, t_node *node);
 char	*deal_line(char *line, t_shell *shell, t_redir *redir);
 void	free_shell(t_shell *shell);
+void	free_parser(t_shell *shell);
+char	*prompt(t_shell *shell);
+int		parser(t_shell *shell);
 
 void	set_heredoc_signals(void);
 void	heredoc_sigint_handler(int sig);
