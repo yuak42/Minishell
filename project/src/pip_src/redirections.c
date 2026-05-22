@@ -67,9 +67,9 @@ int	ft_redir(t_node *nodes)
 	while (head)
 	{
 		if (head->type == token_redir_out || head->type == token_redir_app)
-			outfile = out_redir(nodes->redir, outfile);
+			outfile = out_redir(head, outfile);
 		else if (head->type == token_redir_in || head->type == token_heredoc)
-			infile = in_redir(nodes->redir, infile);
+			infile = in_redir(head, infile);
 		if (infile == -1 || outfile == -1)
 			break ;
 		head = head->next;
