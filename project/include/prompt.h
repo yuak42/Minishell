@@ -6,7 +6,7 @@
 /*   By: yuak <yuak@student.42istanbul.com.tr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/10 12:32:31 by yuak              #+#    #+#             */
-/*   Updated: 2026/05/22 20:45:05 by yuak             ###   ########.fr       */
+/*   Updated: 2026/05/22 21:07:30 by yuak             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,6 @@
 # include <signal.h>
 
 extern volatile int	g_signal;
-
-void	print_nodes(t_node *nodes);
 
 void	basic_prompt(t_shell *shell);
 t_env	*get_env_list(char **env);
@@ -52,7 +50,7 @@ t_node	*create_nodes(t_token *tokens);
 void	free_nodes(t_node *nodes);
 void	add_last_node(t_node **head, t_node *node);
 int		is_only_spaces(char *line);
-t_token	*tokenizer(char *line, t_shell *shell);
+int		tokenizer(char *line, t_shell *shell);
 void	print_error(char *s);
 int		is_varchar(char c);
 int		is_start_varchar(char c);
@@ -74,17 +72,11 @@ void	free_shell(t_shell *shell);
 void	free_parser(t_shell *shell);
 char	*prompt(t_shell *shell);
 int		parser(t_shell *shell);
-
 void	set_heredoc_signals(void);
 void	heredoc_sigint_handler(int sig);
 void	set_child_signals(void);
 void	set_interactive_signals(void);
 void	sigint_handler(int sig);
 void	set_sigint_ignore(void);
-
-// To be deleted later
-void	print_tokens(t_token	*tokens);
-void	print_nodes(t_node *nodes);
-void	print_ev(t_env *ev);
 
 #endif
