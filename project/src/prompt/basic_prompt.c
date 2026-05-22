@@ -54,7 +54,7 @@ static int	parser(t_shell *shell)
 			free_tokens(shell->tokens);
 			return (free(shell->line), 1);
 		}
-		print_nodes(shell->nodes);
+		//print_nodes(shell->nodes);
 		if (heredoc(shell))
 		{
 			free_parser(shell);
