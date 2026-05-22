@@ -50,10 +50,11 @@ int	ft_cd(char **av, t_env *env)
 	int		ex;
 	char	*here;
 
+	
 	av++;
-	if (av[1])
+	if (*av)
 	{
-		ft_printf_fd(2, "-minishell: cd: too many arguments\n");
+		ft_printf_fd(2, "-minishell: cd: too many arguments-------------------\n");
 		return (1);
 	}
 	here = getcwd(NULL, 0);
