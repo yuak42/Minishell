@@ -45,16 +45,30 @@ static void	old_pwd_update(t_env *env, char *here)
 	set_env_value(env, "OLDPWD", here);
 }
 
+static int	double_strlen(char **av)
+{
+	int	i;
+
+	i = 0;
+	while (*av)
+	{
+		av++;
+		i++;
+	}
+	if (i > 1)
+		return (1);
+	return (0);
+}
+
 int	ft_cd(char **av, t_env *env)
 {
 	int		ex;
 	char	*here;
 
-	
 	av++;
-	if (*av)
+	if (double_strlen(av))
 	{
-		ft_printf_fd(2, "-minishell: cd: too many arguments-------------------\n");
+		ft_printf_fd(2, "-minishell: cd: too many arguments\n");
 		return (1);
 	}
 	here = getcwd(NULL, 0);
