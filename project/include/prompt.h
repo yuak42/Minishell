@@ -6,7 +6,7 @@
 /*   By: yuak <yuak@student.42istanbul.com.tr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/10 12:32:31 by yuak              #+#    #+#             */
-/*   Updated: 2026/05/22 13:51:54 by yuak             ###   ########.fr       */
+/*   Updated: 2026/05/22 20:03:37 by yuak             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,11 +69,15 @@ int		write_for_heredoc(int *p, char *str);
 int		is_delimeter(char *line, char *delim);
 void	add_arg(char ***argv, char *arg);
 void	handle_op(t_token **tokens, t_node *node);
+char	*deal_line(char *line, t_shell *shell, t_redir *redir);
+void	free_shell(t_shell *shell);
 
-void	heredoc_sigint(int sig);
+void	set_heredoc_signals(void);
+void	heredoc_sigint_handler(int sig);
 void	set_child_signals(void);
 void	set_interactive_signals(void);
 void	sigint_handler(int sig);
+void	set_sigint_ignore(void);
 
 // To be deleted later
 void	print_tokens(t_token	*tokens);

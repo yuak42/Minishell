@@ -6,14 +6,13 @@
 /*   By: yuak <yuak@student.42istanbul.com.tr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/19 09:53:55 by yuak              #+#    #+#             */
-/*   Updated: 2026/05/20 23:03:45 by yuak             ###   ########.fr       */
+/*   Updated: 2026/05/22 20:05:31 by yuak             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "prompt.h"
 
 static int	get_input(t_redir *redir, t_shell *shell);
-static char	*deal_line(char *line, t_shell *shell, t_redir *redir);
 
 int	heredoc(t_shell *shell)
 {
@@ -29,7 +28,8 @@ int	heredoc(t_shell *shell)
 			if (redir->type == token_heredoc)
 			{
 				if (get_input(redir, shell))
-					return (1);
+					return (set_interactive_signals(), 1);
+				set_interactive_signals();
 			}
 			redir = redir->next;
 		}
@@ -38,43 +38,70 @@ int	heredoc(t_shell *shell)
 	return (0);
 }
 
+static void	heredoc_child(int *p, t_redir *redir, t_shell *shell);
+static int	heredoc_loop(int *p, t_redir *redir, t_shell *shell);
+
 static int	get_input(t_redir *redir, t_shell *shell)
 {
 	int		p[2];
-	char	*line;
-	char	*str;
+	pid_t	pid;
+	int		status;
 
 	if (pipe(p) == -1)
 		return (1);
+	pid = fork();
+	if (pid == -1)
+		return (1);
+	if (pid == 0)
+		heredoc_child(p, redir, shell);
+	set_sigint_ignore();
+	close(p[1]);
+	redir->read = p[0];
+	waitpid(pid, &status, 0);
+	if (WIFEXITED(status))
+		shell->exit_status = WEXITSTATUS(status);
+	else if (WIFSIGNALED(status))
+		shell->exit_status = 128 + WTERMSIG(status);
+	return (shell->exit_status);
+}
+
+static void	heredoc_child(int *p, t_redir *redir, t_shell *shell)
+{
+	int	ret;
+	close(p[0]);
+	set_heredoc_signals();
+	ret = heredoc_loop(p, redir, shell);
+	close(p[1]);
+	free_shell(shell);
+	if (ret != 0)
+		exit(EXIT_FAILURE);
+	exit(EXIT_SUCCESS);
+}
+
+static int	heredoc_loop(int *p, t_redir *redir, t_shell *shell)
+{
+	char	*line;
+	char	*str;
+
 	while (1)
 	{
 		line = readline("> ");
+		if (g_signal != 0)
+		{
+			close(p[1]);
+			free_shell(shell);
+			exit(128 + g_signal);
+		}
 		if (!line)
 			return (no_eof_delimeter(p, redir), 0);
 		if (is_delimeter(line, redir->file))
 			break ;
 		str = deal_line(line, shell, redir);
 		if (!str)
-			return (free(line), 1);
+			return (free(line), close(p[1]), 1);
 		write_for_heredoc(p, str);
 		free(str);
 	}
 	free(line);
-	close(p[1]);
-	redir->read = p[0];
 	return (0);
-}
-
-static char	*deal_line(char *line, t_shell *shell, t_redir *redir)
-{
-	char	*str;
-
-	if (!redir->heredoc_exp)
-	{
-		str = get_expanded(line, shell);
-		if (!str)
-			return (NULL);
-		return (free(line), str);
-	}
-	return (line);
 }
