@@ -1,41 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   signal_utils.c                                     :+:      :+:    :+:   */
+/*   prompt.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yuak <yuak@student.42istanbul.com.tr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/05/17 14:32:43 by yuak              #+#    #+#             */
-/*   Updated: 2026/05/22 20:50:43 by yuak             ###   ########.fr       */
+/*   Created: 2026/05/22 20:42:09 by yuak              #+#    #+#             */
+/*   Updated: 2026/05/22 20:45:51 by yuak             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "prompt.h"
 
-volatile int	g_signal = 0;
-
-void	sigint_handler(int sig)
+char	*prompt(t_shell *shell)
 {
-	g_signal = sig;
-	write(1, "\n", 1);
-	rl_on_new_line();
-	rl_replace_line("", 0);
-	rl_redisplay();
-}
+	char	*line;
+	char	*ret_empty;
 
-void	set_interactive_signals(void)
-{
-	signal(SIGINT, sigint_handler);
-	signal(SIGQUIT, SIG_IGN);
-}
-
-void	set_sigint_ignore(void)
-{
-	signal(SIGINT, SIG_IGN);
-}
-
-void	set_child_signals(void)
-{
-	signal(SIGINT, SIG_DFL);
-	signal(SIGQUIT, SIG_DFL);
+	line = readline("msh$ ");
+	if (g_signal != 0)
+		shell->exit_status = 128 + g_signal;
+	if (!line)
+		return (NULL);
+	if (line[0] == '\0' || is_only_spaces(line))
+	{
+		ret_empty = ft_strdup("");
+		if (!ret_empty)
+			return (free(line), NULL);
+		return (free(line), ret_empty);
+	}
+	return (line);
 }
