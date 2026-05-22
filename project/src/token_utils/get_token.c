@@ -6,7 +6,7 @@
 /*   By: yuak <yuak@student.42istanbul.com.tr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/10 11:53:05 by yuak              #+#    #+#             */
-/*   Updated: 2026/05/17 19:35:51 by yuak             ###   ########.fr       */
+/*   Updated: 2026/05/22 23:46:21 by yuak             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ t_token	*get_word(char *line, size_t *i)
 	j = get_end_of_word(&line[*i]);
 	token->value = ft_substr(line, *i, j);
 	if (!token->value)
-		return (free(token), NULL);
+		return (print_error("Error: ft_substr\n"), free(token), NULL);
 	token->type = token_word;
 	token->next = NULL;
 	*i = *i + j;

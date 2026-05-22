@@ -6,7 +6,7 @@
 /*   By: yuak <yuak@student.42istanbul.com.tr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/19 09:53:55 by yuak              #+#    #+#             */
-/*   Updated: 2026/05/22 20:53:16 by yuak             ###   ########.fr       */
+/*   Updated: 2026/05/22 23:42:55 by yuak             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ int	heredoc(t_shell *shell)
 {
 	t_node	*head;
 	t_redir	*redir;
+	int		status;
 
 	head = shell->nodes;
 	while (head)
@@ -27,9 +28,10 @@ int	heredoc(t_shell *shell)
 		{
 			if (redir->type == token_heredoc)
 			{
-				if (get_input(redir, shell))
-					return (set_interactive_signals(), 1);
+				status = get_input(redir, shell);
 				set_interactive_signals();
+				if (status != 0)
+					return (status);
 			}
 			redir = redir->next;
 		}
@@ -75,8 +77,8 @@ static void	heredoc_child(int *p, t_redir *redir, t_shell *shell)
 	close(p[1]);
 	free_shell(shell);
 	if (ret != 0)
-		exit(EXIT_FAILURE);
-	exit(EXIT_SUCCESS);
+		exit(ret);
+	exit(0);
 }
 
 static int	heredoc_loop(int *p, t_redir *redir, t_shell *shell)
@@ -99,7 +101,7 @@ static int	heredoc_loop(int *p, t_redir *redir, t_shell *shell)
 			break ;
 		str = deal_line(line, shell, redir);
 		if (!str)
-			return (free(line), close(p[1]), 1);
+			return (free(line), close(p[1]), 2);
 		write_for_heredoc(p, str);
 		free(str);
 	}
