@@ -41,8 +41,10 @@ int	ft_wait(int *array, int count)
 	i = 0;
 	while (i < count)
 	{
+		set_sigint_ignore();
 		if (waitpid(array[i], &status, 0) == -1)
 			perror("minishell");
+		set_interactive_signals();
 		i++;
 	}
 	return (status);
