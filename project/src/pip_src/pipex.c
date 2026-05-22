@@ -15,7 +15,7 @@
 void	ft_child(t_pipe plist)
 {
 	int		status;
- 
+
 	set_child_signals();
 	if (!ft_fdswap(plist.inp, 0) || !ft_fdswap(plist.out, 1))
 	{
