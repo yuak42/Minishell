@@ -20,7 +20,8 @@ SRC = prompt/basic_prompt.c main.c  \
 	utils/signal_utils.c env_utils/add_env_to_last.c token_utils/remove_token.c prompt/heredoc.c \
 	prompt/heredoc_utils.c node_utils/add_arg.c node_utils/handle_op.c \
 	execution/executor_utils.c execution/env_to_arry.c execution/env_size.c execution/free_str.c execution/ft_printf.c \
-	pip_src/path.c pip_src/utils.c pip_src/utils2.c pip_src/pipex.c pip_src/ft_all_free.c pip_src/redirections.c pip_src/path_check.c
+	pip_src/path.c pip_src/utils.c pip_src/utils2.c pip_src/pipex.c pip_src/ft_all_free.c pip_src/redirections.c pip_src/path_check.c \
+	print_debug/print_nodes.c
 
 OBJ = $(SRC:.c=.o)
 
