@@ -6,7 +6,7 @@
 /*   By: yuak <yuak@student.42istanbul.com.tr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/22 20:44:46 by yuak              #+#    #+#             */
-/*   Updated: 2026/05/22 21:15:54 by yuak             ###   ########.fr       */
+/*   Updated: 2026/05/22 23:26:32 by yuak             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,11 @@ int	parser(t_shell *shell)
 		shell->nodes = create_nodes(shell->tokens);
 		if (!shell->nodes)
 			return (free_tokens(shell->tokens), free(shell->line), 2);
-		if (heredoc(shell))
+		status = heredoc(shell);
+		if (status == 2)
 			return (free_parser(shell), 2);
+		if (status == 1)
+			return (free_parser(shell), 1);
 	}
 	else
 		return (free(shell->line), 1);
