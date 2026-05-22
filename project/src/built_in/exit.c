@@ -36,24 +36,31 @@ int	arry_isdigit(char *s)
 	return (1);
 }
 
+void	exit_print(char **av, t_shell *shell)
+{
+	ft_printf_fd(2, "-minishell: exit: %s: numeric argument required\n", *av);
+	free_tokens(shell->tokens);
+	free(shell->line);
+	free_ev(shell->ev);
+}
+
 int	ft_exit_ft(char **av, t_shell *shell)
 {
 	int	code;
 
 	av++;
-	printf("logout\n");
+	//printf("logout\n");
 	if (!*av)
 		exit(shell->exit_status);
+	if (!arry_isdigit(*av))
+	{
+		exit_print(av, shell);
+		exit(2);
+	}
 	if (av[1])
 	{
 		ft_printf_fd(2, "-minishell: exit: too many arguments\n");
 		return (1);
-	}
-	if (!arry_isdigit(*av))
-	{
-		ft_printf_fd(2, "-minishell: exit: %s: \
-			numeric argument required\n", *av);
-		exit(2);
 	}
 	code = ft_atoi(av[0]);
 	if (code < 0 || code > 255)
