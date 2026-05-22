@@ -6,7 +6,7 @@
 /*   By: yuak <yuak@student.42istanbul.com.tr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/19 09:53:55 by yuak              #+#    #+#             */
-/*   Updated: 2026/05/22 20:05:31 by yuak             ###   ########.fr       */
+/*   Updated: 2026/05/22 20:53:16 by yuak             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,7 @@ static int	get_input(t_redir *redir, t_shell *shell)
 static void	heredoc_child(int *p, t_redir *redir, t_shell *shell)
 {
 	int	ret;
+
 	close(p[0]);
 	set_heredoc_signals();
 	ret = heredoc_loop(p, redir, shell);
