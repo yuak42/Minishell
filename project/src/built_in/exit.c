@@ -49,7 +49,7 @@ int	ft_exit_ft(char **av, t_shell *shell)
 	int	code;
 
 	av++;
-	//printf("logout\n");
+	printf("exit\n");
 	if (!*av)
 		exit(shell->exit_status);
 	if (!arry_isdigit(*av))
