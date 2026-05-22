@@ -6,7 +6,7 @@
 /*   By: yuak <yuak@student.42istanbul.com.tr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/10 12:32:27 by yuak              #+#    #+#             */
-/*   Updated: 2026/05/20 16:36:26 by yuak             ###   ########.fr       */
+/*   Updated: 2026/05/22 20:19:55 by yuak             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,12 +43,12 @@ typedef struct s_redir
 
 typedef struct s_node
 {
-	char			**argv;
-	t_redir			*redir;
-	int				infile;
-	int				outfile;
-	int				pipe_in;
-	int				pipe_out;
+	char	**argv;
+	t_redir	*redir;
+	int		infile;
+	int		outfile;
+	int		pipe_in;
+	int		pipe_out;
 	struct s_node	*next;
 }	t_node;
 
@@ -67,6 +67,7 @@ typedef struct s_shell
 	t_token	*tokens;
 	t_node	*nodes;
 	char	*line;
+	int		syntax;
 }	t_shell;
 
 typedef struct s_expansion
