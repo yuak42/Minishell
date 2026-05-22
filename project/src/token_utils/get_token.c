@@ -6,7 +6,7 @@
 /*   By: yuak <yuak@student.42istanbul.com.tr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/10 11:53:05 by yuak              #+#    #+#             */
-/*   Updated: 2026/05/22 23:46:21 by yuak             ###   ########.fr       */
+/*   Updated: 2026/05/22 23:56:23 by yuak             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,11 +23,11 @@ t_token	*get_word(char *line, size_t *i)
 
 	token = (t_token *) ft_calloc(1, sizeof(t_token));
 	if (!token)
-		return (print_error("Error: ft_calloc\n"), NULL);
+		return (perror("minishell"), NULL);
 	j = get_end_of_word(&line[*i]);
 	token->value = ft_substr(line, *i, j);
 	if (!token->value)
-		return (print_error("Error: ft_substr\n"), free(token), NULL);
+		return (perror("minishell"), free(token), NULL);
 	token->type = token_word;
 	token->next = NULL;
 	*i = *i + j;
@@ -77,7 +77,7 @@ t_token	*get_operator(char *line, size_t *i)
 	j = *i;
 	token = ft_calloc(1, sizeof(t_token));
 	if (!token)
-		return (print_error("Error: ft_calloc\n"), NULL);
+		return (perror("minishell"), NULL);
 	token->type = get_operator_type(line, &j);
 	token->next = NULL;
 	*i = j;

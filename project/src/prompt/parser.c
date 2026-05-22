@@ -6,7 +6,7 @@
 /*   By: yuak <yuak@student.42istanbul.com.tr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/22 20:44:46 by yuak              #+#    #+#             */
-/*   Updated: 2026/05/22 23:26:32 by yuak             ###   ########.fr       */
+/*   Updated: 2026/05/23 00:00:39 by yuak             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int	parser(t_shell *shell)
 		status = heredoc(shell);
 		if (status == 2)
 			return (free_parser(shell), 2);
-		if (status == 1)
+		if (status == 130)
 			return (free_parser(shell), 1);
 	}
 	else
