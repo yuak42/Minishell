@@ -62,7 +62,7 @@ static int	run_export(char *av, t_env *env)
 		return (0);
 	}
 	node = is_variable(key, env);
-	if (node && !env->value)
+	if (node && !node->value)
 		return (0);
 	if (run_export_2(av, env, key))
 		return (0);
