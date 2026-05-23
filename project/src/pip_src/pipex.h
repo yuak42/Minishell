@@ -6,7 +6,7 @@
 /*   By: yuak <yuak@student.42istanbul.com.tr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/10 21:38:31 by byaprak           #+#    #+#             */
-/*   Updated: 2026/05/23 08:25:40 by yuak             ###   ########.fr       */
+/*   Updated: 2026/05/23 13:55:40 by yuak             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,6 @@ void	ft_run_process(t_pipe plist);
 int		ft_of(char *s);
 int		ft_cf(char *s);
 int		ft_process(t_pipe plist, int (*pipefd)[2], int pc, int *pd);
-//void	ft_exit(char *path, char **cmd);
 t_pipe	ft_struct(t_node *node, t_shell *shell, int (*fd)[2], int i);
 void	ft_pipeclose(int (*pipefd)[2], int pc);
 int		ft_wait(int *array, int count);
@@ -50,6 +49,6 @@ char	*ft_path(char **argv, char **envp, struct stat *statbuf, int *status);
 int		ft_af(char *s);
 void	ft_all_free(t_pipe plist);
 char	*path_check(t_pipe plist, char **ev);
-int		ft_redir(t_node *nodes);//, t_shell *shell);
+int		ft_redir(t_node *nodes);
 
 #endif
