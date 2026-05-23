@@ -6,7 +6,7 @@
 /*   By: yuak <yuak@student.42istanbul.com.tr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/05 15:25:07 by byaprak           #+#    #+#             */
-/*   Updated: 2026/05/20 22:26:38 by yuak             ###   ########.fr       */
+/*   Updated: 2026/05/23 08:52:46 by yuak             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,4 +52,6 @@ void	execute(t_node *nodes, t_shell *shell)
 	else
 		status = ft_pipex(nodes, shell, nodes_len(nodes));
 	shell->exit_status = status;
+	if (status == 130)
+		write(1, "\n", 1);
 }
