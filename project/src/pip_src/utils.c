@@ -32,12 +32,12 @@ int	ft_fdswap(int std_new, int std_old)
 {
 	if (std_new == -1)
 	{
-		perror("-minishell:");
+		perror("-minishell");
 		return (0);
 	}
 	if (dup2(std_new, std_old) == -1)
 	{
-		perror("-minishell:");
+		perror("-minishell");
 		return (0);
 	}
 	return (1);
