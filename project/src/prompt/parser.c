@@ -6,11 +6,13 @@
 /*   By: yuak <yuak@student.42istanbul.com.tr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/22 20:44:46 by yuak              #+#    #+#             */
-/*   Updated: 2026/05/23 07:48:25 by yuak             ###   ########.fr       */
+/*   Updated: 2026/05/23 08:22:37 by yuak             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "prompt.h"
+
+static void	close_pipes(t_node *nodes);
 
 int	parser(t_shell *shell)
 {
@@ -30,10 +32,24 @@ int	parser(t_shell *shell)
 		if (status == 2)
 		{
 			shell->exit_status = 128 + status;
-			return (free_parser(shell), 1);
+			return (close_pipes(shell->nodes), free_parser(shell), 1);
 		}
 	}
 	else
 		return (free(shell->line), 1);
 	return (0);
+}
+
+static void	close_pipes(t_node *nodes)
+{
+	while (nodes)
+	{
+		while (nodes->redir)
+		{
+			if (nodes->redir->type == token_heredoc)
+				close(nodes->redir->read);
+			nodes->redir = nodes->redir->next;
+		}
+		nodes = nodes->next;
+	}
 }
