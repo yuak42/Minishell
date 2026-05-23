@@ -6,7 +6,7 @@
 /*   By: yuak <yuak@student.42istanbul.com.tr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/10 21:38:54 by byaprak           #+#    #+#             */
-/*   Updated: 2026/05/23 08:25:33 by yuak             ###   ########.fr       */
+/*   Updated: 2026/05/23 11:17:01 by yuak             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,13 +47,13 @@ char	*ft_path(char **argv, char **envp, struct stat *statbuf, int *status)
 	if (ft_strrchr(argv[0], '/'))
 	{
 		if (stat(argv[0], statbuf) == -1)
-		return (NULL);
+			return (NULL);
 		if (S_ISDIR(statbuf->st_mode))
-		return (NULL);
+			return (NULL);
 		if (access(argv[0], F_OK | X_OK) == 0)
-		return (ft_strdup(argv[0]));
+			return (ft_strdup(argv[0]));
 		else
-		return (NULL);
+			return (NULL);
 	}
 	path_dir = ft_path_search(envp);
 	if (!path_dir)
