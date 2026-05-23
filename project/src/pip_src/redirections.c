@@ -48,7 +48,7 @@ static int	out_redir(t_redir *redir, int outfile)
 	}
 	else if (redir->type == token_redir_app)
 	{
-		if (outfile)
+		if (outfile > 2)
 			close(outfile);
 		o_file = ft_af(redir->file);
 	}
