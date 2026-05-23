@@ -6,7 +6,7 @@
 /*   By: yuak <yuak@student.42istanbul.com.tr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/10 12:32:31 by yuak              #+#    #+#             */
-/*   Updated: 2026/05/22 21:07:30 by yuak             ###   ########.fr       */
+/*   Updated: 2026/05/23 14:08:29 by yuak             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,13 +16,17 @@
 # include <stdio.h>
 # include <stdlib.h>
 # include <unistd.h>
+# include "../libft/libft.h"
 # include <readline/readline.h>
 # include <readline/history.h>
 # include "data_structures.h"
-# include "../libft/libft.h"
-# include "builtin.h"
-# include "../src/pip_src/pipex.h"
+# include <sys/wait.h>
+# include <fcntl.h>
+# include <errno.h>
+# include <stdarg.h>
 # include <signal.h>
+# include "builtin.h"
+# include "pipex.h"
 
 extern volatile int	g_signal;
 

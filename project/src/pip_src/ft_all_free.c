@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pip_free.c                                         :+:      :+:    :+:   */
+/*   ft_all_free.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: byaprak <byaprak@student.42istanbul.com.tr>  #+#  +:+       +#+      */
+/*   By: yuak <yuak@student.42istanbul.com.tr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026-05-16 08:09:11 by byaprak           #+#    #+#             */
-/*   Updated: 2026-05-16 08:09:11 by byaprak          ###   ########.fr       */
+/*   Created: 2026/05/16 08:09:11 by byaprak           #+#    #+#             */
+/*   Updated: 2026/05/23 14:01:29 by yuak             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.h"
+#include "prompt.h"
 
 void	ft_all_free(t_pipe plist)
 {

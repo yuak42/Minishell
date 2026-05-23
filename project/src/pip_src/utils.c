@@ -6,11 +6,11 @@
 /*   By: yuak <yuak@student.42istanbul.com.tr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/10 21:38:47 by byaprak           #+#    #+#             */
-/*   Updated: 2026/05/23 08:25:45 by yuak             ###   ########.fr       */
+/*   Updated: 2026/05/23 14:01:40 by yuak             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.h"
+#include "prompt.h"
 
 int	ft_of(char *s)
 {

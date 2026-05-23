@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: byaprak <byaprak@student.42istanbul.com.tr>  #+#  +:+       +#+      */
+/*   By: yuak <yuak@student.42istanbul.com.tr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026-03-30 18:54:59 by byaprak           #+#    #+#             */
-/*   Updated: 2026-03-30 18:54:59 by byaprak          ###   ########.fr       */
+/*   Created: 2026/03/30 18:54:59 by byaprak           #+#    #+#             */
+/*   Updated: 2026/05/23 14:03:51 by yuak             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "builtin.h"
+#include "prompt.h"
 
 int	ft_env(t_env *ev, int fd)
 {

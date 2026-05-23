@@ -6,19 +6,14 @@
 /*   By: yuak <yuak@student.42istanbul.com.tr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/20 17:53:48 by byaprak           #+#    #+#             */
-/*   Updated: 2026/05/23 08:26:44 by yuak             ###   ########.fr       */
+/*   Updated: 2026/05/23 14:07:05 by yuak             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef BUILTIN_H
 # define BUILTIN_H
 
-# include <unistd.h>
-# include <stdio.h>
-# include <stdarg.h>
-# include "../libft/libft.h"
 # include "data_structures.h"
-# include "prompt.h"
 
 int		ft_echo(char **av, t_env *ev, int fd);
 int		ft_export(char **av, t_env *env, int fd);

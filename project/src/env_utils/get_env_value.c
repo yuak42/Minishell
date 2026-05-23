@@ -6,11 +6,11 @@
 /*   By: yuak <yuak@student.42istanbul.com.tr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/10 11:54:16 by yuak              #+#    #+#             */
-/*   Updated: 2026/05/17 15:44:16 by yuak             ###   ########.fr       */
+/*   Updated: 2026/05/23 14:04:10 by yuak             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "builtin.h"
+#include "prompt.h"
 
 char	*get_env_value(t_env *ev, char *key)
 {

@@ -6,32 +6,15 @@
 /*   By: yuak <yuak@student.42istanbul.com.tr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/10 21:38:31 by byaprak           #+#    #+#             */
-/*   Updated: 2026/05/23 13:55:40 by yuak             ###   ########.fr       */
+/*   Updated: 2026/05/23 14:08:34 by yuak             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PIPEX_H
 # define PIPEX_H
 
-# include <errno.h>
-# include <fcntl.h>
-# include <stdio.h>
-# include <stdlib.h>
-# include <sys/wait.h>
-# include <unistd.h>
-# include "prompt.h"
+# include "data_structures.h"
 # include <sys/stat.h>
-
-typedef struct s_pipe_list
-{
-	char	**argv;
-	t_env	**envp;
-	int		inp;
-	int		out;
-	int		(*pipefd)[2];
-	t_shell	*shell;
-	t_node	*node;
-}	t_pipe;
 
 void	ft_free(char **str);
 char	*ft_path_access(char *command, char *path_dir);

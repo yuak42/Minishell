@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: byaprak <byaprak@student.42istanbul.com.tr>  #+#  +:+       +#+      */
+/*   By: yuak <yuak@student.42istanbul.com.tr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026-03-23 22:13:56 by byaprak           #+#    #+#             */
-/*   Updated: 2026-03-23 22:13:56 by byaprak          ###   ########.fr       */
+/*   Created: 2026/03/23 22:13:56 by byaprak           #+#    #+#             */
+/*   Updated: 2026/05/23 14:03:50 by yuak             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "builtin.h"
+#include "prompt.h"
 
 static int	echo_print(char *av, t_env *ev, int fd)
 {

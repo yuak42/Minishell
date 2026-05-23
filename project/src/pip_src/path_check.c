@@ -6,11 +6,11 @@
 /*   By: yuak <yuak@student.42istanbul.com.tr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/20 16:22:36 by byaprak           #+#    #+#             */
-/*   Updated: 2026/05/23 08:25:30 by yuak             ###   ########.fr       */
+/*   Updated: 2026/05/23 14:01:27 by yuak             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.h"
+#include "prompt.h"
 
 static int	error_check(t_pipe plist, struct stat statbuf)
 {

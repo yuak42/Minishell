@@ -6,11 +6,11 @@
 /*   By: yuak <yuak@student.42istanbul.com.tr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/13 22:23:32 by byaprak           #+#    #+#             */
-/*   Updated: 2026/05/20 22:20:52 by yuak             ###   ########.fr       */
+/*   Updated: 2026/05/23 14:01:38 by yuak             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.h"
+#include "prompt.h"
 
 void	ft_child(t_pipe plist)
 {

@@ -6,7 +6,7 @@
 /*   By: yuak <yuak@student.42istanbul.com.tr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/10 12:32:27 by yuak              #+#    #+#             */
-/*   Updated: 2026/05/22 20:49:22 by yuak             ###   ########.fr       */
+/*   Updated: 2026/05/23 14:00:51 by yuak             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,5 +75,16 @@ typedef struct s_expansion
 	size_t	start;
 	size_t	*i;
 }	t_expansion;
+
+typedef struct s_pipe_list
+{
+	char	**argv;
+	t_env	**envp;
+	int		inp;
+	int		out;
+	int		(*pipefd)[2];
+	t_shell	*shell;
+	t_node	*node;
+}	t_pipe;
 
 #endif

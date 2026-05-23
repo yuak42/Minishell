@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_unset.c                                         :+:      :+:    :+:   */
+/*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: byaprak <byaprak@student.42istanbul.com.tr>  #+#  +:+       +#+      */
+/*   By: yuak <yuak@student.42istanbul.com.tr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026-04-01 21:34:09 by byaprak           #+#    #+#             */
-/*   Updated: 2026-04-01 21:34:09 by byaprak          ###   ########.fr       */
+/*   Created: 2026/04/01 21:34:09 by byaprak           #+#    #+#             */
+/*   Updated: 2026/05/23 14:04:03 by yuak             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "builtin.h"
+#include "prompt.h"
 
 static t_env	*is_target(t_env *env, char *av)
 {

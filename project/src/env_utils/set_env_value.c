@@ -6,11 +6,11 @@
 /*   By: yuak <yuak@student.42istanbul.com.tr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/10 11:54:13 by yuak              #+#    #+#             */
-/*   Updated: 2026/05/20 10:11:12 by yuak             ###   ########.fr       */
+/*   Updated: 2026/05/23 14:04:13 by yuak             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "builtin.h"
+#include "prompt.h"
 
 static int	is_there_var(t_env *ev, char *key, char *value);
 
