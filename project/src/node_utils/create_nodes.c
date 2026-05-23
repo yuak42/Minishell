@@ -6,13 +6,14 @@
 /*   By: yuak <yuak@student.42istanbul.com.tr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/10 11:53:40 by yuak              #+#    #+#             */
-/*   Updated: 2026/05/20 18:17:33 by yuak             ###   ########.fr       */
+/*   Updated: 2026/05/23 13:50:58 by yuak             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "prompt.h"
 
-t_node	*get_node(t_token **tokens);
+static t_node	*get_node(t_token **tokens);
+static t_node	*init_node(t_token **tokens);
 
 t_node	*create_nodes(t_token *tokens)
 {
@@ -32,9 +33,7 @@ t_node	*create_nodes(t_token *tokens)
 	return (head);
 }
 
-t_node	*init_node(t_token **tokens);
-
-t_node	*get_node(t_token **tokens)
+static t_node	*get_node(t_token **tokens)
 {
 	t_node	*node;
 
@@ -60,7 +59,7 @@ t_node	*get_node(t_token **tokens)
 	return (node);
 }
 
-t_node	*init_node(t_token **tokens)
+static t_node	*init_node(t_token **tokens)
 {
 	t_node	*node;
 
