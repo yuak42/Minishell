@@ -1,4 +1,4 @@
-*This project has been created as partof the 42 curriculum by byaprak, yuak.*
+*This project has been created as part of the 42 curriculum by byaprak, yuak.*
 
 # Minishell
 
