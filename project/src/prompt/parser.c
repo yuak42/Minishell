@@ -6,7 +6,7 @@
 /*   By: yuak <yuak@student.42istanbul.com.tr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/22 20:44:46 by yuak              #+#    #+#             */
-/*   Updated: 2026/05/23 08:32:49 by yuak             ###   ########.fr       */
+/*   Updated: 2026/05/23 10:19:31 by yuak             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,13 +42,16 @@ int	parser(t_shell *shell)
 
 static void	close_pipes(t_node *nodes)
 {
+	t_redir	*redir;
+
 	while (nodes)
 	{
-		while (nodes->redir)
+		redir = nodes->redir;
+		while (redir)
 		{
-			if (nodes->redir->type == token_heredoc)
-				close(nodes->redir->read);
-			nodes->redir = nodes->redir->next;
+			if (redir->type == token_heredoc)
+				close(redir->read);
+			redir = redir->next;
 		}
 		nodes = nodes->next;
 	}
