@@ -6,7 +6,7 @@
 /*   By: yuak <yuak@student.42istanbul.com.tr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/10 11:53:22 by yuak              #+#    #+#             */
-/*   Updated: 2026/05/22 23:18:35 by yuak             ###   ########.fr       */
+/*   Updated: 2026/05/23 11:13:41 by yuak             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ void	basic_prompt(t_shell *shell)
 		else if (status == 1)
 			continue ;
 	}
+	write(1, "exit\n", 5);
 	rl_clear_history();
 }
 
