@@ -6,7 +6,7 @@
 /*   By: yuak <yuak@student.42istanbul.com.tr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/19 09:53:55 by yuak              #+#    #+#             */
-/*   Updated: 2026/05/23 00:00:02 by yuak             ###   ########.fr       */
+/*   Updated: 2026/05/23 07:47:04 by yuak             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,8 +62,6 @@ static int	get_input(t_redir *redir, t_shell *shell)
 	waitpid(pid, &status, 0);
 	if (WIFEXITED(status))
 		shell->exit_status = WEXITSTATUS(status);
-	else if (WIFSIGNALED(status))
-		shell->exit_status = 128 + WTERMSIG(status);
 	return (shell->exit_status);
 }
 
@@ -93,7 +91,7 @@ static int	heredoc_loop(int *p, t_redir *redir, t_shell *shell)
 		{
 			close(p[1]);
 			free_shell(shell);
-			exit(128 + g_signal);
+			exit(g_signal);
 		}
 		if (!line)
 			return (no_eof_delimeter(p, redir), 0);
@@ -101,7 +99,7 @@ static int	heredoc_loop(int *p, t_redir *redir, t_shell *shell)
 			break ;
 		str = deal_line(line, shell, redir);
 		if (!str)
-			return (free(line), close(p[1]), 2);
+			return (free(line), close(p[1]), 1);
 		write_for_heredoc(p, str);
 		free(str);
 	}
