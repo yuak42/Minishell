@@ -44,23 +44,23 @@ char	*ft_path(char **argv, char **envp, struct stat *statbuf, int *status)
 	char	*path_dir;
 
 	path = NULL;
+	if (ft_strrchr(argv[0], '/'))
+	{
+		if (stat(argv[0], statbuf) == -1)
+		return (NULL);
+		if (S_ISDIR(statbuf->st_mode))
+		return (NULL);
+		if (access(argv[0], F_OK | X_OK) == 0)
+		return (ft_strdup(argv[0]));
+		else
+		return (NULL);
+	}
 	path_dir = ft_path_search(envp);
 	if (!path_dir)
 	{
 		ft_printf_fd(2, "-minishell: %s: No such file or directory\n", argv[0]);
 		*status = 127;
 		return (NULL);
-	}
-	if (ft_strrchr(argv[0], '/'))
-	{
-		if (stat(argv[0], statbuf) == -1)
-			return (NULL);
-		if (S_ISDIR(statbuf->st_mode))
-			return (NULL);
-		if (access(argv[0], F_OK | X_OK) == 0)
-			return (ft_strdup(argv[0]));
-		else
-			return (NULL);
 	}
 	path = ft_path_access(argv[0], path_dir);
 	return (path);
